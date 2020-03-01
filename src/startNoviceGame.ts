@@ -31,7 +31,8 @@ export const startNoviceGame = (
   }
 
   // プログラム実行フェーズ
-  while (true) {
+  //while (true) {
+  for (let i = 0; i < 100; i++) {  // avoid infinite loop in development
     const currentCard = game.cards[game.cursor.cardIndex];
     const currentPlayer = currentCard.flags[game.cursor.flagIndex];
     if (currentPlayer === undefined) {
