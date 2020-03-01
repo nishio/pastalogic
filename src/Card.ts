@@ -1,6 +1,6 @@
 import { Game, PlayerID } from "./Types";
 import { updateCard } from "./updateCard";
-import { getCardIndex, getOpponent, hasEnoughSpace, getCurrentCard } from "./util";
+import { getCardIndex, getOpponent, hasEnoughSpace, getCurrentCard, appendOneFlag } from "./util";
 
 export type Card = {
   name: string;
@@ -25,28 +25,33 @@ export const Bug = () => {
   return createCard(
     "Bug",
     (game: Game, playerId: PlayerID) => {
-      const nextPlayers = [...game.players];
-      const damage = 1 + getCurrentCard(game).numIncrementToken
-      nextPlayers[getOpponent(playerId)].life -= damage;
-      return { ...game, players: nextPlayers };
+      return attack(game, playerId, asParameter(game, 1));
     }
   )
 };
 
+function attack(game: Game, playerId: PlayerID, damage: number) {
+  const nextPlayers = [...game.players];
+  nextPlayers[getOpponent(playerId)].life -= damage;
+  return { ...game, players: nextPlayers };
+}
+
+
+
+const asParameter = (game: Game, base: number) => {
+  return base + getCurrentCard(game).numIncrementToken
+}
 
 export const AddFlag = () => {
   return createCard(
     "AddFlag",
     (game: Game, playerId: PlayerID) => {
-      for (let i = 0; i < 1 + getCurrentCard(game).numIncrementToken; i++) {
+      for (let i = 0; i < asParameter(game, 1); i++) {
         const candidate = [game]
         /* eslint no-loop-func: 0 */
         game.cards.forEach((card, cardIndex) => {
           if (hasEnoughSpace(card)) {
-            const next = updateCard(game, cardIndex, (card) => ({
-              ...card, flags: [...card.flags, playerId]
-            }));
-            candidate.push(next);
+            candidate.push(appendOneFlag(game, cardIndex, playerId));
           }
         })
         game = game.players[playerId].chooseFromCandidate("AddFlag", candidate);
@@ -62,7 +67,7 @@ export const Subroutine = () => {
     (game: Game, playerId: PlayerID) => {
       const candidate = [game]
       const returnAddress = game.cursor.flagIndex + 1;
-      const reach = 1 + getCurrentCard(game).numIncrementToken
+      const reach = asParameter(game, 1)
       for (let i = -reach; i <= reach; i++) {
         if (i === 0) continue;
         const next = {
@@ -84,7 +89,7 @@ export const MoveFlag = () => {
   return createCard(
     "MoveFlag",
     (game: Game, playerId: PlayerID) => {
-      for (let i = 0; i < 1 + getCurrentCard(game).numIncrementToken; i++) {
+      for (let i = 0; i < asParameter(game, 1); i++) {
         const candidate = [game]
         const me = game.cursor.cardIndex;
         game.cards.forEach((ci, i) => {

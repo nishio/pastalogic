@@ -1,5 +1,6 @@
 import { Game, PlayerID } from "./Types";
 import { Card } from "./Card";
+import { updateCard } from "./updateCard";
 
 const neverComeHere = (msg?: string) => {
   throw new Error(msg)
@@ -74,4 +75,19 @@ export const hasEnoughSpace = (card: Card) => {
 
 export const getCurrentCard = (game: Game) => {
   return game.cards[game.cursor.cardIndex];
+}
+
+export const consumeOneFlag = (game: Game, playerId: PlayerID): Game => {
+  const newUsedFlag = [...game.usedFlag]
+  newUsedFlag[playerId]++;
+  return {
+    ...game, usedFlag: newUsedFlag
+  }
+}
+
+export const appendOneFlag = (game: Game, cardIndex: number, playerId: PlayerID) => {
+  return updateCard(game, cardIndex, (card) => ({
+    ...card,
+    flags: [...card.flags, playerId]
+  }));
 }
