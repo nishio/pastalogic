@@ -12,8 +12,8 @@ export const startNoviceGame = (
   let game = {} as Game;
   // コマンド準備フェーズ
   game.players = [
-    { life: 3, flag: 3, color: "red", chooseFromCandidate: algorithm0 },
-    { life: 3, flag: 3, color: "blue", chooseFromCandidate: algorithm1 },
+    { life: 3, color: "red", chooseFromCandidate: algorithm0 },
+    { life: 3, color: "blue", chooseFromCandidate: algorithm1 },
   ];
   game.cards = [
     Bug(),
@@ -25,12 +25,10 @@ export const startNoviceGame = (
   game.cursor = { cardIndex: 0, flagIndex: 0 };
 
   // フラグ配置フェーズ
-  game = putOneFlag(game, FirstPlayer);
-  game = putOneFlag(game, SecondPlayer);
-  game = putOneFlag(game, FirstPlayer);
-  game = putOneFlag(game, SecondPlayer);
-  game = putOneFlag(game, FirstPlayer);
-  game = putOneFlag(game, SecondPlayer);
+  for (let i = 0; i < 3; i++) {
+    game = putOneFlag(game, FirstPlayer);
+    game = putOneFlag(game, SecondPlayer);
+  }
 
   // プログラム実行フェーズ
   while (true) {

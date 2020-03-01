@@ -13,7 +13,6 @@ export type Game = {
 };
 type Player = {
   life: number;
-  flag: number;
   color: string;
   chooseFromCandidate: AlgorithToChooseCandidate;
 };
