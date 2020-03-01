@@ -1,8 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { startNoviceGame } from './startNoviceGame';
+import { chooseFirst } from './util';
 
 function App() {
+  startNoviceGame(chooseFirst, chooseFirst)
   return (
     <div className="App">
       <header className="App-header">
