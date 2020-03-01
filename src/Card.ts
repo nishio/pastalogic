@@ -1,5 +1,5 @@
 import { PlayerID, Game } from "./Types";
-import { getOpponent } from "./util";
+import { getOpponent, getCardIndex } from "./util";
 import { updateCard } from "./updateCard";
 export type Card = {
   name: string;
@@ -43,7 +43,21 @@ export const Subroutine = () => {
     name: "Subroutine",
     flags: [],
     play: (game: Game, playerId: PlayerID) => {
-      return game;
+      const candidate = [game]
+      const returnAddress = game.cursor.flagIndex + 1;
+      for (let i = -1; i <= 1; i++) {
+        const next = {
+          ...game,
+          cursor: {
+            cardIndex: getCardIndex(game, game.cursor.cardIndex, i),
+            flagIndex: 0
+          },
+          returnAddress: returnAddress
+        }
+        candidate.push(next)
+      }
+
+      return game.players[playerId].chooseFromCandidate("Subroutine", candidate)
     }
   };
 };

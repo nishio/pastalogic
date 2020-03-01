@@ -10,6 +10,7 @@ export type Game = {
     cardIndex: number;
     flagIndex: number;
   };
+  returnAddress: null | number;
 };
 type Player = {
   life: number;
