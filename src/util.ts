@@ -54,6 +54,10 @@ export const getOpponent = (p: PlayerID) => {
 
 export const chooseFirst = (type: string, candidate: Game[]) => (candidate[0])
 
+export const chooseRandom = (type: string, candidate: Game[]) => (
+  candidate[Math.floor(Math.random() * candidate.length)]
+)
+
 export const hasEnoughSpace = (card: Card) => {
   return card.flags.length < 4;
 }
