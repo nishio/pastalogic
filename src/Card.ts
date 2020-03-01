@@ -69,7 +69,7 @@ export const Subroutine = () => {
           ...game,
           cursor: {
             cardIndex: getCardIndex(game, game.cursor.cardIndex, i),
-            flagIndex: 0
+            flagIndex: -1
           },
           returnAddress: returnAddress
         }

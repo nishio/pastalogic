@@ -5,20 +5,21 @@ const neverComeHere = (msg?: string) => {
   throw new Error(msg)
 }
 
-export const moveCursorToNextCard = (game: Game) => {
+export const moveCursorToNextCard = (game: Game): Game => {
   if (game.returnAddress !== null) {
     // Subroutine call finished, return to Subroutine
     const cardIndex = game.cards.findIndex((card) => card.name === "Subroutine")
     if (cardIndex === -1) {
       neverComeHere("card Subroutine is not found when return to it")
     }
+    console.log(`return ${cardIndex},${game.returnAddress}`)
     return {
       ...game,
       cursor: {
         cardIndex: cardIndex,
         flagIndex: game.returnAddress,
-        returnAddress: null
-      }
+      },
+      returnAddress: null
     }
   }
 
