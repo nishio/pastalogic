@@ -23,6 +23,7 @@ export const startNoviceGame = (
     Increment(),
   ];
   game.cursor = { cardIndex: 0, flagIndex: 0 };
+  game.returnAddress = null
 
   // フラグ配置フェーズ
   for (let i = 0; i < 3; i++) {
