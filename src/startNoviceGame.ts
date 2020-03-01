@@ -1,9 +1,9 @@
-import { putOneFlag } from "./putOneFlag";
-import { Game, FirstPlayer, SecondPlayer, PlayerID, AlgorithToChooseCandidate } from "./Types";
-import { Bug, AddFlag, Subroutine, MoveFlag, Increment } from "./Card";
-import { moveCursorToNextCard, moveCursorToNextFlag } from "./util";
-import { isGameOver } from "./isGameOver";
+import { AddFlag, Bug, Increment, MoveFlag, Subroutine } from "./Card";
 import { debugPrint } from "./debugPrint";
+import { isGameOver } from "./isGameOver";
+import { putOneFlag } from "./putOneFlag";
+import { AlgorithToChooseCandidate, FirstPlayer, Game, SecondPlayer } from "./Types";
+import { moveCursorToNextFlag, moveCursorToNextCard } from "./util";
 
 export const startNoviceGame = (
   algorithm0: AlgorithToChooseCandidate,
@@ -34,14 +34,13 @@ export const startNoviceGame = (
 
   // プログラム実行フェーズ
   while (true) {
-    debugPrint(game)
     const currentCard = game.cards[game.cursor.cardIndex];
-    const currentFlag = currentCard.flags[game.cursor.flagIndex];
-    if (currentFlag === undefined) {
+    const currentPlayer = currentCard.flags[game.cursor.flagIndex];
+    if (currentPlayer === undefined) {
       game = moveCursorToNextCard(game);
-      continue;
+      continue
     }
-    const currentPlayer: PlayerID = currentFlag;
+    debugPrint(game)
     game = currentCard.play(game, currentPlayer);
     const ret = isGameOver(game);
     if (ret) {
