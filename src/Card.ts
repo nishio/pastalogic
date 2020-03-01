@@ -75,7 +75,6 @@ export const Subroutine = () => {
         }
         candidate.push(next)
       }
-
       return game.players[playerId].chooseFromCandidate("Subroutine", candidate)
     }
   )

@@ -2,10 +2,11 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { startNoviceGame } from './startNoviceGame';
-import { chooseFirst, chooseRandom } from './util';
+import { chooseControledRandom } from './util';
 
 function App() {
-  startNoviceGame(chooseRandom, chooseRandom)
+
+  startNoviceGame(chooseControledRandom, chooseControledRandom)
   return (
     <div className="App">
       <header className="App-header">

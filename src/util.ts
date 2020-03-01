@@ -58,6 +58,15 @@ export const chooseRandom = (type: string, candidate: Game[]) => (
   candidate[Math.floor(Math.random() * candidate.length)]
 )
 
+let index = 0;
+let buffer = [0, 1]
+export const chooseControledRandom = (type: string, candidate: Game[]) => {
+  const ret = candidate[buffer[index] % candidate.length]
+  index++
+  index %= buffer.length
+  return ret
+}
+
 export const hasEnoughSpace = (card: Card) => {
   return card.flags.length < 4;
 }
