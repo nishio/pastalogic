@@ -1,4 +1,5 @@
 import { Game, PlayerID } from "./Types";
+import { Card } from "./Card";
 
 const neverComeHere = (msg?: string) => {
   throw new Error(msg)
@@ -50,5 +51,9 @@ export const getCardIndex = (game: Game, index: number, change: number) => {
 export const getOpponent = (p: PlayerID) => {
   return 1 - p;
 };
+
 export const chooseFirst = (type: string, candidate: Game[]) => (candidate[0])
 
+export const hasEnoughSpace = (card: Card) => {
+  return card.flags.length < 4;
+}

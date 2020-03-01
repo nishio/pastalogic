@@ -1,6 +1,6 @@
-import { PlayerID, Game } from "./Types";
-import { getOpponent, getCardIndex } from "./util";
+import { Game, PlayerID } from "./Types";
 import { updateCard } from "./updateCard";
+import { getCardIndex, getOpponent, hasEnoughSpace } from "./util";
 export type Card = {
   name: string;
   flags: PlayerID[];
@@ -26,7 +26,7 @@ export const AddFlag = () => {
     play: (game: Game, playerId: PlayerID) => {
       const candidate = [game]
       game.cards.forEach((card, cardIndex) => {
-        if (card.flags.length < 4) {
+        if (hasEnoughSpace(card)) {
           const next = updateCard(game, cardIndex, (card) => ({
             ...card, flags: [...card.flags, playerId]
           }));
@@ -67,7 +67,30 @@ export const MoveFlag = () => {
     name: "MoveFlag",
     flags: [],
     play: (game: Game, playerId: PlayerID) => {
-      return game;
+      const candidate = [game]
+      const me = game.cursor.cardIndex;
+      game.cards.forEach((ci, i) => {
+        if (i === me) return;
+        game.cards.forEach((cj, j) => {
+          if (j === me) return;
+          if (i === j) return;
+          if (!hasEnoughSpace(cj)) return;
+          ci.flags.forEach((fk, k) => {
+            const newCi = [...ci.flags]
+            delete newCi[k]
+            const newCj = [...cj.flags, fk]
+
+            let next = updateCard(game, i, (card) => ({
+              ...card, flags: newCi
+            }));
+            next = updateCard(next, j, (card) => ({
+              ...card, flags: newCj
+            }));
+            candidate.push(next);
+          })
+        })
+      })
+      return game.players[playerId].chooseFromCandidate("MoveFlag", candidate)
     }
   };
 };
@@ -81,3 +104,4 @@ export const Increment = () => {
     }
   };
 };
+
