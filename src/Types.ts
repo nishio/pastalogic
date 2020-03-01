@@ -11,6 +11,7 @@ export type Game = {
     flagIndex: number;
   };
   returnAddress: null | number;
+  usedIncrementToken: number;
 };
 type Player = {
   life: number;

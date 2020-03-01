@@ -3,7 +3,7 @@ import { debugPrint } from "./debugPrint";
 import { isGameOver } from "./isGameOver";
 import { putOneFlag } from "./putOneFlag";
 import { AlgorithToChooseCandidate, FirstPlayer, Game, SecondPlayer } from "./Types";
-import { moveCursorToNextFlag, moveCursorToNextCard } from "./util";
+import { moveCursorToNextFlag, moveCursorToNextCard, getCurrentCard } from "./util";
 
 export const startNoviceGame = (
   algorithm0: AlgorithToChooseCandidate,
@@ -24,6 +24,7 @@ export const startNoviceGame = (
   ];
   game.cursor = { cardIndex: 0, flagIndex: 0 };
   game.returnAddress = null
+  game.usedIncrementToken = 0
 
   // フラグ配置フェーズ
   for (let i = 0; i < 3; i++) {
@@ -34,7 +35,7 @@ export const startNoviceGame = (
   // プログラム実行フェーズ
   //while (true) {
   for (let i = 0; i < 100; i++) {  // avoid infinite loop in development
-    const currentCard = game.cards[game.cursor.cardIndex];
+    const currentCard = getCurrentCard(game);
     const currentPlayer = currentCard.flags[game.cursor.flagIndex];
     if (currentPlayer === undefined) {
       game = moveCursorToNextCard(game);
@@ -50,4 +51,5 @@ export const startNoviceGame = (
     game = moveCursorToNextFlag(game);
   }
 };
+
 

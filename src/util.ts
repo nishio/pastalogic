@@ -57,3 +57,7 @@ export const chooseFirst = (type: string, candidate: Game[]) => (candidate[0])
 export const hasEnoughSpace = (card: Card) => {
   return card.flags.length < 4;
 }
+
+export const getCurrentCard = (game: Game) => {
+  return game.cards[game.cursor.cardIndex];
+}
