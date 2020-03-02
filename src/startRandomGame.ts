@@ -1,9 +1,10 @@
-import { AddFlag, Bug, Increment, MoveFlag, Subroutine } from "./Card";
+import { AddFlag, Bug, Increment, MoveFlag, Subroutine, Reverse, Rotate, SwapCommand, FastPass, ForkBomb, Debug, TradeOff, Decrement, RemoveCommand, RemoveFlag } from "./Card";
 import { debugPrint } from "./debugPrint";
 import { isGameOver } from "./isGameOver";
 import { putOneFlag } from "./putOneFlag";
 import { AlgorithToChooseCandidate, FirstPlayer, Game, SecondPlayer } from "./Types";
 import { moveCursorToNextFlag, moveCursorToNextCard, getCurrentCard } from "./util";
+import { Reorder } from "./Reorder";
 
 export const startRandomGame = (
   algorithm0: AlgorithToChooseCandidate,
@@ -21,18 +22,30 @@ export const startRandomGame = (
     Subroutine(),
     MoveFlag(),
     Increment(),
-  ];
+    Reorder(),
+    Reverse(),
+    Rotate(),
+    SwapCommand(),
+    FastPass(),
+    ForkBomb(),
+    Debug(),
+    TradeOff(),
+    RemoveFlag(),
+    RemoveCommand(),
+    Decrement()
+  ]
+
   game.cursor = { cardIndex: 0, flagIndex: 0 };
   game.returnAddress = null
   game.usedIncrementToken = 0
   game.usedFlag = [0, 0]
-  game.maxFlag = 10
+  game.maxFlag = 20
   game.cursorDirection = "forward";
 
 
 
   // フラグ配置フェーズ
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 16; i++) {
     game = putOneFlag(game, FirstPlayer);
     game = putOneFlag(game, SecondPlayer);
   }
@@ -58,4 +71,4 @@ export const startRandomGame = (
 };
 
 //@ts-ignore
-window.startNoviceGame = startNoviceGame
+window.startRandomGame = startRandomGame

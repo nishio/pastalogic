@@ -3,11 +3,12 @@ import logo from './logo.svg';
 import './App.css';
 import { startNoviceGame } from './startNoviceGame';
 import { chooseControledRandom, chooseRandom } from './util';
+import { startRandomGame } from './startRandomGame';
 
 function App() {
 
   //startNoviceGame(chooseControledRandom, chooseControledRandom)
-  //startNoviceGame(chooseRandom, chooseRandom)
+  startRandomGame(chooseControledRandom, chooseControledRandom)
   return (
     <div className="App">
       <header className="App-header">
