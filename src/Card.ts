@@ -159,13 +159,13 @@ export const Rotate = () => {
   )
 };
 
-export const SwapCard = () => {
+export const SwapCommand = () => {
   return createCard(
-    "SwapCard",
+    "SwapCommand",
     (game: Game, playerId: PlayerID) => {
       const candidate = [game]
       game.cards.forEach((card, cardIndex) => {
-        if (card.name === "SwapCard") return;
+        if (card.name === "SwapCommand") return;
         const newCards = [...game.cards]
         newCards[cardIndex] = getCurrentCard(game)
         newCards[game.cursor.cardIndex] = card
@@ -176,7 +176,7 @@ export const SwapCard = () => {
         }
         candidate.push(next)
       })
-      return game.players[playerId].chooseFromCandidate("SwapCard", candidate)
+      return game.players[playerId].chooseFromCandidate("SwapCommand", candidate)
     }
   )
 };
