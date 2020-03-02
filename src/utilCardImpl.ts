@@ -1,5 +1,5 @@
 import { Game, PlayerID, CursorDirection } from "./Types";
-import { getOpponent, getCurrentCard } from "./util";
+import { getOpponent, getCurrentCard, updateFlag } from "./util";
 import { isGameOver } from "./isGameOver";
 
 // utility for card definition
@@ -46,4 +46,13 @@ export const reverse = (v: CursorDirection): CursorDirection => {
     return "backward"
   }
   return "forward"
+}
+
+export const payFlag = (game: Game) => {
+  const newFlag = getCurrentCard(game).flags
+  newFlag.splice(game.cursor.flagIndex, 1)
+  return {
+    ...updateFlag(game, game.cursor.cardIndex, newFlag),
+    cursor: { ...game.cursor, flagIndex: game.cursor.flagIndex - 1 }
+  }
 }

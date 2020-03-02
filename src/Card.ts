@@ -2,7 +2,7 @@ import { Game, PlayerID } from "./Types";
 import { updateCard } from "./updateCard";
 import { getCardIndex, hasEnoughSpace, appendOneFlag, updateFlag, getCurrentCard, isUsingSubroutine } from "./util";
 import { isGameOver } from "./isGameOver";
-import { attack, asParameter, repeat, createCard, payLife, reverse } from "./utilCardImpl";
+import { attack, asParameter, repeat, createCard, payLife, reverse, payFlag } from "./utilCardImpl";
 
 export type Card = {
   name: string;
@@ -197,6 +197,19 @@ export const FastPass = () => {
         candidate.push(updateFlag(game, cardIndex, newFlags))
       })
       return game.players[playerId].chooseFromCandidate("FastPass", candidate)
+    }
+  )
+};
+
+export const ForkBomb = () => {
+  return createCard(
+    "ForkBomb",
+    (game: Game, playerId: PlayerID) => {
+      const candidate = [game]
+      let next = attack(game, playerId, asParameter(game, 2));
+      if (isGameOver(next)) return next;
+      candidate.push(payFlag(game))
+      return game.players[playerId].chooseFromCandidate("ForkBomb", candidate)
     }
   )
 };
