@@ -208,8 +208,20 @@ export const ForkBomb = () => {
       const candidate = [game]
       let next = attack(game, playerId, asParameter(game, 2));
       if (isGameOver(next)) return next;
-      candidate.push(payFlag(game))
+      candidate.push(payFlag(next))
       return game.players[playerId].chooseFromCandidate("ForkBomb", candidate)
+    }
+  )
+};
+
+export const Debug = () => {
+  return createCard(
+    "Debug",
+    (game: Game, playerId: PlayerID) => {
+      const candidate = [game]
+      let next = payLife(game, playerId, -asParameter(game, 3));
+      candidate.push(payFlag(next))
+      return game.players[playerId].chooseFromCandidate("Debug", candidate)
     }
   )
 };
