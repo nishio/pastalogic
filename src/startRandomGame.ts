@@ -56,7 +56,6 @@ export const startRandomGame = (
       debugger;
     }
     const currentPlayer = currentCard.flags[game.cursor.flagIndex];
-    console.log("currentPlayer", currentPlayer, currentCard, game.cursor.flagIndex)
     if (currentPlayer === undefined) {
       game = moveCursorToNextCard(game);
       continue

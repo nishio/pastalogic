@@ -93,7 +93,7 @@ export const MoveFlag = () => {
             if (!hasEnoughSpace(cj)) return;
             ci.flags.forEach((fk, k) => {
               const newCi = [...ci.flags]
-              delete newCi[k]
+              newCi.splice(k, 1)
               const newCj = [...cj.flags, fk]
 
               let next = updateFlag(game, i, newCi)
