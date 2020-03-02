@@ -1,7 +1,8 @@
 import { Game, PlayerID } from "./Types";
 import { updateCard } from "./updateCard";
-import { getCardIndex, getOpponent, hasEnoughSpace, getCurrentCard, appendOneFlag } from "./util";
+import { getCardIndex, hasEnoughSpace, appendOneFlag } from "./util";
 import { isGameOver } from "./isGameOver";
+import { attack, asParameter, repeat, createCard } from "./utilCardImpl";
 
 export type Card = {
   name: string;
@@ -10,17 +11,6 @@ export type Card = {
   numIncrementToken: number;
 };
 
-const createCard = (
-  name: string,
-  play: (game: Game, playerId: PlayerID) => Game
-) => {
-  return {
-    name: name,
-    flags: [],
-    play: play,
-    numIncrementToken: 0,
-  }
-}
 
 export const Bug = () => {
   return createCard(
@@ -31,23 +21,11 @@ export const Bug = () => {
   )
 };
 
-function attack(game: Game, playerId: PlayerID, damage: number) {
-  const nextPlayers = [...game.players];
-  nextPlayers[getOpponent(playerId)].life -= damage;
-  return { ...game, players: nextPlayers };
-}
-
-
-
-const asParameter = (game: Game, base: number) => {
-  return base + getCurrentCard(game).numIncrementToken
-}
-
 export const AddFlag = () => {
   return createCard(
     "AddFlag",
     (game: Game, playerId: PlayerID) => {
-      for (let i = 0; i < asParameter(game, 1); i++) {
+      return repeat(asParameter(game, 1), game, (game: Game) => {
         if (game.usedFlag[playerId] === game.maxFlag) return game;
         const candidate = [game]
         /* eslint no-loop-func: 0 */
@@ -56,10 +34,8 @@ export const AddFlag = () => {
             candidate.push(appendOneFlag(game, cardIndex, playerId));
           }
         })
-        game = game.players[playerId].chooseFromCandidate("AddFlag", candidate);
-        if (isGameOver(game)) return game;
-      }
-      return game
+        return game.players[playerId].chooseFromCandidate("AddFlag", candidate);
+      })
     }
   )
 };
@@ -92,7 +68,7 @@ export const MoveFlag = () => {
   return createCard(
     "MoveFlag",
     (game: Game, playerId: PlayerID) => {
-      for (let i = 0; i < asParameter(game, 1); i++) {
+      return repeat(asParameter(game, 1), game, (game: Game) => {
         const candidate = [game]
         const me = game.cursor.cardIndex;
         game.cards.forEach((ci, i) => {
@@ -116,10 +92,8 @@ export const MoveFlag = () => {
             })
           })
         })
-        game = game.players[playerId].chooseFromCandidate("MoveFlag", candidate)
-        if (isGameOver(game)) return game;
-      }
-      return game
+        return game.players[playerId].chooseFromCandidate("MoveFlag", candidate)
+      })
     }
   )
 };

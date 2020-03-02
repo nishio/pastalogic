@@ -6,8 +6,8 @@ import { chooseControledRandom, chooseRandom } from './util';
 
 function App() {
 
-  //startNoviceGame(chooseControledRandom, chooseControledRandom)
-  startNoviceGame(chooseRandom, chooseRandom)
+  startNoviceGame(chooseControledRandom, chooseControledRandom)
+  //startNoviceGame(chooseRandom, chooseRandom)
   return (
     <div className="App">
       <header className="App-header">
