@@ -8,8 +8,14 @@ export const neverComeHere = (msg?: string) => {
 
 export const moveCursorToNextCard = (game: Game): Game => {
   const card = getCurrentCard(game);
-  card.numDecrementToken = 0;
-  card.numIncrementToken = 0;
+
+  game = updateCard(game, game.cursor.cardIndex, (card) => {
+    return {
+      ...card,
+      numDecrementToken: 0,
+      numIncrementToken: 0
+    }
+  })
 
   if (game.returnAddress !== null) {
     // Subroutine call finished, return to Subroutine

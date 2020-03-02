@@ -1,39 +1,63 @@
 import { Game, PlayerID } from "./Types"
 import { isGameOver } from "./isGameOver"
 import { usedFlag } from "./Card"
-import { getOpponent, getCurrentCard, moveCursorToNextCard, moveCursorToNextFlag, chooseControledRandom, controledRandom } from "./util"
+import { getOpponent, getCurrentCard, moveCursorToNextCard, moveCursorToNextFlag, chooseControledRandom, controledRandom, chooseRandom, neverComeHere } from "./util"
+import { debugPrint } from "./debugPrint"
 
+const SHOW_PROGRESS = false;
+const SHOW_CANDIDATE_SCORE = false;
+const SHOW_BEST_SCORE = false;
 export const chooseMC = (type: string, playerId: PlayerID, candidate: Game[]): Game => {
-  let bestScore = -101;
+  let bestScore = -1e99;
   let bestGame = { ...candidate[0] };
   for (let game of candidate) {
     const start = { ...game };
-    game = { ...game }
-    for (let i = 0; i < 10; i++) {
-      const currentCard = getCurrentCard(game);
-      const currentPlayer = currentCard.flags[game.cursor.flagIndex];
-      if (currentPlayer === undefined) {
-        game = moveCursorToNextCard(game);
-        continue
-      }
-      game = currentCard.play(game, playerId, chooseControledRandom);
-      const ret = isGameOver(game);
-      if (ret) {
-        const s = score(game, playerId)
-        if (s > bestScore) {
-          bestGame = start
-          bestScore = s
+    let s = 0;
+    const NUM_TRIAL: number = 100
+    for (let trial = 0; trial < NUM_TRIAL; trial++) {
+      game = { ...start }
+      for (let i = 0; i < 30; i++) {
+        const currentCard = getCurrentCard(game);
+        const currentPlayer = currentCard.flags[game.cursor.flagIndex];
+        if (currentPlayer === undefined) {
+          game = moveCursorToNextCard(game);
+          continue
         }
+        if (NUM_TRIAL === 1 && SHOW_PROGRESS) {
+          console.log("vvv")
+          debugPrint(game)
+          console.log("play")
+        }
+        game = currentCard.play(game, currentPlayer, chooseRandom);
+        if (NUM_TRIAL === 1 && SHOW_PROGRESS) {
+          debugPrint(game)
+        }
+        const ret = isGameOver(game);
+        if (ret) {
+          break;
+        }
+        game = moveCursorToNextFlag(game);
       }
-      game = moveCursorToNextFlag(game);
+      s += score(game, playerId)
+      //console.log(s)
+      //debugPrint(game)
     }
-    const s = score(game, playerId)
+    if (SHOW_CANDIDATE_SCORE) {
+      console.log("---")
+      console.log("candidate")
+      debugPrint(start)
+      console.log("score", s)
+      debugPrint(game)
+      console.log("---")
+    }
     if (s > bestScore) {
       bestGame = start
       bestScore = s
     }
   };
-  console.log("best score:", bestScore)
+  if (SHOW_BEST_SCORE) {
+    console.log("best score:", bestScore)
+  }
   return bestGame
 }
 
@@ -41,13 +65,15 @@ const score = (game: Game, playerId: PlayerID) => {
   const g = isGameOver(game);
   if (g) {
     if (g.type === "win") {
-      if (g.winner == playerId) {
-        return 100
+      if (g.winner === playerId) {
+        return 100 + controledRandom() / 1000
+      } else if (g.winner === getOpponent(playerId)) {
+        return -100 + controledRandom() / 1000
       } else {
-        return -100
+        neverComeHere("win/lose")
       }
     } else {
-      return 0;
+      return controledRandom() / 1000;
     }
   }
 
