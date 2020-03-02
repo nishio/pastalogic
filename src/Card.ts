@@ -239,3 +239,27 @@ export const TradeOff = () => {
     }
   )
 };
+
+export const RemoveFlag = () => {
+  return createCard(
+    "RemoveFlag",
+    (game: Game, playerId: PlayerID) => {
+      return repeat(asParameter(game, 1), game, (game: Game) => {
+        if (game.usedFlag[playerId] === game.maxFlag) return game;
+        const candidate = [game]
+        game.cards.forEach((card, cardIndex) => {
+          if (card.name === "RemoveFlag") return;
+          if (isUsingSubroutine(card, game)) return;
+          if (card.flags.length === 0) return;
+          card.flags.forEach((f, flagIndex) => {
+            const newFlags = [...card.flags]
+            newFlags.splice(flagIndex, 1)
+            candidate.push(updateFlag(game, cardIndex, newFlags));
+          })
+        })
+        return game.players[playerId].chooseFromCandidate("RemoveFlag", candidate);
+      })
+    }
+  )
+};
+

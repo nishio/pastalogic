@@ -1,4 +1,7 @@
-import { MoveFlag, Subroutine, Bug, Reverse, Rotate, SwapCommand, FastPass, AddFlag, Increment } from "./Card";
+import {
+  MoveFlag, Subroutine, Bug, Reverse, Rotate, SwapCommand, FastPass, AddFlag, Increment,
+  Debug, TradeOff, ForkBomb
+} from "./Card";
 import { Reorder } from "./Reorder";
 
 const WeAreProgrammer = [
@@ -6,5 +9,13 @@ const WeAreProgrammer = [
 ]
 
 const LifeRace = [
-  AddFlag, MoveFlag, Reorder, Bug, Forkbomb, Debug, TradeOff, Increment
+  AddFlag, MoveFlag, Reorder, Bug, ForkBomb, Debug, TradeOff, Increment
+]
+
+const Inflation = [
+  SwapCommand, Subroutine, AddFlag, MoveFlag, Increment, FastPass, TradeOff, Debug
+]
+
+const Catastrophe = [
+  //  RemoveFlag, RemoveCommand, Increment, Subroutine, SwapCommand, Bug, ForkBomb, TradeOff
 ]
