@@ -2,26 +2,44 @@ import { Game, PlayerID, FirstPlayer } from "./Types";
 import { Card } from "./Card";
 
 export const debugPrint = (game: Game) => {
+  let cardStr = "";
+  game.cards.forEach((card, cardIndex) => {
+    cardStr += cardToStr(card, cardIndex, game)
+  })
   console.log(
     `life ${game.players[0].life}:${game.players[1].life} ` +
     `cursor ${game.cursor.cardIndex}, ${game.cursor.flagIndex}\n` +
-    game.cards.map(cardToStr).join("")
+    cardStr
   )
 };
 
-const cardToStr = (card: Card) => {
+const cardToStr = (card: Card, cardIndex: number, game: Game) => {
   let flags = " ";
   if (card.flags.length === 0) {
     flags = ""
   } else {
-    card.flags.forEach((f) => {
-      flags += flagToStr(f)
+    card.flags.forEach((flag, flagIndex) => {
+      let fs = flagToStr(flag)
+      if (cardIndex === game.cursor.cardIndex) {
+        if (flagIndex === game.cursor.flagIndex) {
+          fs = `(${fs})`
+        }
+      }
+      flags += fs;
     })
+  }
+  let cursor = "";
+  if (cardIndex === game.cursor.cardIndex) {
+    if (game.cursorDirection === "forward") {
+      cursor = ">"
+    } else {
+      cursor = "<"
+    }
   }
   const inc = "+".repeat(card.numIncrementToken)
   const dec = "-".repeat(card.numDecrementToken)
 
-  return `[${card.name}${inc}${dec}${flags}]`
+  return `[${cursor}${card.name}${inc}${dec}${flags}]`
 }
 
 const flagToStr = (flag: PlayerID) => {
