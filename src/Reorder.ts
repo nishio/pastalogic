@@ -7,7 +7,7 @@ export const Reorder = () => {
     return repeat(asParameter(game, 1), game, (game: Game) => {
       const candidate = [game];
       game.cards.forEach((card, cardIndex) => {
-        if (card.flags != []) {
+        if (card.flags.length !== 0) {
           allReorder(card.flags).forEach((newFlag) => {
             const next = updateCard(game, cardIndex, (card) => ({
               ...card, flags: newFlag

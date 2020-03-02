@@ -70,7 +70,7 @@ export const chooseRandom = (type: string, candidate: Game[]) => (
 )
 
 let index = 0;
-let buffer = [0, 11, 13, 17, 19, 23, 29]
+let buffer = [0, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 51]
 export const chooseControledRandom = (type: string, candidate: Game[]) => {
   const ret = candidate[buffer[index] % candidate.length]
   index++

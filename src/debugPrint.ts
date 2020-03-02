@@ -8,9 +8,10 @@ export const debugPrint = (game: Game) => {
     cardStr += cardToStr(card, cardIndex, game)
   })
   console.log(
-    `life ${game.players[0].life}:${game.players[1].life} ` +
-    `cursor ${game.cursor.cardIndex}, ${game.cursor.flagIndex}\n` +
-    cardStr
+    cardStr +
+    `\nlife o${game.players[0].life}:${game.players[1].life}x ` +
+    `cursor ${game.cursor.cardIndex}, ${game.cursor.flagIndex}\n`
+
   )
 };
 

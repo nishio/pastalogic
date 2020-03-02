@@ -166,7 +166,7 @@ export const Decrement = () => {
 
 export const Reverse = () => {
   return createCard(
-    "Increment",
+    "Reverse",
     (game: Game, playerId: PlayerID) => {
       const candidate = [game]
       const cost = asParameter(game, 1)
@@ -326,6 +326,12 @@ export const RemoveCommand = () => {
           // remove self
           if (game.cursorDirection === "forward") {
             newCursor.cardIndex--;
+          } else {
+            // when cursorDirection is backward, keep cardIndex
+            // except for RemoveCommand is the last card
+            if (newCards.length === newCursor.cardIndex) {
+              newCursor = { cardIndex: 0, flagIndex: 4 }
+            }
           }
           newCursor.flagIndex = 4;
         }

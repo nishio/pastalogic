@@ -3,7 +3,7 @@ import { debugPrint } from "./debugPrint";
 import { isGameOver } from "./isGameOver";
 import { putOneFlag } from "./putOneFlag";
 import { AlgorithToChooseCandidate, FirstPlayer, Game, SecondPlayer } from "./Types";
-import { moveCursorToNextFlag, moveCursorToNextCard, getCurrentCard } from "./util";
+import { moveCursorToNextFlag, moveCursorToNextCard, getCurrentCard, neverComeHere } from "./util";
 import { Reorder } from "./Reorder";
 
 export const startRandomGame = (
@@ -40,8 +40,6 @@ export const startRandomGame = (
   game.maxFlag = 20
   game.cursorDirection = "forward";
 
-
-
   // フラグ配置フェーズ
   for (let i = 0; i < 16; i++) {
     game = putOneFlag(game, FirstPlayer);
@@ -63,6 +61,9 @@ export const startRandomGame = (
     debugPrint(game)
     console.log("play")
     game = currentCard.play(game, currentPlayer);
+    if (game.cards.filter((c) => c.name === "Increment").length === 2) {
+      neverComeHere("double Increment")
+    }
     debugPrint(game)
     const ret = isGameOver(game);
     if (ret) {
