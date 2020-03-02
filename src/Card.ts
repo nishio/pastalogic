@@ -220,6 +220,7 @@ export const FastPass = () => {
   )
 };
 
+
 export const ForkBomb = () => {
   return createCard(
     "ForkBomb",
