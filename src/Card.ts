@@ -226,3 +226,16 @@ export const Debug = () => {
   )
 };
 
+
+export const TradeOff = () => {
+  return createCard(
+    "TradeOff",
+    (game: Game, playerId: PlayerID) => {
+      const candidate = [game]
+      let next = payLife(game, playerId, asParameter(game, 1));
+      next = attack(game, playerId, asParameter(game, 2))
+      candidate.push(next)
+      return game.players[playerId].chooseFromCandidate("TradeOff", candidate)
+    }
+  )
+};
