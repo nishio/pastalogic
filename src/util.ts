@@ -71,22 +71,6 @@ export const getOpponent = (p: PlayerID): PlayerID => {
 
 export const chooseFirst = (type: string, playerId: PlayerID, candidate: Game[]) => (candidate[0])
 
-export const chooseRandom = (type: string, playerId: PlayerID, candidate: Game[]) => (
-  candidate[Math.floor(Math.random() * candidate.length)]
-)
-
-let index = 0;
-let buffer = [1, 2, 3, 4, 5, 6, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 51]
-export const controledRandom = () => {
-  const ret = buffer[index]
-  index++
-  index %= buffer.length
-  return ret
-}
-export const chooseControledRandom = (type: string, playerId: PlayerID, candidate: Game[]) => {
-  return candidate[controledRandom() % candidate.length]
-}
-
 export const hasEnoughSpace = (card: Card) => {
   return card.flags.length < 4;
 }

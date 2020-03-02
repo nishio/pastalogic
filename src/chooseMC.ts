@@ -1,7 +1,8 @@
 import { Game, PlayerID } from "./Types"
 import { isGameOver } from "./isGameOver"
 import { usedFlag } from "./Card"
-import { getOpponent, getCurrentCard, moveCursorToNextCard, moveCursorToNextFlag, chooseControledRandom, controledRandom, chooseRandom, neverComeHere } from "./util"
+import { getOpponent, getCurrentCard, moveCursorToNextCard, moveCursorToNextFlag, neverComeHere } from "./util"
+import { chooseControledRandom, controledRandom, chooseRandom } from "./chooseRandom"
 import { debugPrint } from "./debugPrint"
 
 const SHOW_PROGRESS = false;
@@ -13,10 +14,10 @@ export const chooseMC = (type: string, playerId: PlayerID, candidate: Game[]): G
   for (let game of candidate) {
     const start = { ...game };
     let s = 0;
-    const NUM_TRIAL: number = 100
+    const NUM_TRIAL: number = 10000
     for (let trial = 0; trial < NUM_TRIAL; trial++) {
       game = { ...start }
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 50; i++) {
         const currentCard = getCurrentCard(game);
         const currentPlayer = currentCard.flags[game.cursor.flagIndex];
         if (currentPlayer === undefined) {

@@ -40,6 +40,7 @@ export const startNoviceGame = (
   }
 
   // プログラム実行フェーズ
+  console.log("-----run program-----")
   runProgram(game)
 };
 
