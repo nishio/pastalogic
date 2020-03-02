@@ -1,5 +1,6 @@
-import { Game, PlayerID, FirstPlayer } from "./Types";
+import { Game, PlayerID, FirstPlayer, SecondPlayer } from "./Types";
 import { Card } from "./Card";
+import { neverComeHere } from "./util";
 
 export const debugPrint = (game: Game) => {
   let cardStr = "";
@@ -45,7 +46,9 @@ const cardToStr = (card: Card, cardIndex: number, game: Game) => {
 const flagToStr = (flag: PlayerID) => {
   if (flag === FirstPlayer) {
     return "o"
-  } else {
+  } else if (flag === SecondPlayer) {
     return "x"
+  } else {
+    neverComeHere("undefined user")
   }
 }

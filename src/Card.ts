@@ -27,9 +27,8 @@ export const AddFlag = () => {
     "AddFlag",
     (game: Game, playerId: PlayerID) => {
       return repeat(asParameter(game, 1), game, (game: Game) => {
-        if (game.usedFlag[playerId] === game.maxFlag) return game;
+        if (usedFlag(playerId, game) === game.maxFlag) return game;
         const candidate = [game]
-        /* eslint no-loop-func: 0 */
         game.cards.forEach((card, cardIndex) => {
           if (card.name === "AddFlag") return;
           if (isUsingSubroutine(card, game)) return;
@@ -42,6 +41,18 @@ export const AddFlag = () => {
     }
   )
 };
+
+const usedFlag = (playerId: PlayerID, game: Game) => {
+  let ret = 0;
+  game.cards.forEach((c) => {
+    c.flags.forEach((f) => {
+      if (f === playerId) {
+        ret++;
+      }
+    })
+  })
+  return ret;
+}
 
 export const Subroutine = () => {
   return createCard(
@@ -103,7 +114,7 @@ export const Increment = () => {
     "Increment",
     (game: Game, playerId: PlayerID) => {
       const candidate = [game]
-      if (game.usedIncrementToken < 2) {
+      if (usedIncrementToken(game) < 2) {
         game.cards.forEach((card, cardIndex) => {
           const next = updateCard(game, cardIndex, (card) => ({
             ...card, numIncrementToken: card.numIncrementToken + 1
@@ -116,12 +127,29 @@ export const Increment = () => {
   )
 };
 
+export const usedIncrementToken = (game: Game) => {
+  let ret = 0;
+  game.cards.forEach((c) => {
+    ret += c.numIncrementToken
+  })
+  return ret;
+}
+
+export const usedDecrementToken = (game: Game) => {
+  let ret = 0;
+  game.cards.forEach((c) => {
+    ret += c.numDecrementToken
+  })
+  return ret;
+}
+
+
 export const Decrement = () => {
   return createCard(
     "Decrement",
     (game: Game, playerId: PlayerID) => {
       const candidate = [game]
-      if (game.usedDecrementToken < 2) {
+      if (usedDecrementToken(game) < 2) {
         game.cards.forEach((card, cardIndex) => {
           const next = updateCard(game, cardIndex, (card) => ({
             ...card, numDecrementToken: card.numDecrementToken + 1
@@ -204,6 +232,7 @@ export const FastPass = () => {
   return createCard(
     "FastPass",
     (game: Game, playerId: PlayerID) => {
+      if (usedFlag(playerId, game) === game.maxFlag) return game;
       const candidate = [game]
       game.cards.forEach((card, cardIndex) => {
         if (card.name === "FastPass") return;

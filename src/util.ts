@@ -2,11 +2,15 @@ import { Game, PlayerID } from "./Types";
 import { Card } from "./Card";
 import { updateCard } from "./updateCard";
 
-const neverComeHere = (msg?: string) => {
+export const neverComeHere = (msg?: string) => {
   throw new Error(msg)
 }
 
 export const moveCursorToNextCard = (game: Game): Game => {
+  const card = getCurrentCard(game);
+  card.numDecrementToken = 0;
+  card.numIncrementToken = 0;
+
   if (game.returnAddress !== null) {
     // Subroutine call finished, return to Subroutine
     const cardIndex = findCard("Subroutine", game)
@@ -66,7 +70,7 @@ export const chooseRandom = (type: string, candidate: Game[]) => (
 )
 
 let index = 0;
-let buffer = [123, 456, 789]
+let buffer = [0, 11, 13, 17, 19, 23, 29]
 export const chooseControledRandom = (type: string, candidate: Game[]) => {
   const ret = candidate[buffer[index] % candidate.length]
   index++
@@ -79,16 +83,7 @@ export const hasEnoughSpace = (card: Card) => {
 }
 
 export const getCurrentCard = (game: Game): Card => {
-  console.log(game.cursor.cardIndex)
   return game.cards[game.cursor.cardIndex];
-}
-
-export const consumeOneFlag = (game: Game, playerId: PlayerID): Game => {
-  const newUsedFlag = [...game.usedFlag] as [number, number]
-  newUsedFlag[playerId]++;
-  return {
-    ...game, usedFlag: newUsedFlag
-  }
 }
 
 export const appendOneFlag = (game: Game, cardIndex: number, playerId: PlayerID) => {

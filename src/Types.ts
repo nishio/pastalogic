@@ -14,9 +14,6 @@ export type Game = {
     flagIndex: number;
   };
   returnAddress: null | number;
-  usedIncrementToken: number;
-  usedDecrementToken: number;
-  usedFlag: [number, number];
   maxFlag: number;
   cursorDirection: CursorDirection
 };
