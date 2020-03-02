@@ -9,7 +9,7 @@ const neverComeHere = (msg?: string) => {
 export const moveCursorToNextCard = (game: Game): Game => {
   if (game.returnAddress !== null) {
     // Subroutine call finished, return to Subroutine
-    const cardIndex = game.cards.findIndex((card) => card.name === "Subroutine")
+    const cardIndex = findCard("Subroutine", game)
     if (cardIndex === -1) {
       neverComeHere("card Subroutine is not found when return to it")
     }
@@ -78,7 +78,8 @@ export const hasEnoughSpace = (card: Card) => {
   return card.flags.length < 4;
 }
 
-export const getCurrentCard = (game: Game) => {
+export const getCurrentCard = (game: Game): Card => {
+  console.log(game.cursor.cardIndex)
   return game.cards[game.cursor.cardIndex];
 }
 
@@ -105,5 +106,9 @@ export const updateFlag = (game: Game, cardIndex: number, newFlag: PlayerID[]) =
 
 export const isUsingSubroutine = (card: Card, game: Game) => {
   return card.name === "Subroutine" && game.returnAddress !== null;
+}
+
+export const findCard = (name: string, game: Game) => {
+  return game.cards.findIndex((card) => card.name === name);
 }
 

@@ -284,14 +284,24 @@ export const RemoveFlag = () => {
 
 export const RemoveCommand = () => {
   return createCard(
-    "RemoveFlag",
+    "RemoveCommand",
     (game: Game, playerId: PlayerID) => {
       const candidate = [game]
       game.cards.forEach((card, cardIndex) => {
         const newCards = [...game.cards]
         newCards.splice(cardIndex, 1)
+        let newCursor = { ...game.cursor }
+        if (cardIndex < game.cursor.cardIndex) {
+          newCursor.cardIndex--;
+        } else if (cardIndex === game.cursor.cardIndex) {
+          // remove self
+          if (game.cursorDirection === "forward") {
+            newCursor.cardIndex--;
+          }
+          newCursor.flagIndex = 4;
+        }
         candidate.push({
-          ...game, cards: newCards
+          ...game, cards: newCards, cursor: newCursor
         });
       })
       return game.players[playerId].chooseFromCandidate("RemoveCommand", candidate);

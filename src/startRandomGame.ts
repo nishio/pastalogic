@@ -13,8 +13,8 @@ export const startRandomGame = (
   let game = {} as Game;
   // コマンド準備フェーズ
   game.players = [
-    { life: 3, color: "red", chooseFromCandidate: algorithm0 },
-    { life: 3, color: "blue", chooseFromCandidate: algorithm1 },
+    { life: 100, color: "red", chooseFromCandidate: algorithm0 },
+    { life: 100, color: "blue", chooseFromCandidate: algorithm1 },
   ];
   game.cards = [
     Bug(),
@@ -52,8 +52,11 @@ export const startRandomGame = (
 
   // プログラム実行フェーズ
   //while (true) {
-  for (let i = 0; i < 100; i++) {  // avoid infinite loop in development
+  for (let i = 0; i < 1000; i++) {  // avoid infinite loop in development
     const currentCard = getCurrentCard(game);
+    if (currentCard === undefined) {
+      debugger;
+    }
     const currentPlayer = currentCard.flags[game.cursor.flagIndex];
     if (currentPlayer === undefined) {
       game = moveCursorToNextCard(game);
@@ -63,7 +66,7 @@ export const startRandomGame = (
     game = currentCard.play(game, currentPlayer);
     const ret = isGameOver(game);
     if (ret) {
-      console.log(ret);
+      console.log(i, ret);
       break;
     }
     game = moveCursorToNextFlag(game);
