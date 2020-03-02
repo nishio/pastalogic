@@ -26,6 +26,7 @@ export const startNoviceGame = (
   game.returnAddress = null
   game.usedIncrementToken = 0
   game.usedFlag = [0, 0]
+  game.maxFlag = 10
 
   // フラグ配置フェーズ
   for (let i = 0; i < 3; i++) {

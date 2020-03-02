@@ -1,6 +1,7 @@
 import { Game, PlayerID } from "./Types";
 import { updateCard } from "./updateCard";
 import { getCardIndex, getOpponent, hasEnoughSpace, getCurrentCard, appendOneFlag } from "./util";
+import { isGameOver } from "./isGameOver";
 
 export type Card = {
   name: string;
@@ -47,6 +48,7 @@ export const AddFlag = () => {
     "AddFlag",
     (game: Game, playerId: PlayerID) => {
       for (let i = 0; i < asParameter(game, 1); i++) {
+        if (game.usedFlag[playerId] === game.maxFlag) return game;
         const candidate = [game]
         /* eslint no-loop-func: 0 */
         game.cards.forEach((card, cardIndex) => {
@@ -55,6 +57,7 @@ export const AddFlag = () => {
           }
         })
         game = game.players[playerId].chooseFromCandidate("AddFlag", candidate);
+        if (isGameOver(game)) return game;
       }
       return game
     }
@@ -114,6 +117,7 @@ export const MoveFlag = () => {
           })
         })
         game = game.players[playerId].chooseFromCandidate("MoveFlag", candidate)
+        if (isGameOver(game)) return game;
       }
       return game
     }

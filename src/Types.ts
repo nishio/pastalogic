@@ -12,7 +12,8 @@ export type Game = {
   };
   returnAddress: null | number;
   usedIncrementToken: number;
-  usedFlag: number[]
+  usedFlag: number[];
+  maxFlag: number;
 };
 type Player = {
   life: number;
