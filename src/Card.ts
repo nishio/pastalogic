@@ -245,7 +245,6 @@ export const RemoveFlag = () => {
     "RemoveFlag",
     (game: Game, playerId: PlayerID) => {
       return repeat(asParameter(game, 1), game, (game: Game) => {
-        if (game.usedFlag[playerId] === game.maxFlag) return game;
         const candidate = [game]
         game.cards.forEach((card, cardIndex) => {
           if (card.name === "RemoveFlag") return;
@@ -263,3 +262,19 @@ export const RemoveFlag = () => {
   )
 };
 
+export const RemoveCommand = () => {
+  return createCard(
+    "RemoveFlag",
+    (game: Game, playerId: PlayerID) => {
+      const candidate = [game]
+      game.cards.forEach((card, cardIndex) => {
+        const newCards = [...game.cards]
+        newCards.splice(cardIndex, 1)
+        candidate.push({
+          ...game, cards: newCards
+        });
+      })
+      return game.players[playerId].chooseFromCandidate("RemoveCommand", candidate);
+    }
+  )
+};

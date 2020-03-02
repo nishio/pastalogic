@@ -1,6 +1,6 @@
 import {
   MoveFlag, Subroutine, Bug, Reverse, Rotate, SwapCommand, FastPass, AddFlag, Increment,
-  Debug, TradeOff, ForkBomb
+  Debug, TradeOff, ForkBomb, RemoveFlag
 } from "./Card";
 import { Reorder } from "./Reorder";
 
@@ -17,5 +17,5 @@ const Inflation = [
 ]
 
 const Catastrophe = [
-  //  RemoveFlag, RemoveCommand, Increment, Subroutine, SwapCommand, Bug, ForkBomb, TradeOff
+  RemoveFlag, RemoveCommand, Increment, Subroutine, SwapCommand, Bug, ForkBomb, TradeOff
 ]
