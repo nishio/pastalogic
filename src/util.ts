@@ -32,6 +32,7 @@ export const moveCursorToNextCard = (game: Game): Game => {
     }
   };
 };
+
 export const moveCursorToNextFlag = (game: Game) => {
   return {
     ...game,
@@ -43,7 +44,11 @@ export const moveCursorToNextFlag = (game: Game) => {
 };
 
 const getNextCardIndex = (game: Game, index: number) => {
-  return (index + 1) % game.cards.length;
+  if (game.cursorDirection === "forward") {
+    return (index + 1) % game.cards.length;
+  } else {
+    return (index - 1 + game.cards.length) % game.cards.length;
+  }
 };
 
 export const getCardIndex = (game: Game, index: number, change: number) => {
@@ -78,7 +83,7 @@ export const getCurrentCard = (game: Game) => {
 }
 
 export const consumeOneFlag = (game: Game, playerId: PlayerID): Game => {
-  const newUsedFlag = [...game.usedFlag]
+  const newUsedFlag = [...game.usedFlag] as [number, number]
   newUsedFlag[playerId]++;
   return {
     ...game, usedFlag: newUsedFlag
@@ -90,4 +95,10 @@ export const appendOneFlag = (game: Game, cardIndex: number, playerId: PlayerID)
     ...card,
     flags: [...card.flags, playerId]
   }));
+}
+
+export const updateFlag = (game: Game, cardIndex: number, newFlag: PlayerID[]) => {
+  return updateCard(game, cardIndex, (card) => ({
+    ...card, flags: newFlag
+  }))
 }

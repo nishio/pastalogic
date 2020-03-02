@@ -3,6 +3,9 @@ import { Card } from "./Card";
 export type PlayerID = 0 | 1;
 export const FirstPlayer = 0 as PlayerID;
 export const SecondPlayer = 1 as PlayerID;
+
+export type CursorDirection = ("forward" | "backward")
+
 export type Game = {
   players: Player[];
   cards: Card[];
@@ -12,12 +15,15 @@ export type Game = {
   };
   returnAddress: null | number;
   usedIncrementToken: number;
-  usedFlag: number[];
+  usedFlag: [number, number];
   maxFlag: number;
+  cursorDirection: CursorDirection
 };
+
 type Player = {
   life: number;
   color: string;
   chooseFromCandidate: AlgorithToChooseCandidate;
 };
+
 export type AlgorithToChooseCandidate = (type: string, candidate: Game[]) => Game;

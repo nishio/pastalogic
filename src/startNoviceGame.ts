@@ -27,6 +27,7 @@ export const startNoviceGame = (
   game.usedIncrementToken = 0
   game.usedFlag = [0, 0]
   game.maxFlag = 10
+  game.cursorDirection = "forward"
 
   // フラグ配置フェーズ
   for (let i = 0; i < 3; i++) {

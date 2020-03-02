@@ -1,8 +1,8 @@
 import { Game, PlayerID } from "./Types";
 import { updateCard } from "./updateCard";
-import { getCardIndex, hasEnoughSpace, appendOneFlag } from "./util";
+import { getCardIndex, hasEnoughSpace, appendOneFlag, updateFlag, getCurrentCard } from "./util";
 import { isGameOver } from "./isGameOver";
-import { attack, asParameter, repeat, createCard } from "./utilCardImpl";
+import { attack, asParameter, repeat, createCard, payLife, reverse } from "./utilCardImpl";
 
 export type Card = {
   name: string;
@@ -82,12 +82,8 @@ export const MoveFlag = () => {
               delete newCi[k]
               const newCj = [...cj.flags, fk]
 
-              let next = updateCard(game, i, (card) => ({
-                ...card, flags: newCi
-              }));
-              next = updateCard(next, j, (card) => ({
-                ...card, flags: newCj
-              }));
+              let next = updateFlag(game, i, newCi)
+              next = updateFlag(next, j, newCj)
               candidate.push(next);
             })
           })
@@ -97,6 +93,7 @@ export const MoveFlag = () => {
     }
   )
 };
+
 
 export const Increment = () => {
   return createCard(
@@ -112,6 +109,74 @@ export const Increment = () => {
         })
       }
       return game.players[playerId].chooseFromCandidate("Increment", candidate)
+    }
+  )
+};
+
+
+
+export const Reverse = () => {
+  return createCard(
+    "Increment",
+    (game: Game, playerId: PlayerID) => {
+      const candidate = [game]
+      const cost = asParameter(game, 1)
+      if (game.players[playerId].life > cost) {
+        const next = {
+          ...game,
+          cursorDirection: reverse(game.cursorDirection),
+        }
+        candidate.push(payLife(next, playerId, cost))
+
+      }
+      return game.players[playerId].chooseFromCandidate("Reverse", candidate)
+    }
+  )
+};
+
+
+export const Rotate = () => {
+  return createCard(
+    "Rotate",
+    (game: Game, playerId: PlayerID) => {
+      const candidate = [game]
+      let next = game
+      game.cards.forEach((card, cardIndex) => {
+        if (card.name === "Rotate") return;
+        if (card.name === "Subroutine" && game.returnAddress !== null) {
+          return
+        }
+        const newFlag = [...card.flags]
+        const v = newFlag.pop()
+        if (v !== undefined) {
+          newFlag.unshift(v)
+          next = updateFlag(next, cardIndex, newFlag)
+        }
+      })
+      candidate.push(next)
+      return game.players[playerId].chooseFromCandidate("Rotate", candidate)
+    }
+  )
+};
+
+export const SwapCard = () => {
+  return createCard(
+    "SwapCard",
+    (game: Game, playerId: PlayerID) => {
+      const candidate = [game]
+      game.cards.forEach((card, cardIndex) => {
+        if (card.name === "SwapCard") return;
+        const newCards = [...game.cards]
+        newCards[cardIndex] = getCurrentCard(game)
+        newCards[game.cursor.cardIndex] = card
+        const next = {
+          ...game,
+          cards: newCards,
+          cursor: { ...game.cursor, cardIndex: cardIndex }
+        }
+        candidate.push(next)
+      })
+      return game.players[playerId].chooseFromCandidate("SwapCard", candidate)
     }
   )
 };
