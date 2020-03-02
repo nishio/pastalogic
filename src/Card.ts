@@ -1,6 +1,6 @@
 import { Game, PlayerID } from "./Types";
 import { updateCard } from "./updateCard";
-import { getCardIndex, hasEnoughSpace, appendOneFlag, updateFlag, getCurrentCard } from "./util";
+import { getCardIndex, hasEnoughSpace, appendOneFlag, updateFlag, getCurrentCard, isUsingSubroutine } from "./util";
 import { isGameOver } from "./isGameOver";
 import { attack, asParameter, repeat, createCard, payLife, reverse } from "./utilCardImpl";
 
@@ -30,6 +30,8 @@ export const AddFlag = () => {
         const candidate = [game]
         /* eslint no-loop-func: 0 */
         game.cards.forEach((card, cardIndex) => {
+          if (card.name === "AddFlag") return;
+          if (isUsingSubroutine(card, game)) return;
           if (hasEnoughSpace(card)) {
             candidate.push(appendOneFlag(game, cardIndex, playerId));
           }
@@ -143,9 +145,7 @@ export const Rotate = () => {
       let next = game
       game.cards.forEach((card, cardIndex) => {
         if (card.name === "Rotate") return;
-        if (card.name === "Subroutine" && game.returnAddress !== null) {
-          return
-        }
+        if (isUsingSubroutine(card, game)) return;
         const newFlag = [...card.flags]
         const v = newFlag.pop()
         if (v !== undefined) {
@@ -177,6 +177,26 @@ export const SwapCommand = () => {
         candidate.push(next)
       })
       return game.players[playerId].chooseFromCandidate("SwapCommand", candidate)
+    }
+  )
+};
+
+export const FastPass = () => {
+  return createCard(
+    "FastPass",
+    (game: Game, playerId: PlayerID) => {
+      const candidate = [game]
+      game.cards.forEach((card, cardIndex) => {
+        if (card.name === "FastPass") return;
+        if (isUsingSubroutine(card, game)) return;
+        const newFlags = [...card.flags]
+        newFlags.unshift(playerId)
+        if (newFlags.length === 5) {
+          newFlags.pop()
+        }
+        candidate.push(updateFlag(game, cardIndex, newFlags))
+      })
+      return game.players[playerId].chooseFromCandidate("FastPass", candidate)
     }
   )
 };

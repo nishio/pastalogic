@@ -102,3 +102,8 @@ export const updateFlag = (game: Game, cardIndex: number, newFlag: PlayerID[]) =
     ...card, flags: newFlag
   }))
 }
+
+export const isUsingSubroutine = (card: Card, game: Game) => {
+  return card.name === "Subroutine" && game.returnAddress !== null;
+}
+
