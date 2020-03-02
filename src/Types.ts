@@ -15,6 +15,7 @@ export type Game = {
   };
   returnAddress: null | number;
   usedIncrementToken: number;
+  usedDecrementToken: number;
   usedFlag: [number, number];
   maxFlag: number;
   cursorDirection: CursorDirection

@@ -5,11 +5,7 @@ import { putOneFlag } from "./putOneFlag";
 import { AlgorithToChooseCandidate, FirstPlayer, Game, SecondPlayer } from "./Types";
 import { moveCursorToNextFlag, moveCursorToNextCard, getCurrentCard } from "./util";
 
-export const createGame = (initialLife: number) => {
-  let game = {} as Game;
-
-}
-export const startNoviceGame = (
+export const startRandomGame = (
   algorithm0: AlgorithToChooseCandidate,
   algorithm1: AlgorithToChooseCandidate
 ) => {

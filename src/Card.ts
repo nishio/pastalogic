@@ -9,6 +9,7 @@ export type Card = {
   flags: PlayerID[];
   play: (game: Game, playerId: PlayerID) => Game;
   numIncrementToken: number;
+  numDecrementToken: number;
 };
 
 
@@ -111,6 +112,24 @@ export const Increment = () => {
         })
       }
       return game.players[playerId].chooseFromCandidate("Increment", candidate)
+    }
+  )
+};
+
+export const Decrement = () => {
+  return createCard(
+    "Decrement",
+    (game: Game, playerId: PlayerID) => {
+      const candidate = [game]
+      if (game.usedDecrementToken < 2) {
+        game.cards.forEach((card, cardIndex) => {
+          const next = updateCard(game, cardIndex, (card) => ({
+            ...card, numDecrementToken: card.numDecrementToken + 1
+          }));
+          candidate.push(next);
+        })
+      }
+      return game.players[playerId].chooseFromCandidate("Decrement", candidate)
     }
   )
 };

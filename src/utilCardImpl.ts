@@ -13,6 +13,7 @@ export const createCard = (
     flags: [],
     play: play,
     numIncrementToken: 0,
+    numDecrementToken: 0,
   }
 }
 

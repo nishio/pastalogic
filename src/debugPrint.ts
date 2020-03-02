@@ -18,8 +18,10 @@ const cardToStr = (card: Card) => {
       flags += flagToStr(f)
     })
   }
+  const inc = "+".repeat(card.numIncrementToken)
+  const dec = "-".repeat(card.numDecrementToken)
 
-  return `[${card.name}${flags}]`
+  return `[${card.name}${inc}${dec}${flags}]`
 }
 
 const flagToStr = (flag: PlayerID) => {

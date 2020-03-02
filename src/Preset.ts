@@ -1,21 +1,26 @@
 import {
-  MoveFlag, Subroutine, Bug, Reverse, Rotate, SwapCommand, FastPass, AddFlag, Increment,
-  Debug, TradeOff, ForkBomb, RemoveFlag
+  AddFlag, MoveFlag, RemoveFlag,
+  Rotate, FastPass,
+  Bug, ForkBomb, Debug, TradeOff,
+  RemoveCommand, Reverse, SwapCommand, Subroutine,
+  Increment
 } from "./Card";
 import { Reorder } from "./Reorder";
 
-const WeAreProgrammer = [
+export const WeAreProgrammer = [
   MoveFlag, Reorder, Reverse, Subroutine, Rotate, SwapCommand, Bug, FastPass
 ]
 
-const LifeRace = [
+export const LifeRace = [
   AddFlag, MoveFlag, Reorder, Bug, ForkBomb, Debug, TradeOff, Increment
 ]
 
-const Inflation = [
+export const Inflation = [
   SwapCommand, Subroutine, AddFlag, MoveFlag, Increment, FastPass, TradeOff, Debug
 ]
 
-const Catastrophe = [
+export const Catastrophe = [
   RemoveFlag, RemoveCommand, Increment, Subroutine, SwapCommand, Bug, ForkBomb, TradeOff
 ]
+
+const x = 1;;
