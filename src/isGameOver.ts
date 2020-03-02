@@ -33,6 +33,10 @@ export const isGameOver = (game: Game) => {
     return determineByLife("no flags except for RemoveFlag", game)
   }
 
+  if (noFlagsExcept("RemoveCommand", game)) {
+    return determineByLife("no flags except for RemoveCommand", game)
+  }
+
   if (noFlagsExceptOrder(game)) {
     return determineByLife("no flags except for Order Changing Cards", game)
   }
@@ -41,12 +45,14 @@ export const isGameOver = (game: Game) => {
     return determineByLife("no flags which useful to win", game)
   }
 
-  if (noDamageNoAdd(game)) {
-    return determineByLife("no damage card and no add-flag card", game)
-  }
+  // if (noDamageNoAdd(game)) {
+  //   return determineByLife("no damage card and no add-flag card", game)
+  // }
+  // BAD, it is possible to win by RemoveCommand
 };
 
-const countFlags = (game: Game) => {
+
+export const countFlags = (game: Game) => {
   const numFlags = [0, 0];
   game.cards.forEach((card) => {
     card.flags.forEach((flag) => {

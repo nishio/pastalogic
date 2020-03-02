@@ -33,8 +33,8 @@ export const startNoviceGame = (
 
   // フラグ配置フェーズ
   for (let i = 0; i < 3; i++) {
-    game = putOneFlag(game, FirstPlayer);
-    game = putOneFlag(game, SecondPlayer);
+    game = putOneFlag(game, FirstPlayer, algorithm0);
+    game = putOneFlag(game, SecondPlayer, algorithm1);
   }
 
   // プログラム実行フェーズ
@@ -47,7 +47,7 @@ export const startNoviceGame = (
       continue
     }
     debugPrint(game)
-    game = currentCard.play(game, currentPlayer);
+    game = currentCard.play(game, currentPlayer, game.players[currentPlayer].chooseFromCandidate);
     const ret = isGameOver(game);
     if (ret) {
       console.log(ret);

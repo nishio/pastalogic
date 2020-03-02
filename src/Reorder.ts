@@ -1,9 +1,9 @@
-import { Game, PlayerID } from "./Types";
+import { Game, PlayerID, AlgorithToChooseCandidate } from "./Types";
 import { updateCard } from "./updateCard";
 import { asParameter, repeat, createCard } from "./utilCardImpl";
 
 export const Reorder = () => {
-  return createCard("Reorder", (game: Game, playerId: PlayerID) => {
+  return createCard("Reorder", (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
     return repeat(asParameter(game, 1), game, (game: Game) => {
       const candidate = [game];
       game.cards.forEach((card, cardIndex) => {
@@ -16,7 +16,7 @@ export const Reorder = () => {
           });
         }
       });
-      return game.players[playerId].chooseFromCandidate("Reorder", candidate);
+      return algorithm("Reorder", playerId, candidate);
     });
   });
 };

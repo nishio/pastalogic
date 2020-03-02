@@ -17,7 +17,7 @@ export const moveCursorToNextCard = (game: Game): Game => {
     if (cardIndex === -1) {
       neverComeHere("card Subroutine is not found when return to it")
     }
-    console.log(`return ${cardIndex},${game.returnAddress}`)
+    //console.log(`return ${cardIndex},${game.returnAddress}`)
     return {
       ...game,
       cursor: {
@@ -59,23 +59,26 @@ export const getCardIndex = (game: Game, index: number, change: number) => {
   return (index + change + game.cards.length) % game.cards.length;
 };
 
-export const getOpponent = (p: PlayerID) => {
-  return 1 - p;
+export const getOpponent = (p: PlayerID): PlayerID => {
+  return (1 - p) as PlayerID;
 };
 
-export const chooseFirst = (type: string, candidate: Game[]) => (candidate[0])
+export const chooseFirst = (type: string, playerId: PlayerID, candidate: Game[]) => (candidate[0])
 
-export const chooseRandom = (type: string, candidate: Game[]) => (
+export const chooseRandom = (type: string, playerId: PlayerID, candidate: Game[]) => (
   candidate[Math.floor(Math.random() * candidate.length)]
 )
 
 let index = 0;
-let buffer = [0, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 51]
-export const chooseControledRandom = (type: string, candidate: Game[]) => {
-  const ret = candidate[buffer[index] % candidate.length]
+let buffer = [1, 2, 3, 4, 5, 6, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 51]
+export const controledRandom = () => {
+  const ret = buffer[index]
   index++
   index %= buffer.length
   return ret
+}
+export const chooseControledRandom = (type: string, playerId: PlayerID, candidate: Game[]) => {
+  return candidate[controledRandom() % candidate.length]
 }
 
 export const hasEnoughSpace = (card: Card) => {
@@ -83,6 +86,10 @@ export const hasEnoughSpace = (card: Card) => {
 }
 
 export const getCurrentCard = (game: Game): Card => {
+  if (game.cursor.cardIndex >= game.cards.length) {
+    debugger;
+    neverComeHere("pointing out of cards")
+  }
   return game.cards[game.cursor.cardIndex];
 }
 

@@ -38,12 +38,13 @@ export const startRandomGame = (
   game.cursor = { cardIndex: 0, flagIndex: 0 };
   game.returnAddress = null
   game.maxFlag = 20
+  game.maxLife = 200
   game.cursorDirection = "forward";
 
   // フラグ配置フェーズ
   for (let i = 0; i < 16; i++) {
-    game = putOneFlag(game, FirstPlayer);
-    game = putOneFlag(game, SecondPlayer);
+    game = putOneFlag(game, FirstPlayer, algorithm0);
+    game = putOneFlag(game, SecondPlayer, algorithm1);
   }
 
   // プログラム実行フェーズ
@@ -60,7 +61,7 @@ export const startRandomGame = (
     }
     debugPrint(game)
     console.log("play")
-    game = currentCard.play(game, currentPlayer);
+    game = currentCard.play(game, currentPlayer, game.players[currentPlayer].chooseFromCandidate);
     if (game.cards.filter((c) => c.name === "Increment").length === 2) {
       neverComeHere("double Increment")
     }

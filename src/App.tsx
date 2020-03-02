@@ -4,11 +4,12 @@ import './App.css';
 import { startNoviceGame } from './startNoviceGame';
 import { chooseControledRandom, chooseRandom } from './util';
 import { startRandomGame } from './startRandomGame';
+import { chooseMC } from './chooseMC';
 
 function App() {
 
   //startNoviceGame(chooseControledRandom, chooseControledRandom)
-  startRandomGame(chooseControledRandom, chooseControledRandom)
+  startRandomGame(chooseMC, chooseMC)
   return (
     <div className="App">
       <header className="App-header">

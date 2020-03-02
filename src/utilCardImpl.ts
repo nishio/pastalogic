@@ -1,4 +1,4 @@
-import { Game, PlayerID, CursorDirection } from "./Types";
+import { Game, PlayerID, CursorDirection, AlgorithToChooseCandidate } from "./Types";
 import { getOpponent, getCurrentCard, updateFlag } from "./util";
 import { isGameOver } from "./isGameOver";
 
@@ -6,7 +6,7 @@ import { isGameOver } from "./isGameOver";
 
 export const createCard = (
   name: string,
-  play: (game: Game, playerId: PlayerID) => Game
+  play: (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => Game
 ) => {
   return {
     name: name,
@@ -28,13 +28,19 @@ export const repeat = (n: number, game: Game, step: (game: Game) => Game) => {
 
 export function attack(game: Game, playerId: PlayerID, damage: number) {
   const nextPlayers = [...game.players];
-  nextPlayers[getOpponent(playerId)].life -= damage;
+  const p = nextPlayers[getOpponent(playerId)];
+  let newLife = p.life - damage
+  if (newLife > game.maxLife) newLife = game.maxLife;
+  nextPlayers[getOpponent(playerId)] = { ...p, life: newLife };
   return { ...game, players: nextPlayers };
 }
 
 export function payLife(game: Game, playerId: PlayerID, damage: number) {
   const nextPlayers = [...game.players];
-  nextPlayers[playerId].life -= damage;
+  const p = nextPlayers[playerId];
+  let newLife = p.life - damage
+  if (newLife > game.maxLife) newLife = game.maxLife;
+  nextPlayers[playerId] = { ...p, life: newLife };
   return { ...game, players: nextPlayers };
 }
 

@@ -1,4 +1,4 @@
-import { Game, PlayerID } from "./Types";
+import { Game, PlayerID, AlgorithToChooseCandidate } from "./Types";
 import { updateCard } from "./updateCard";
 import { getCardIndex, hasEnoughSpace, appendOneFlag, updateFlag, getCurrentCard, isUsingSubroutine } from "./util";
 import { isGameOver } from "./isGameOver";
@@ -7,7 +7,7 @@ import { attack, asParameter, repeat, createCard, payLife, reverse, payFlag } fr
 export type Card = {
   name: string;
   flags: PlayerID[];
-  play: (game: Game, playerId: PlayerID) => Game;
+  play: (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => Game;
   numIncrementToken: number;
   numDecrementToken: number;
 };
@@ -16,7 +16,7 @@ export type Card = {
 export const Bug = () => {
   return createCard(
     "Bug",
-    (game: Game, playerId: PlayerID) => {
+    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       return attack(game, playerId, asParameter(game, 1));
     }
   )
@@ -25,7 +25,7 @@ export const Bug = () => {
 export const AddFlag = () => {
   return createCard(
     "AddFlag",
-    (game: Game, playerId: PlayerID) => {
+    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       return repeat(asParameter(game, 1), game, (game: Game) => {
         if (usedFlag(playerId, game) === game.maxFlag) return game;
         const candidate = [game]
@@ -36,13 +36,13 @@ export const AddFlag = () => {
             candidate.push(appendOneFlag(game, cardIndex, playerId));
           }
         })
-        return game.players[playerId].chooseFromCandidate("AddFlag", candidate);
+        return algorithm("AddFlag", playerId, candidate);
       })
     }
   )
 };
 
-const usedFlag = (playerId: PlayerID, game: Game) => {
+export const usedFlag = (playerId: PlayerID, game: Game) => {
   let ret = 0;
   game.cards.forEach((c) => {
     c.flags.forEach((f) => {
@@ -57,7 +57,7 @@ const usedFlag = (playerId: PlayerID, game: Game) => {
 export const Subroutine = () => {
   return createCard(
     "Subroutine",
-    (game: Game, playerId: PlayerID) => {
+    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       const candidate = [game]
       const returnAddress = game.cursor.flagIndex + 1;
       const reach = asParameter(game, 1)
@@ -73,7 +73,7 @@ export const Subroutine = () => {
         }
         candidate.push(next)
       }
-      return game.players[playerId].chooseFromCandidate("Subroutine", candidate)
+      return algorithm("Subroutine", playerId, candidate)
     }
   )
 };
@@ -81,7 +81,7 @@ export const Subroutine = () => {
 export const MoveFlag = () => {
   return createCard(
     "MoveFlag",
-    (game: Game, playerId: PlayerID) => {
+    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       return repeat(asParameter(game, 1), game, (game: Game) => {
         const candidate = [game]
         const me = game.cursor.cardIndex;
@@ -102,7 +102,7 @@ export const MoveFlag = () => {
             })
           })
         })
-        return game.players[playerId].chooseFromCandidate("MoveFlag", candidate)
+        return algorithm("MoveFlag", playerId, candidate)
       })
     }
   )
@@ -112,7 +112,7 @@ export const MoveFlag = () => {
 export const Increment = () => {
   return createCard(
     "Increment",
-    (game: Game, playerId: PlayerID) => {
+    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       const candidate = [game]
       if (usedIncrementToken(game) < 2) {
         game.cards.forEach((card, cardIndex) => {
@@ -122,7 +122,7 @@ export const Increment = () => {
           candidate.push(next);
         })
       }
-      return game.players[playerId].chooseFromCandidate("Increment", candidate)
+      return algorithm("Increment", playerId, candidate)
     }
   )
 };
@@ -147,7 +147,7 @@ export const usedDecrementToken = (game: Game) => {
 export const Decrement = () => {
   return createCard(
     "Decrement",
-    (game: Game, playerId: PlayerID) => {
+    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       const candidate = [game]
       if (usedDecrementToken(game) < 2) {
         game.cards.forEach((card, cardIndex) => {
@@ -157,7 +157,7 @@ export const Decrement = () => {
           candidate.push(next);
         })
       }
-      return game.players[playerId].chooseFromCandidate("Decrement", candidate)
+      return algorithm("Decrement", playerId, candidate)
     }
   )
 };
@@ -167,7 +167,7 @@ export const Decrement = () => {
 export const Reverse = () => {
   return createCard(
     "Reverse",
-    (game: Game, playerId: PlayerID) => {
+    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       const candidate = [game]
       const cost = asParameter(game, 1)
       if (game.players[playerId].life > cost) {
@@ -178,7 +178,7 @@ export const Reverse = () => {
         candidate.push(payLife(next, playerId, cost))
 
       }
-      return game.players[playerId].chooseFromCandidate("Reverse", candidate)
+      return algorithm("Reverse", playerId, candidate)
     }
   )
 };
@@ -187,7 +187,7 @@ export const Reverse = () => {
 export const Rotate = () => {
   return createCard(
     "Rotate",
-    (game: Game, playerId: PlayerID) => {
+    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       const candidate = [game]
       let next = game
       game.cards.forEach((card, cardIndex) => {
@@ -201,7 +201,7 @@ export const Rotate = () => {
         }
       })
       candidate.push(next)
-      return game.players[playerId].chooseFromCandidate("Rotate", candidate)
+      return algorithm("Rotate", playerId, candidate)
     }
   )
 };
@@ -209,7 +209,7 @@ export const Rotate = () => {
 export const SwapCommand = () => {
   return createCard(
     "SwapCommand",
-    (game: Game, playerId: PlayerID) => {
+    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       const candidate = [game]
       game.cards.forEach((card, cardIndex) => {
         if (card.name === "SwapCommand") return;
@@ -223,7 +223,7 @@ export const SwapCommand = () => {
         }
         candidate.push(next)
       })
-      return game.players[playerId].chooseFromCandidate("SwapCommand", candidate)
+      return algorithm("SwapCommand", playerId, candidate)
     }
   )
 };
@@ -231,7 +231,7 @@ export const SwapCommand = () => {
 export const FastPass = () => {
   return createCard(
     "FastPass",
-    (game: Game, playerId: PlayerID) => {
+    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       if (usedFlag(playerId, game) === game.maxFlag) return game;
       const candidate = [game]
       game.cards.forEach((card, cardIndex) => {
@@ -244,7 +244,7 @@ export const FastPass = () => {
         }
         candidate.push(updateFlag(game, cardIndex, newFlags))
       })
-      return game.players[playerId].chooseFromCandidate("FastPass", candidate)
+      return algorithm("FastPass", playerId, candidate)
     }
   )
 };
@@ -253,12 +253,12 @@ export const FastPass = () => {
 export const ForkBomb = () => {
   return createCard(
     "ForkBomb",
-    (game: Game, playerId: PlayerID) => {
+    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       const candidate = [game]
       let next = attack(game, playerId, asParameter(game, 2));
       if (isGameOver(next)) return next;
       candidate.push(payFlag(next))
-      return game.players[playerId].chooseFromCandidate("ForkBomb", candidate)
+      return algorithm("ForkBomb", playerId, candidate)
     }
   )
 };
@@ -266,11 +266,11 @@ export const ForkBomb = () => {
 export const Debug = () => {
   return createCard(
     "Debug",
-    (game: Game, playerId: PlayerID) => {
+    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       const candidate = [game]
       let next = payLife(game, playerId, -asParameter(game, 3));
       candidate.push(payFlag(next))
-      return game.players[playerId].chooseFromCandidate("Debug", candidate)
+      return algorithm("Debug", playerId, candidate)
     }
   )
 };
@@ -279,12 +279,12 @@ export const Debug = () => {
 export const TradeOff = () => {
   return createCard(
     "TradeOff",
-    (game: Game, playerId: PlayerID) => {
+    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       const candidate = [game]
       let next = payLife(game, playerId, asParameter(game, 1));
       next = attack(game, playerId, asParameter(game, 2))
       candidate.push(next)
-      return game.players[playerId].chooseFromCandidate("TradeOff", candidate)
+      return algorithm("TradeOff", playerId, candidate)
     }
   )
 };
@@ -292,7 +292,7 @@ export const TradeOff = () => {
 export const RemoveFlag = () => {
   return createCard(
     "RemoveFlag",
-    (game: Game, playerId: PlayerID) => {
+    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       return repeat(asParameter(game, 1), game, (game: Game) => {
         const candidate = [game]
         game.cards.forEach((card, cardIndex) => {
@@ -305,7 +305,7 @@ export const RemoveFlag = () => {
             candidate.push(updateFlag(game, cardIndex, newFlags));
           })
         })
-        return game.players[playerId].chooseFromCandidate("RemoveFlag", candidate);
+        return algorithm("RemoveFlag", playerId, candidate);
       })
     }
   )
@@ -314,7 +314,7 @@ export const RemoveFlag = () => {
 export const RemoveCommand = () => {
   return createCard(
     "RemoveCommand",
-    (game: Game, playerId: PlayerID) => {
+    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       const candidate = [game]
       game.cards.forEach((card, cardIndex) => {
         const newCards = [...game.cards]
@@ -339,7 +339,7 @@ export const RemoveCommand = () => {
           ...game, cards: newCards, cursor: newCursor
         });
       })
-      return game.players[playerId].chooseFromCandidate("RemoveCommand", candidate);
+      return algorithm("RemoveCommand", playerId, candidate);
     }
   )
 };

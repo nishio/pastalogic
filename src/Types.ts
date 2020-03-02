@@ -15,6 +15,7 @@ export type Game = {
   };
   returnAddress: null | number;
   maxFlag: number;
+  maxLife: number;
   cursorDirection: CursorDirection
 };
 
@@ -24,4 +25,4 @@ type Player = {
   chooseFromCandidate: AlgorithToChooseCandidate;
 };
 
-export type AlgorithToChooseCandidate = (type: string, candidate: Game[]) => Game;
+export type AlgorithToChooseCandidate = (type: string, playerId: PlayerID, candidate: Game[]) => Game;

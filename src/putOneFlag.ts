@@ -1,7 +1,7 @@
-import { Game, PlayerID } from "./Types";
+import { Game, PlayerID, AlgorithToChooseCandidate } from "./Types";
 import { appendOneFlag } from "./util";
 
-export const putOneFlag = (game: Game, playerId: PlayerID): Game => {
+export const putOneFlag = (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate): Game => {
   const candidate = [] as Game[];
   game.cards.forEach((card, cardIndex) => {
     if (!card.flags.some((x) => (x === playerId))) {
@@ -9,6 +9,6 @@ export const putOneFlag = (game: Game, playerId: PlayerID): Game => {
     }
   })
 
-  return game.players[playerId].chooseFromCandidate("putOneFlag", candidate);
+  return algorithm("putOneFlag", playerId, candidate);
 };
 
