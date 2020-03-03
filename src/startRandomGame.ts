@@ -3,7 +3,7 @@ import { putOneFlag } from "./putOneFlag";
 import { AlgorithToChooseCandidate, FirstPlayer, Game, SecondPlayer } from "./Types";
 import { Reorder } from "./Reorder";
 import { runProgram } from "./runProgram";
-import { createGame } from "./startNoviceGame";
+import { createGame } from "./createGame";
 
 export const startRandomGame = (
   algorithm0: AlgorithToChooseCandidate,
