@@ -3,42 +3,35 @@ import { putOneFlag } from "./putOneFlag";
 import { AlgorithToChooseCandidate, FirstPlayer, Game, SecondPlayer } from "./Types";
 import { Reorder } from "./Reorder";
 import { runProgram } from "./runProgram";
+import { createGame } from "./startNoviceGame";
 
 export const startRandomGame = (
   algorithm0: AlgorithToChooseCandidate,
   algorithm1: AlgorithToChooseCandidate
 ) => {
-  let game = {} as Game;
   // コマンド準備フェーズ
-  game.players = [
-    { life: 100, color: "red", chooseFromCandidate: algorithm0 },
-    { life: 100, color: "blue", chooseFromCandidate: algorithm1 },
-  ];
-  game.cards = [
-    Bug(),
-    AddFlag(),
-    Subroutine(),
-    MoveFlag(),
-    Increment(),
-    Reorder(),
-    Reverse(),
-    Rotate(),
-    SwapCommand(),
-    FastPass(),
-    ForkBomb(),
-    Debug(),
-    TradeOff(),
-    RemoveFlag(),
-    RemoveCommand(),
-    Decrement()
-  ]
-
-  game.cursor = { cardIndex: 0, flagIndex: 0 };
-  game.returnAddress = null
-  game.maxFlag = 20
-  game.maxLife = 200
-  game.cursorDirection = "forward";
-
+  let game = createGame(
+    100,
+    algorithm0, algorithm1,
+    [
+      Bug(),
+      AddFlag(),
+      Subroutine(),
+      MoveFlag(),
+      Increment(),
+      Reorder(),
+      Reverse(),
+      Rotate(),
+      SwapCommand(),
+      FastPass(),
+      ForkBomb(),
+      Debug(),
+      TradeOff(),
+      RemoveFlag(),
+      RemoveCommand(),
+      Decrement()
+    ]
+  )
   // フラグ配置フェーズ
   for (let i = 0; i < 16; i++) {
     game = putOneFlag(game, FirstPlayer, algorithm0);
