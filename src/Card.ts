@@ -2,7 +2,7 @@ import { Game, PlayerID, AlgorithToChooseCandidate } from "./Types";
 import { updateCard } from "./updateCard";
 import { getCardIndex, hasEnoughSpace, appendOneFlag, updateFlag, getCurrentCard, isUsingSubroutine } from "./util";
 import { isGameOver } from "./isGameOver";
-import { attack, asParameter, repeat, createCard, payLife, reverse, payFlag } from "./utilCardImpl";
+import { attack, asParameter, createCard, payLife, reverse, payFlag } from "./utilCardImpl";
 
 export type Card = {
   name: string;
@@ -16,8 +16,8 @@ export type Card = {
 export const Bug = () => {
   return createCard(
     "Bug",
-    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
-      return attack(game, playerId, asParameter(game, 1));
+    (game: Game, playerId: PlayerID) => {
+      return [attack(game, playerId, asParameter(game, 1))];
     }
   )
 };
@@ -25,19 +25,18 @@ export const Bug = () => {
 export const AddFlag = () => {
   return createCard(
     "AddFlag",
-    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
-      return repeat(asParameter(game, 1), game, (game: Game) => {
-        if (usedFlag(playerId, game) === game.maxFlag) return game;
-        const candidate = [game]
-        game.cards.forEach((card, cardIndex) => {
-          if (card.name === "AddFlag") return;
-          if (isUsingSubroutine(card, game)) return;
-          if (hasEnoughSpace(card)) {
-            candidate.push(appendOneFlag(game, cardIndex, playerId));
-          }
-        })
-        return algorithm("AddFlag", playerId, candidate);
+    (game: Game, playerId: PlayerID) => {
+      // FIXME repeat(asParameter(game, 1)
+      if (usedFlag(playerId, game) === game.maxFlag) return [game];
+      const candidate = [game]
+      game.cards.forEach((card, cardIndex) => {
+        if (card.name === "AddFlag") return;
+        if (isUsingSubroutine(card, game)) return;
+        if (hasEnoughSpace(card)) {
+          candidate.push(appendOneFlag(game, cardIndex, playerId));
+        }
       })
+      return candidate;
     }
   )
 };
@@ -57,7 +56,7 @@ export const usedFlag = (playerId: PlayerID, game: Game) => {
 export const Subroutine = () => {
   return createCard(
     "Subroutine",
-    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
+    (game: Game, playerId: PlayerID) => {
       const candidate = [game]
       const returnAddress = game.cursor.flagIndex + 1;
       const reach = asParameter(game, 1)
@@ -73,7 +72,7 @@ export const Subroutine = () => {
         }
         candidate.push(next)
       }
-      return algorithm("Subroutine", playerId, candidate)
+      return candidate
     }
   )
 };
@@ -81,29 +80,28 @@ export const Subroutine = () => {
 export const MoveFlag = () => {
   return createCard(
     "MoveFlag",
-    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
-      return repeat(asParameter(game, 1), game, (game: Game) => {
-        const candidate = [game]
-        const me = game.cursor.cardIndex;
-        game.cards.forEach((ci, i) => {
-          if (i === me) return;
-          game.cards.forEach((cj, j) => {
-            if (j === me) return;
-            if (i === j) return;
-            if (!hasEnoughSpace(cj)) return;
-            ci.flags.forEach((fk, k) => {
-              const newCi = [...ci.flags]
-              newCi.splice(k, 1)
-              const newCj = [...cj.flags, fk]
+    (game: Game, playerId: PlayerID) => {
+      // FIXME repeat(asParameter(game, 1)
+      const candidate = [game]
+      const me = game.cursor.cardIndex;
+      game.cards.forEach((ci, i) => {
+        if (i === me) return;
+        game.cards.forEach((cj, j) => {
+          if (j === me) return;
+          if (i === j) return;
+          if (!hasEnoughSpace(cj)) return;
+          ci.flags.forEach((fk, k) => {
+            const newCi = [...ci.flags]
+            newCi.splice(k, 1)
+            const newCj = [...cj.flags, fk]
 
-              let next = updateFlag(game, i, newCi)
-              next = updateFlag(next, j, newCj)
-              candidate.push(next);
-            })
+            let next = updateFlag(game, i, newCi)
+            next = updateFlag(next, j, newCj)
+            candidate.push(next);
           })
         })
-        return algorithm("MoveFlag", playerId, candidate)
       })
+      return candidate
     }
   )
 };
@@ -112,7 +110,7 @@ export const MoveFlag = () => {
 export const Increment = () => {
   return createCard(
     "Increment",
-    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
+    (game: Game, playerId: PlayerID) => {
       const candidate = [game]
       if (usedIncrementToken(game) < 2) {
         game.cards.forEach((card, cardIndex) => {
@@ -122,7 +120,7 @@ export const Increment = () => {
           candidate.push(next);
         })
       }
-      return algorithm("Increment", playerId, candidate)
+      return candidate
     }
   )
 };
@@ -147,7 +145,7 @@ export const usedDecrementToken = (game: Game) => {
 export const Decrement = () => {
   return createCard(
     "Decrement",
-    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
+    (game: Game, playerId: PlayerID) => {
       const candidate = [game]
       if (usedDecrementToken(game) < 2) {
         game.cards.forEach((card, cardIndex) => {
@@ -157,7 +155,7 @@ export const Decrement = () => {
           candidate.push(next);
         })
       }
-      return algorithm("Decrement", playerId, candidate)
+      return candidate
     }
   )
 };
@@ -167,7 +165,7 @@ export const Decrement = () => {
 export const Reverse = () => {
   return createCard(
     "Reverse",
-    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
+    (game: Game, playerId: PlayerID) => {
       const candidate = [game]
       const cost = asParameter(game, 1)
       if (game.players[playerId].life > cost) {
@@ -178,7 +176,7 @@ export const Reverse = () => {
         candidate.push(payLife(next, playerId, cost))
 
       }
-      return algorithm("Reverse", playerId, candidate)
+      return candidate
     }
   )
 };
@@ -187,7 +185,7 @@ export const Reverse = () => {
 export const Rotate = () => {
   return createCard(
     "Rotate",
-    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
+    (game: Game, playerId: PlayerID) => {
       const candidate = [game]
       let next = game
       game.cards.forEach((card, cardIndex) => {
@@ -201,7 +199,7 @@ export const Rotate = () => {
         }
       })
       candidate.push(next)
-      return algorithm("Rotate", playerId, candidate)
+      return candidate
     }
   )
 };
@@ -209,7 +207,7 @@ export const Rotate = () => {
 export const SwapCommand = () => {
   return createCard(
     "SwapCommand",
-    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
+    (game: Game, playerId: PlayerID) => {
       const candidate = [game]
       game.cards.forEach((card, cardIndex) => {
         if (card.name === "SwapCommand") return;
@@ -223,7 +221,7 @@ export const SwapCommand = () => {
         }
         candidate.push(next)
       })
-      return algorithm("SwapCommand", playerId, candidate)
+      return candidate
     }
   )
 };
@@ -231,8 +229,8 @@ export const SwapCommand = () => {
 export const FastPass = () => {
   return createCard(
     "FastPass",
-    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
-      if (usedFlag(playerId, game) === game.maxFlag) return game;
+    (game: Game, playerId: PlayerID) => {
+      if (usedFlag(playerId, game) === game.maxFlag) return [game];
       const candidate = [game]
       game.cards.forEach((card, cardIndex) => {
         if (card.name === "FastPass") return;
@@ -244,7 +242,7 @@ export const FastPass = () => {
         }
         candidate.push(updateFlag(game, cardIndex, newFlags))
       })
-      return algorithm("FastPass", playerId, candidate)
+      return candidate
     }
   )
 };
@@ -253,12 +251,12 @@ export const FastPass = () => {
 export const ForkBomb = () => {
   return createCard(
     "ForkBomb",
-    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
+    (game: Game, playerId: PlayerID) => {
       const candidate = [game]
       let next = attack(game, playerId, asParameter(game, 2));
-      if (isGameOver(next)) return next;
+      if (isGameOver(next)) return [game, next];
       candidate.push(payFlag(next))
-      return algorithm("ForkBomb", playerId, candidate)
+      return candidate
     }
   )
 };
@@ -266,11 +264,11 @@ export const ForkBomb = () => {
 export const Debug = () => {
   return createCard(
     "Debug",
-    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
+    (game: Game, playerId: PlayerID) => {
       const candidate = [game]
       let next = payLife(game, playerId, -asParameter(game, 3));
       candidate.push(payFlag(next))
-      return algorithm("Debug", playerId, candidate)
+      return candidate
     }
   )
 };
@@ -279,12 +277,12 @@ export const Debug = () => {
 export const TradeOff = () => {
   return createCard(
     "TradeOff",
-    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
+    (game: Game, playerId: PlayerID) => {
       const candidate = [game]
       let next = payLife(game, playerId, asParameter(game, 1));
       next = attack(game, playerId, asParameter(game, 2))
       candidate.push(next)
-      return algorithm("TradeOff", playerId, candidate)
+      return candidate
     }
   )
 };
@@ -292,21 +290,20 @@ export const TradeOff = () => {
 export const RemoveFlag = () => {
   return createCard(
     "RemoveFlag",
-    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
-      return repeat(asParameter(game, 1), game, (game: Game) => {
-        const candidate = [game]
-        game.cards.forEach((card, cardIndex) => {
-          if (card.name === "RemoveFlag") return;
-          if (isUsingSubroutine(card, game)) return;
-          if (card.flags.length === 0) return;
-          card.flags.forEach((f, flagIndex) => {
-            const newFlags = [...card.flags]
-            newFlags.splice(flagIndex, 1)
-            candidate.push(updateFlag(game, cardIndex, newFlags));
-          })
+    (game: Game, playerId: PlayerID) => {
+      // FIXME repeat(asParameter(game, 1)
+      const candidate = [game]
+      game.cards.forEach((card, cardIndex) => {
+        if (card.name === "RemoveFlag") return;
+        if (isUsingSubroutine(card, game)) return;
+        if (card.flags.length === 0) return;
+        card.flags.forEach((f, flagIndex) => {
+          const newFlags = [...card.flags]
+          newFlags.splice(flagIndex, 1)
+          candidate.push(updateFlag(game, cardIndex, newFlags));
         })
-        return algorithm("RemoveFlag", playerId, candidate);
       })
+      return candidate;
     }
   )
 };
@@ -314,7 +311,7 @@ export const RemoveFlag = () => {
 export const RemoveCommand = () => {
   return createCard(
     "RemoveCommand",
-    (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
+    (game: Game, playerId: PlayerID) => {
       const candidate = [game]
       game.cards.forEach((card, cardIndex) => {
         const newCards = [...game.cards]
@@ -339,7 +336,8 @@ export const RemoveCommand = () => {
           ...game, cards: newCards, cursor: newCursor
         });
       })
-      return algorithm("RemoveCommand", playerId, candidate);
+      return candidate;
     }
   )
 };
+

@@ -5,10 +5,11 @@ import { startNoviceGame, testNoviceGame } from './startNoviceGame';
 import { chooseControledRandom, chooseRandom } from "./chooseRandom";
 import { startRandomGame } from './startRandomGame';
 import { chooseMC } from './chooseMC';
+import { wholeTest } from './wholeTest';
 
 function App() {
-
-  startNoviceGame(chooseMC, chooseMC)
+  wholeTest()
+  //startNoviceGame(chooseMC, chooseMC)
   //testNoviceGame(chooseControledRandom, chooseControledRandom)
   //startRandomGame(chooseMC, chooseMC)
   return (

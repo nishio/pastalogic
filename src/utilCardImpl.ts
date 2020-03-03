@@ -6,25 +6,29 @@ import { isGameOver } from "./isGameOver";
 
 export const createCard = (
   name: string,
-  play: (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => Game
+  getCandidate: (game: Game, playerId: PlayerID) => Game[]
 ) => {
   return {
     name: name,
     flags: [],
-    play: play,
+    play: (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
+      return algorithm(name, playerId, getCandidate(game, playerId))
+    },
+
     numIncrementToken: 0,
     numDecrementToken: 0,
   }
 }
 
-export const repeat = (n: number, game: Game, step: (game: Game) => Game) => {
-  for (let i = 0; i < n; i++) {
-    game = step(game);
-    if (isGameOver(game))
-      return game;
-  }
-  return game;
-};
+// export const repeat = (n: number, game: Game[], step: (game: Game) => Game[]) => {
+//   let result = [];
+//   for (let i = 0; i < n; i++) {
+//     game = step(game);
+//     if (isGameOver(game))
+//       return game;
+//   }
+//   return game;
+// };
 
 export function attack(game: Game, playerId: PlayerID, damage: number) {
   const nextPlayers = [...game.players];

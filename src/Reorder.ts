@@ -1,23 +1,22 @@
-import { Game, PlayerID, AlgorithToChooseCandidate } from "./Types";
+import { Game, PlayerID } from "./Types";
 import { updateCard } from "./updateCard";
-import { asParameter, repeat, createCard } from "./utilCardImpl";
+import { createCard } from "./utilCardImpl";
 
 export const Reorder = () => {
-  return createCard("Reorder", (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
-    return repeat(asParameter(game, 1), game, (game: Game) => {
-      const candidate = [game];
-      game.cards.forEach((card, cardIndex) => {
-        if (card.flags.length !== 0) {
-          allReorder(card.flags).forEach((newFlag) => {
-            const next = updateCard(game, cardIndex, (card) => ({
-              ...card, flags: newFlag
-            }));
-            candidate.push(next);
-          });
-        }
-      });
-      return algorithm("Reorder", playerId, candidate);
+  return createCard("Reorder", (game: Game) => {
+    // FIXME repeat(asParameter(game, 1)
+    const candidate = [game];
+    game.cards.forEach((card, cardIndex) => {
+      if (card.flags.length !== 0) {
+        allReorder(card.flags).forEach((newFlag) => {
+          const next = updateCard(game, cardIndex, (card) => ({
+            ...card, flags: newFlag
+          }));
+          candidate.push(next);
+        });
+      }
     });
+    return candidate;
   });
 };
 

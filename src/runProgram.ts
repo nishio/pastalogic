@@ -16,9 +16,6 @@ export const runProgram = (game: Game) => {
     debugPrint(game);
     console.log("play");
     game = currentCard.play(game, currentPlayer, game.players[currentPlayer].chooseFromCandidate);
-    if (game.cards.filter((c) => c.name === "Increment").length === 2) {
-      neverComeHere("double Increment");
-    }
     debugPrint(game);
     const ret = isGameOver(game);
     if (ret) {
@@ -26,6 +23,6 @@ export const runProgram = (game: Game) => {
       break;
     }
     game = moveCursorToNextFlag(game);
-    console.log("next");
+    console.log("vvvvvvvvvv");
   }
 };
