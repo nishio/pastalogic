@@ -2,7 +2,7 @@ import { Game, PlayerID } from "./Types"
 import { isGameOver } from "./isGameOver"
 import { usedFlag } from "./Card"
 import { getOpponent, getCurrentCard, moveCursorToNextCard, moveCursorToNextFlag, neverComeHere } from "./util"
-import { chooseControledRandom, controledRandom, chooseRandom } from "./chooseRandom"
+import { controledRandom, chooseRandom } from "./chooseRandom"
 import { debugPrint } from "./debugPrint"
 
 const SHOW_PROGRESS = false;

@@ -1,5 +1,4 @@
 import { Game, PlayerID } from "./Types";
-var xorshift = require('xorshift');
 var XorShift = require('xorshift').constructor;
 var rng = new XorShift([1, 2, 3, 4]);
 

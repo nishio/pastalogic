@@ -7,8 +7,6 @@ export const neverComeHere = (msg?: string) => {
 }
 
 export const moveCursorToNextCard = (game: Game): Game => {
-  const card = getCurrentCard(game);
-
   game = updateCard(game, game.cursor.cardIndex, (card) => {
     return {
       ...card,
