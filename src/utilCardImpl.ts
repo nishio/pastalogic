@@ -1,4 +1,5 @@
-import { Game, PlayerID, CursorDirection, AlgorithToChooseCandidate } from "./Types";
+import { PlayerID, CursorDirection, AlgorithToChooseCandidate } from "./Types";
+import { Game } from "./Game";
 import { getOpponent, getCurrentCard, updateFlag } from "./util";
 import { isGameOver } from "./isGameOver";
 import { Card } from "./Card";
@@ -13,6 +14,7 @@ export const createCard = (
   return {
     name: name,
     flags: [],
+    getCandidate: getCandidate,
     play: (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       return algorithm(name, playerId, getCandidate(game, playerId))
     },

@@ -1,5 +1,5 @@
 import { Card } from "./Card";
-import { Game } from "./Types";
+import { Game } from "./Game";
 
 type CardUpdater = (c: Card) => Card;
 

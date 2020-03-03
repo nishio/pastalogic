@@ -1,5 +1,6 @@
 import { Card } from "./Card";
-import { AlgorithToChooseCandidate, Game, CursorDirection } from "./Types";
+import { AlgorithToChooseCandidate, CursorDirection } from "./Types";
+import { Game } from "./Game";
 export const createGame = (initialLife: number, algorithm0: AlgorithToChooseCandidate, algorithm1: AlgorithToChooseCandidate, cards: Card[], maxFlag = 10, maxLife = 6): Game => {
   let game = {
     cursor: {

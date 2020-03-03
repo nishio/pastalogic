@@ -1,4 +1,5 @@
-import { Game, PlayerID } from "./Types";
+import { PlayerID } from "./Types";
+import { Game } from "./Game";
 import { Card } from "./Card";
 import { updateCard } from "./updateCard";
 
@@ -52,7 +53,8 @@ export const moveCursorToNextFlag = (game: Game): Game => {
         ...game.cursor,
         flagIndex: game.cursor.flagIndex + 1,
         repeatIndex: 1
-      }
+      },
+      time: game.time + 1
     };
   }
 
@@ -61,7 +63,8 @@ export const moveCursorToNextFlag = (game: Game): Game => {
     cursor: {
       ...game.cursor,
       repeatIndex: game.cursor.repeatIndex + 1
-    }
+    },
+    time: game.time + 1
   };
 };
 

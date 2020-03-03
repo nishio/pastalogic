@@ -1,7 +1,8 @@
 import { AddFlag, Bug, Increment, MoveFlag, Subroutine } from "./Card";
 import { putOneFlag } from "./putOneFlag";
 import { runProgram } from "./runProgram";
-import { AlgorithToChooseCandidate, FirstPlayer, Game, SecondPlayer } from "./Types";
+import { AlgorithToChooseCandidate, FirstPlayer, SecondPlayer } from "./Types";
+import { Game } from "./Game";
 import { debugPrint } from "./debugPrint";
 import { appendOneFlag } from "./util";
 import { createGame } from "./createGame";

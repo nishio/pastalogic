@@ -1,4 +1,5 @@
-import { Game, PlayerID } from "./Types"
+import { PlayerID } from "./Types"
+import { Game } from "./Game"
 import { isGameOver } from "./isGameOver"
 import { usedFlag } from "./Card"
 import { getOpponent, getCurrentCard, moveCursorToNextCard, moveCursorToNextFlag, neverComeHere } from "./util"

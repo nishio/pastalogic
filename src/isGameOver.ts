@@ -1,4 +1,4 @@
-import { Game } from "./Types";
+import { Game } from "./Game";
 export const isGameOver = (game: Game) => {
   // if game is over, return winner info
   {

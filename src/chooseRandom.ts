@@ -1,4 +1,5 @@
-import { Game, PlayerID } from "./Types";
+import { PlayerID } from "./Types";
+import { Game } from "./Game";
 var XorShift = require('xorshift').constructor;
 var rng = new XorShift([1, 2, 3, 4]);
 

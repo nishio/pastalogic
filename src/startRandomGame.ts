@@ -1,6 +1,7 @@
 import { AddFlag, Bug, Increment, MoveFlag, Subroutine, Reverse, Rotate, SwapCommand, FastPass, ForkBomb, Debug, TradeOff, Decrement, RemoveCommand, RemoveFlag } from "./Card";
 import { putOneFlag } from "./putOneFlag";
-import { AlgorithToChooseCandidate, FirstPlayer, Game, SecondPlayer } from "./Types";
+import { AlgorithToChooseCandidate, FirstPlayer, SecondPlayer } from "./Types";
+import { Game } from "./Game";
 import { Reorder } from "./Reorder";
 import { runProgram } from "./runProgram";
 import { createGame } from "./createGame";

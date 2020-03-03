@@ -1,4 +1,5 @@
-import { Game, PlayerID } from "./Types";
+import { PlayerID } from "./Types";
+import { Game } from "./Game";
 import { updateCard } from "./updateCard";
 import { createCard } from "./utilCardImpl";
 

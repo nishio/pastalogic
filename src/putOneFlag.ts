@@ -1,4 +1,5 @@
-import { Game, PlayerID, AlgorithToChooseCandidate } from "./Types";
+import { PlayerID, AlgorithToChooseCandidate } from "./Types";
+import { Game } from "./Game";
 import { appendOneFlag } from "./util";
 
 export const putOneFlag = (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate): Game => {

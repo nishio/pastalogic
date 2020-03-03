@@ -1,4 +1,5 @@
-import { Game, PlayerID, AlgorithToChooseCandidate } from "./Types";
+import { PlayerID, AlgorithToChooseCandidate } from "./Types";
+import { Game } from "./Game";
 import { updateCard } from "./updateCard";
 import { getCardIndex, hasEnoughSpace, appendOneFlag, updateFlag, getCurrentCard, isUsingSubroutine } from "./util";
 import { isGameOver } from "./isGameOver";
@@ -7,6 +8,7 @@ import { attack, asParameter, createCard, payLife, reverse, payFlag } from "./ut
 export type Card = {
   name: string;
   flags: PlayerID[];
+  getCandidate: (game: Game, playerId: PlayerID) => Game[];
   play: (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => Game;
   numIncrementToken: number;
   numDecrementToken: number;

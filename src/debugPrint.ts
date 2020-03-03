@@ -1,4 +1,5 @@
-import { Game, PlayerID, FirstPlayer, SecondPlayer } from "./Types";
+import { PlayerID, FirstPlayer, SecondPlayer } from "./Types";
+import { Game } from "./Game";
 import { Card } from "./Card";
 import { neverComeHere } from "./util";
 
