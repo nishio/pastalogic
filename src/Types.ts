@@ -12,6 +12,7 @@ export type Game = {
   cursor: {
     cardIndex: number;
     flagIndex: number;
+    repeatIndex: number;
   };
   returnAddress: null | number;
   maxFlag: number;

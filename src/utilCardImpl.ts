@@ -1,20 +1,22 @@
 import { Game, PlayerID, CursorDirection, AlgorithToChooseCandidate } from "./Types";
 import { getOpponent, getCurrentCard, updateFlag } from "./util";
 import { isGameOver } from "./isGameOver";
+import { Card } from "./Card";
 
 // utility for card definition
 
 export const createCard = (
   name: string,
-  getCandidate: (game: Game, playerId: PlayerID) => Game[]
-) => {
+  getCandidate: (game: Game, playerId: PlayerID) => Game[],
+  repeat = (game: Game) => 1
+): Card => {
   return {
     name: name,
     flags: [],
     play: (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
       return algorithm(name, playerId, getCandidate(game, playerId))
     },
-
+    repeat: repeat,
     numIncrementToken: 0,
     numDecrementToken: 0,
   }

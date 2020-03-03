@@ -27,6 +27,7 @@ export const moveCursorToNextCard = (game: Game): Game => {
       cursor: {
         cardIndex: cardIndex,
         flagIndex: game.returnAddress,
+        repeatIndex: 1,
       },
       returnAddress: null
     }
@@ -36,17 +37,30 @@ export const moveCursorToNextCard = (game: Game): Game => {
     ...game,
     cursor: {
       cardIndex: getNextCardIndex(game, game.cursor.cardIndex),
-      flagIndex: 0
+      flagIndex: 0,
+      repeatIndex: 1,
     }
   };
 };
 
-export const moveCursorToNextFlag = (game: Game) => {
+export const moveCursorToNextFlag = (game: Game): Game => {
+  if (game.cursor.repeatIndex === getCurrentCard(game).repeat(game)) {
+    // go next flag
+    return {
+      ...game,
+      cursor: {
+        ...game.cursor,
+        flagIndex: game.cursor.flagIndex + 1,
+        repeatIndex: 1
+      }
+    };
+  }
+
   return {
     ...game,
     cursor: {
       ...game.cursor,
-      flagIndex: game.cursor.flagIndex + 1
+      repeatIndex: game.cursor.repeatIndex + 1
     }
   };
 };

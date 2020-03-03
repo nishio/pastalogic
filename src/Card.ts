@@ -10,6 +10,7 @@ export type Card = {
   play: (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => Game;
   numIncrementToken: number;
   numDecrementToken: number;
+  repeat: (game: Game) => number;
 };
 
 
@@ -26,7 +27,6 @@ export const AddFlag = () => {
   return createCard(
     "AddFlag",
     (game: Game, playerId: PlayerID) => {
-      // FIXME repeat(asParameter(game, 1)
       if (usedFlag(playerId, game) === game.maxFlag) return [game];
       const candidate = [game]
       game.cards.forEach((card, cardIndex) => {
@@ -37,7 +37,8 @@ export const AddFlag = () => {
         }
       })
       return candidate;
-    }
+    },
+    (game) => asParameter(game, 1)
   )
 };
 
@@ -66,7 +67,8 @@ export const Subroutine = () => {
           ...game,
           cursor: {
             cardIndex: getCardIndex(game, game.cursor.cardIndex, i),
-            flagIndex: -1
+            flagIndex: -1,
+            repeatIndex: 1
           },
           returnAddress: returnAddress
         }
@@ -81,7 +83,6 @@ export const MoveFlag = () => {
   return createCard(
     "MoveFlag",
     (game: Game, playerId: PlayerID) => {
-      // FIXME repeat(asParameter(game, 1)
       const candidate = [game]
       const me = game.cursor.cardIndex;
       game.cards.forEach((ci, i) => {
@@ -102,7 +103,8 @@ export const MoveFlag = () => {
         })
       })
       return candidate
-    }
+    },
+    (game) => asParameter(game, 1)
   )
 };
 
@@ -291,7 +293,6 @@ export const RemoveFlag = () => {
   return createCard(
     "RemoveFlag",
     (game: Game, playerId: PlayerID) => {
-      // FIXME repeat(asParameter(game, 1)
       const candidate = [game]
       game.cards.forEach((card, cardIndex) => {
         if (card.name === "RemoveFlag") return;
@@ -304,7 +305,8 @@ export const RemoveFlag = () => {
         })
       })
       return candidate;
-    }
+    },
+    (game) => asParameter(game, 1)
   )
 };
 
@@ -327,7 +329,11 @@ export const RemoveCommand = () => {
             // when cursorDirection is backward, keep cardIndex
             // except for RemoveCommand is the last card
             if (newCards.length === newCursor.cardIndex) {
-              newCursor = { cardIndex: 0, flagIndex: 4 }
+              newCursor = {
+                cardIndex: 0,
+                flagIndex: 4,
+                repeatIndex: 1,
+              }
             }
           }
           newCursor.flagIndex = 4;
@@ -341,3 +347,24 @@ export const RemoveCommand = () => {
   )
 };
 
+const foo = () => {
+  bar({
+    a: 3,
+    b: (x) => x + 1
+  })
+}
+type T1 = (x: number) => number
+// type Props = {
+//   a: number,
+//   b: T1
+// }
+// const bar = (props: Props) => {
+//   const { a, b } = props;
+// }
+
+const bar = ({
+  a = (null as unknown) as number,
+  b = (null as unknown) as T1
+}) => {
+
+}

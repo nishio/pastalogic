@@ -2,7 +2,11 @@ import { Card } from "./Card";
 import { AlgorithToChooseCandidate, Game } from "./Types";
 export const createGame = (initialLife: number, algorithm0: AlgorithToChooseCandidate, algorithm1: AlgorithToChooseCandidate, cards: Card[], maxFlag = 10, maxLife = 6): Game => {
   let game = {} as Game;
-  game.cursor = { cardIndex: 0, flagIndex: 0 };
+  game.cursor = {
+    cardIndex: 0,
+    flagIndex: 0,
+    repeatIndex: 1,
+  };
   game.returnAddress = null;
   game.maxFlag = maxFlag;
   game.maxLife = maxLife;
