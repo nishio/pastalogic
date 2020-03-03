@@ -43,23 +43,18 @@ export const testNoviceGame = (
   algorithm0: AlgorithToChooseCandidate,
   algorithm1: AlgorithToChooseCandidate
 ) => {
-  let game = {} as Game;
   // コマンド準備フェーズ
-  game.players = [
-    { life: 3, color: "red", chooseFromCandidate: algorithm0 },
-    { life: 3, color: "blue", chooseFromCandidate: algorithm1 },
-  ];
-  game.cards = [
-    Bug(),
-    AddFlag(),
-    Subroutine(),
-    MoveFlag(),
-    Increment(),
-  ];
-  game.cursor = { cardIndex: 0, flagIndex: 0 };
-  game.returnAddress = null
-  game.maxFlag = 10
-  game.cursorDirection = "forward";
+  let game = createGame(
+    3,
+    algorithm0, algorithm1,
+    [
+      Bug(),
+      AddFlag(),
+      Subroutine(),
+      MoveFlag(),
+      Increment(),
+    ]
+  )
 
   game = appendOneFlag(game, 3, FirstPlayer)
   game = appendOneFlag(game, 4, SecondPlayer)

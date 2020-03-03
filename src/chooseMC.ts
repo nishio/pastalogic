@@ -15,7 +15,7 @@ export const chooseMC = (type: string, playerId: PlayerID, candidate: Game[]): G
   for (let game of candidate) {
     const start = { ...game };
     let s = 0;
-    const NUM_TRIAL: number = 10000
+    const NUM_TRIAL: number = 100
     for (let trial = 0; trial < NUM_TRIAL; trial++) {
       game = { ...start }
       for (let i = 0; i < 50; i++) {
