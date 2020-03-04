@@ -1,9 +1,15 @@
 import { debugPrint } from "./debugPrint";
 import { isGameOver } from "./isGameOver";
 import { Game } from "./Game";
-import { moveCursorToNextFlag, moveCursorToNextCard, getCurrentCard, neverComeHere } from "./util";
+import {
+  moveCursorToNextFlag,
+  moveCursorToNextCard,
+  getCurrentCard,
+  neverComeHere,
+} from "./util";
 export const runProgram = (game: Game) => {
-  for (let i = 0; i < 3000; i++) { // avoid infinite loop in development
+  for (let i = 0; i < 3000; i++) {
+    // avoid infinite loop in development
     if (isNoMoreFlagOnThisCard(game)) {
       game = moveCursorToNextCard(game);
       continue;
@@ -25,9 +31,13 @@ export const runProgram = (game: Game) => {
 const step = (game: Game) => {
   const currentCard = getCurrentCard(game);
   const currentPlayer = currentCard.flags[game.cursor.flagIndex];
-  game = currentCard.play(game, currentPlayer, game.players[currentPlayer].chooseFromCandidate);
+  game = currentCard.play(
+    game,
+    currentPlayer,
+    game.players[currentPlayer].chooseFromCandidate
+  );
   return game;
-}
+};
 
 const isNoMoreFlagOnThisCard = (game: Game) => {
   const currentCard = getCurrentCard(game);
@@ -36,4 +46,4 @@ const isNoMoreFlagOnThisCard = (game: Game) => {
     return true;
   }
   return false;
-}
+};

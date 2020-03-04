@@ -9,9 +9,10 @@ export const Reorder = () => {
     const candidate = [game];
     game.cards.forEach((card, cardIndex) => {
       if (card.flags.length !== 0) {
-        allReorder(card.flags).forEach((newFlag) => {
-          const next = updateCard(game, cardIndex, (card) => ({
-            ...card, flags: newFlag
+        allReorder(card.flags).forEach(newFlag => {
+          const next = updateCard(game, cardIndex, card => ({
+            ...card,
+            flags: newFlag,
           }));
           candidate.push(next);
         });

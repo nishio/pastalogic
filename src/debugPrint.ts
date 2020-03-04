@@ -6,48 +6,46 @@ import { neverComeHere } from "./util";
 export const debugPrint = (game: Game) => {
   let cardStr = "";
   game.cards.forEach((card, cardIndex) => {
-    cardStr += cardToStr(card, cardIndex, game)
-  })
-  console.log(
-    `${game.players[0].life}:${game.players[1].life} ` + cardStr
-  )
+    cardStr += cardToStr(card, cardIndex, game);
+  });
+  console.log(`${game.players[0].life}:${game.players[1].life} ` + cardStr);
 };
 
 const cardToStr = (card: Card, cardIndex: number, game: Game) => {
   let flags = " ";
   if (card.flags.length === 0) {
-    flags = ""
+    flags = "";
   } else {
     card.flags.forEach((flag, flagIndex) => {
-      let fs = flagToStr(flag)
+      let fs = flagToStr(flag);
       if (cardIndex === game.cursor.cardIndex) {
         if (flagIndex === game.cursor.flagIndex) {
-          fs = `(${fs})`
+          fs = `(${fs})`;
         }
       }
       flags += fs;
-    })
+    });
   }
   let cursor = "";
   if (cardIndex === game.cursor.cardIndex) {
     if (game.cursorDirection === "forward") {
-      cursor = ">"
+      cursor = ">";
     } else {
-      cursor = "<"
+      cursor = "<";
     }
   }
-  const inc = "+".repeat(card.numIncrementToken)
-  const dec = "-".repeat(card.numDecrementToken)
+  const inc = "+".repeat(card.numIncrementToken);
+  const dec = "-".repeat(card.numDecrementToken);
 
-  return `[${cursor}${card.name}${inc}${dec}${flags}]`
-}
+  return `[${cursor}${card.name}${inc}${dec}${flags}]`;
+};
 
 const flagToStr = (flag: PlayerID) => {
   if (flag === FirstPlayer) {
-    return "o"
+    return "o";
   } else if (flag === SecondPlayer) {
-    return "x"
+    return "x";
   } else {
-    neverComeHere("undefined user")
+    neverComeHere("undefined user");
   }
-}
+};

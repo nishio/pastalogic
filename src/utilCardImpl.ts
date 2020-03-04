@@ -15,14 +15,18 @@ export const createCard = (
     name: name,
     flags: [],
     getCandidate: getCandidate,
-    play: (game: Game, playerId: PlayerID, algorithm: AlgorithToChooseCandidate) => {
-      return algorithm(name, playerId, getCandidate(game, playerId))
+    play: (
+      game: Game,
+      playerId: PlayerID,
+      algorithm: AlgorithToChooseCandidate
+    ) => {
+      return algorithm(name, playerId, getCandidate(game, playerId));
     },
     repeat: repeat,
     numIncrementToken: 0,
     numDecrementToken: 0,
-  }
-}
+  };
+};
 
 // export const repeat = (n: number, game: Game[], step: (game: Game) => Game[]) => {
 //   let result = [];
@@ -37,7 +41,7 @@ export const createCard = (
 export function attack(game: Game, playerId: PlayerID, damage: number) {
   const nextPlayers = [...game.players];
   const p = nextPlayers[getOpponent(playerId)];
-  let newLife = p.life - damage
+  let newLife = p.life - damage;
   if (newLife > game.maxLife) newLife = game.maxLife;
   nextPlayers[getOpponent(playerId)] = { ...p, life: newLife };
   return { ...game, players: nextPlayers };
@@ -46,7 +50,7 @@ export function attack(game: Game, playerId: PlayerID, damage: number) {
 export function payLife(game: Game, playerId: PlayerID, damage: number) {
   const nextPlayers = [...game.players];
   const p = nextPlayers[playerId];
-  let newLife = p.life - damage
+  let newLife = p.life - damage;
   if (newLife > game.maxLife) newLife = game.maxLife;
   nextPlayers[playerId] = { ...p, life: newLife };
   return { ...game, players: nextPlayers };
@@ -58,16 +62,16 @@ export const asParameter = (game: Game, base: number) => {
 
 export const reverse = (v: CursorDirection): CursorDirection => {
   if (v === "forward") {
-    return "backward"
+    return "backward";
   }
-  return "forward"
-}
+  return "forward";
+};
 
 export const payFlag = (game: Game) => {
-  const newFlag = getCurrentCard(game).flags
-  newFlag.splice(game.cursor.flagIndex, 1)
+  const newFlag = getCurrentCard(game).flags;
+  newFlag.splice(game.cursor.flagIndex, 1);
   return {
     ...updateFlag(game, game.cursor.cardIndex, newFlag),
-    cursor: { ...game.cursor, flagIndex: game.cursor.flagIndex - 1 }
-  }
-}
+    cursor: { ...game.cursor, flagIndex: game.cursor.flagIndex - 1 },
+  };
+};
