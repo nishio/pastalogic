@@ -7,7 +7,7 @@ import {
   getCurrentCard,
   moveCursorToNextCard,
   moveCursorToNextFlag,
-  neverComeHere,
+  neverComeHere
 } from "./util";
 import { controledRandom, chooseRandom } from "./chooseRandom";
 import { debugPrint } from "./debugPrint";

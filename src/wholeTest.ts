@@ -15,7 +15,7 @@ export const wholeTest = () => {
     AddFlag(),
     Subroutine(),
     MoveFlag(),
-    Increment(),
+    Increment()
   ]);
   // コマンド準備フェーズ
   // フラグ配置フェーズ
@@ -50,3 +50,5 @@ const foo = (game: Game) => {
     });
   }
 };
+
+wholeTest();
