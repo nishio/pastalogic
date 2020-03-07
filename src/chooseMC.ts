@@ -15,11 +15,11 @@ import { debugPrint } from "./debugPrint";
 const SHOW_PROGRESS = false;
 const SHOW_CANDIDATE_SCORE = false;
 const SHOW_BEST_SCORE = false;
-export const chooseMC = (
+export const chooseMC = async (
   type: string,
   playerId: PlayerID,
   candidate: Game[]
-): Game => {
+): Promise<Game> => {
   let bestScore = -1e99;
   let bestGame = { ...candidate[0] };
   for (let game of candidate) {
@@ -40,7 +40,7 @@ export const chooseMC = (
           debugPrint(game);
           console.log("play");
         }
-        game = currentCard.play(game, currentPlayer, chooseRandom);
+        game = await currentCard.play(game, currentPlayer, chooseRandom);
         if (NUM_TRIAL === 1 && SHOW_PROGRESS) {
           debugPrint(game);
         }

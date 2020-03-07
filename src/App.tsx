@@ -1,15 +1,13 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { startNoviceGame, testNoviceGame } from "./startNoviceGame";
-import { chooseControledRandom, chooseRandom } from "./chooseRandom";
-import { startRandomGame } from "./startRandomGame";
+import { startNoviceGame } from "./startNoviceGame";
 import { chooseMC } from "./chooseMC";
-import { wholeTest } from "./wholeTest";
+import { HumanPlayer } from "./HumanPlayer";
 
 function App() {
   //wholeTest()
-  //startNoviceGame(chooseMC, chooseMC)
+  startNoviceGame(HumanPlayer, chooseMC);
   //testNoviceGame(chooseControledRandom, chooseControledRandom)
   //startRandomGame(chooseMC, chooseMC)
   return (

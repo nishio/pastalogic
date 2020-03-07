@@ -136,15 +136,15 @@ const noUsefulCard = (game: Game) => {
   return false;
 };
 
-const noDamageNoAdd = (game: Game) => {
-  for (let card of game.cards) {
-    if (
-      card.name === "Bug" ||
-      card.name === "TradeOff" ||
-      card.name === "Forkbomb"
-    )
-      return false;
-    if (card.name === "AddFlag" || card.name === "FastPass") return false;
-  }
-  return true;
-};
+// const noDamageNoAdd = (game: Game) => {
+//   for (let card of game.cards) {
+//     if (
+//       card.name === "Bug" ||
+//       card.name === "TradeOff" ||
+//       card.name === "Forkbomb"
+//     )
+//       return false;
+//     if (card.name === "AddFlag" || card.name === "FastPass") return false;
+//   }
+//   return true;
+// };

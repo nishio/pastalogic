@@ -1,7 +1,6 @@
 import { PlayerID, CursorDirection, AlgorithToChooseCandidate } from "./Types";
 import { Game } from "./Game";
 import { getOpponent, getCurrentCard, updateFlag } from "./util";
-import { isGameOver } from "./isGameOver";
 import { Card } from "./Card";
 
 // utility for card definition
@@ -24,7 +23,7 @@ export const createCard = (
     },
     repeat: repeat,
     numIncrementToken: 0,
-    numDecrementToken: 0,
+    numDecrementToken: 0
   };
 };
 
@@ -72,6 +71,6 @@ export const payFlag = (game: Game) => {
   newFlag.splice(game.cursor.flagIndex, 1);
   return {
     ...updateFlag(game, game.cursor.cardIndex, newFlag),
-    cursor: { ...game.cursor, flagIndex: game.cursor.flagIndex - 1 },
+    cursor: { ...game.cursor, flagIndex: game.cursor.flagIndex - 1 }
   };
 };

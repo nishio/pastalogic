@@ -2,12 +2,11 @@ import { AddFlag, Bug, Increment, MoveFlag, Subroutine } from "./Card";
 import { putOneFlag } from "./putOneFlag";
 import { runProgram } from "./runProgram";
 import { AlgorithToChooseCandidate, FirstPlayer, SecondPlayer } from "./Types";
-import { Game } from "./Game";
 import { debugPrint } from "./debugPrint";
 import { appendOneFlag } from "./util";
 import { createGame } from "./createGame";
 
-export const startNoviceGame = (
+export const startNoviceGame = async (
   algorithm0: AlgorithToChooseCandidate,
   algorithm1: AlgorithToChooseCandidate
 ) => {
@@ -16,16 +15,16 @@ export const startNoviceGame = (
     AddFlag(),
     Subroutine(),
     MoveFlag(),
-    Increment(),
+    Increment()
   ]);
 
   // コマンド準備フェーズ
 
   // フラグ配置フェーズ
   for (let i = 0; i < 3; i++) {
-    game = putOneFlag(game, FirstPlayer, algorithm0);
+    game = await putOneFlag(game, FirstPlayer, algorithm0);
     debugPrint(game);
-    game = putOneFlag(game, SecondPlayer, algorithm1);
+    game = await putOneFlag(game, SecondPlayer, algorithm1);
     debugPrint(game);
   }
 
@@ -44,7 +43,7 @@ export const testNoviceGame = (
     AddFlag(),
     Subroutine(),
     MoveFlag(),
-    Increment(),
+    Increment()
   ]);
 
   game = appendOneFlag(game, 3, FirstPlayer);

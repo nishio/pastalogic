@@ -7,7 +7,7 @@ import {
   appendOneFlag,
   updateFlag,
   getCurrentCard,
-  isUsingSubroutine,
+  isUsingSubroutine
 } from "./util";
 import { isGameOver } from "./isGameOver";
 import {
@@ -16,7 +16,7 @@ import {
   createCard,
   payLife,
   reverse,
-  payFlag,
+  payFlag
 } from "./utilCardImpl";
 
 export type Card = {
@@ -27,7 +27,7 @@ export type Card = {
     game: Game,
     playerId: PlayerID,
     algorithm: AlgorithToChooseCandidate
-  ) => Game;
+  ) => Promise<Game> | Game;
   numIncrementToken: number;
   numDecrementToken: number;
   repeat: (game: Game) => number;
@@ -82,9 +82,9 @@ export const Subroutine = () => {
         cursor: {
           cardIndex: getCardIndex(game, game.cursor.cardIndex, i),
           flagIndex: -1,
-          repeatIndex: 1,
+          repeatIndex: 1
         },
-        returnAddress: returnAddress,
+        returnAddress: returnAddress
       };
       candidate.push(next);
     }
@@ -128,7 +128,7 @@ export const Increment = () => {
       game.cards.forEach((card, cardIndex) => {
         const next = updateCard(game, cardIndex, card => ({
           ...card,
-          numIncrementToken: card.numIncrementToken + 1,
+          numIncrementToken: card.numIncrementToken + 1
         }));
         candidate.push(next);
       });
@@ -160,7 +160,7 @@ export const Decrement = () => {
       game.cards.forEach((card, cardIndex) => {
         const next = updateCard(game, cardIndex, card => ({
           ...card,
-          numDecrementToken: card.numDecrementToken + 1,
+          numDecrementToken: card.numDecrementToken + 1
         }));
         candidate.push(next);
       });
@@ -176,7 +176,7 @@ export const Reverse = () => {
     if (game.players[playerId].life > cost) {
       const next = {
         ...game,
-        cursorDirection: reverse(game.cursorDirection),
+        cursorDirection: reverse(game.cursorDirection)
       };
       candidate.push(payLife(next, playerId, cost));
     }
@@ -214,7 +214,7 @@ export const SwapCommand = () => {
       const next = {
         ...game,
         cards: newCards,
-        cursor: { ...game.cursor, cardIndex: cardIndex },
+        cursor: { ...game.cursor, cardIndex: cardIndex }
       };
       candidate.push(next);
     });
@@ -310,7 +310,7 @@ export const RemoveCommand = () => {
             newCursor = {
               cardIndex: 0,
               flagIndex: 4,
-              repeatIndex: 1,
+              repeatIndex: 1
             };
           }
         }
@@ -319,29 +319,9 @@ export const RemoveCommand = () => {
       candidate.push({
         ...game,
         cards: newCards,
-        cursor: newCursor,
+        cursor: newCursor
       });
     });
     return candidate;
   });
 };
-
-const foo = () => {
-  bar({
-    a: 3,
-    b: x => x + 1,
-  });
-};
-type T1 = (x: number) => number;
-// type Props = {
-//   a: number,
-//   b: T1
-// }
-// const bar = (props: Props) => {
-//   const { a, b } = props;
-// }
-
-const bar = ({
-  a = (null as unknown) as number,
-  b = (null as unknown) as T1,
-}) => {};

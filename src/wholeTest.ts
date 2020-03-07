@@ -9,7 +9,7 @@ import { chooseMC } from "./chooseMC";
 import { getCurrentCard } from "./util";
 import { isGameOver } from "./isGameOver";
 
-export const wholeTest = () => {
+export const wholeTest = async () => {
   let game = createGame(3, chooseMC, chooseMC, [
     Bug(),
     AddFlag(),
@@ -20,9 +20,9 @@ export const wholeTest = () => {
   // コマンド準備フェーズ
   // フラグ配置フェーズ
   for (let i = 0; i < 3; i++) {
-    game = putOneFlag(game, FirstPlayer, chooseMC);
+    game = await putOneFlag(game, FirstPlayer, chooseMC);
     debugPrint(game);
-    game = putOneFlag(game, SecondPlayer, chooseMC);
+    game = await putOneFlag(game, SecondPlayer, chooseMC);
     debugPrint(game);
   }
   // プログラム実行フェーズ

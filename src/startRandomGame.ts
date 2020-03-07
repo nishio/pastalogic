@@ -13,7 +13,7 @@ import {
   TradeOff,
   Decrement,
   RemoveCommand,
-  RemoveFlag,
+  RemoveFlag
 } from "./Card";
 import { putOneFlag } from "./putOneFlag";
 import { AlgorithToChooseCandidate, FirstPlayer, SecondPlayer } from "./Types";
@@ -22,7 +22,7 @@ import { Reorder } from "./Reorder";
 import { runProgram } from "./runProgram";
 import { createGame } from "./createGame";
 
-export const startRandomGame = (
+export const startRandomGame = async (
   algorithm0: AlgorithToChooseCandidate,
   algorithm1: AlgorithToChooseCandidate
 ) => {
@@ -43,12 +43,12 @@ export const startRandomGame = (
     TradeOff(),
     RemoveFlag(),
     RemoveCommand(),
-    Decrement(),
+    Decrement()
   ]);
   // フラグ配置フェーズ
   for (let i = 0; i < 16; i++) {
-    game = putOneFlag(game, FirstPlayer, algorithm0);
-    game = putOneFlag(game, SecondPlayer, algorithm1);
+    game = await putOneFlag(game, FirstPlayer, algorithm0);
+    game = await putOneFlag(game, SecondPlayer, algorithm1);
   }
 
   // プログラム実行フェーズ

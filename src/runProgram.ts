@@ -4,10 +4,9 @@ import { Game } from "./Game";
 import {
   moveCursorToNextFlag,
   moveCursorToNextCard,
-  getCurrentCard,
-  neverComeHere,
+  getCurrentCard
 } from "./util";
-export const runProgram = (game: Game) => {
+export const runProgram = async (game: Game) => {
   for (let i = 0; i < 3000; i++) {
     // avoid infinite loop in development
     if (isNoMoreFlagOnThisCard(game)) {
@@ -16,7 +15,7 @@ export const runProgram = (game: Game) => {
     }
     debugPrint(game);
     console.log("play");
-    game = step(game);
+    game = await step(game);
     debugPrint(game);
     const ret = isGameOver(game);
     if (ret) {
@@ -28,10 +27,10 @@ export const runProgram = (game: Game) => {
   }
 };
 
-const step = (game: Game) => {
+const step = async (game: Game) => {
   const currentCard = getCurrentCard(game);
   const currentPlayer = currentCard.flags[game.cursor.flagIndex];
-  game = currentCard.play(
+  game = await currentCard.play(
     game,
     currentPlayer,
     game.players[currentPlayer].chooseFromCandidate

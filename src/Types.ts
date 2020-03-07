@@ -16,4 +16,4 @@ export type AlgorithToChooseCandidate = (
   type: string,
   playerId: PlayerID,
   candidate: Game[]
-) => Game;
+) => Promise<Game> | Game;

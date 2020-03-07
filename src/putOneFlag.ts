@@ -6,7 +6,7 @@ export const putOneFlag = (
   game: Game,
   playerId: PlayerID,
   algorithm: AlgorithToChooseCandidate
-): Game => {
+): Promise<Game> | Game => {
   const candidate = [] as Game[];
   game.cards.forEach((card, cardIndex) => {
     if (!card.flags.some(x => x === playerId)) {
