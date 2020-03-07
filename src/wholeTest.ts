@@ -29,27 +29,27 @@ export const wholeTest = async () => {
   console.log("-----run program-----");
 };
 
-const foo = (game: Game) => {
-  const currentCard = getCurrentCard(game);
-  const currentPlayer = currentCard.flags[game.cursor.flagIndex];
-  let candidate = getCurrentCard(game).getCandidate(game, currentPlayer);
-  if (currentPlayer === FirstPlayer) {
-    candidate.some((game: Game) => {
-      if (isGameOver(game)?.winner === FirstPlayer) {
-        // win
-        return isGameOver(game);
-      }
-    });
-  }
-  if (currentPlayer === SecondPlayer) {
-    candidate.some((game: Game) => {
-      if (isGameOver(game)?.winner === SecondPlayer) {
-        // lose
-        return isGameOver(game);
-      }
-    });
-  }
-};
+// const foo = (game: Game) => {
+//   const currentCard = getCurrentCard(game);
+//   const currentPlayer = currentCard.flags[game.cursor.flagIndex];
+//   let candidate = getCurrentCard(game).getCandidate(game, currentPlayer);
+//   if (currentPlayer === FirstPlayer) {
+//     candidate.some((game: Game) => {
+//       if (isGameOver(game)?.winner === FirstPlayer) {
+//         // win
+//         return isGameOver(game);
+//       }
+//     });
+//   }
+//   if (currentPlayer === SecondPlayer) {
+//     candidate.some((game: Game) => {
+//       if (isGameOver(game)?.winner === SecondPlayer) {
+//         // lose
+//         return isGameOver(game);
+//       }
+//     });
+//   }
+// };
 
 // @ts-ignore
 window.wholeTest = wholeTest;

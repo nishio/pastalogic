@@ -1,5 +1,11 @@
 import { Game } from "./Game";
-export const isGameOver = (game: Game) => {
+import { PlayerID } from "./Types";
+type GameOverType =
+  | { type: "draw"; reason: string }
+  | { type: "win"; winner: PlayerID; reason: string }
+  | null;
+
+export const isGameOver = (game: Game): GameOverType => {
   // if game is over, return winner info
   {
     const f0 = game.players[0].life <= 0;
@@ -49,6 +55,7 @@ export const isGameOver = (game: Game) => {
   //   return determineByLife("no damage card and no add-flag card", game)
   // }
   // BAD, it is possible to win by RemoveCommand
+  return null;
 };
 
 export const countFlags = (game: Game) => {
@@ -61,7 +68,7 @@ export const countFlags = (game: Game) => {
   return numFlags;
 };
 
-const determineByLife = (reason: string, game: Game) => {
+const determineByLife = (reason: string, game: Game): GameOverType => {
   const f0 = game.players[0].life;
   const f1 = game.players[1].life;
   if (f0 > f1) {
@@ -73,7 +80,7 @@ const determineByLife = (reason: string, game: Game) => {
   }
 };
 
-const noFlagsExcept = (name: string, game: Game) => {
+const noFlagsExcept = (name: string, game: Game): boolean => {
   const numFlags = [0, 0];
   game.cards.forEach(card => {
     if (card.name === name) return;
@@ -87,7 +94,7 @@ const noFlagsExcept = (name: string, game: Game) => {
   return false;
 };
 
-const noFlagsExceptOrder = (game: Game) => {
+const noFlagsExceptOrder = (game: Game): boolean => {
   const numFlags = [0, 0];
   game.cards.forEach(card => {
     if (card.name === "Rotate" || card.name === "Reorder") return;
@@ -101,7 +108,7 @@ const noFlagsExceptOrder = (game: Game) => {
   return false;
 };
 
-const noUsefulCard = (game: Game) => {
+const noUsefulCard = (game: Game): boolean => {
   /* example: [Subroutine- oxxx][FastPass x][ForkBomb][>Decrement xx(x)x]
   [SwapCommand+ xxxx][Reverse xx][Increment xx][Reorder- xxxx] */
   const numFlags = countFlags(game);

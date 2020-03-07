@@ -1,6 +1,8 @@
 import { Game } from "./Game";
 import { AlgorithToChooseCandidate, PlayerID } from "./Types";
 import { debugPrint } from "./debugPrint";
+import { setGlobal } from "reactn";
+import { popLog } from "./GLOBAL_STATE";
 
 export const HumanPlayer: AlgorithToChooseCandidate = async (
   type: string,
@@ -22,6 +24,18 @@ export const HumanPlayer: AlgorithToChooseCandidate = async (
     debugPrint(game);
     console.log("---");
   });
+
+  setGlobal(g => ({
+    log: [...g.log, candidate]
+  }));
   const result = candidate[await p];
+  popLog();
   return result;
+};
+
+export const chooseByHuman = (i: number) => {
+  return () => {
+    // @ts-ignore
+    window.resolve(i);
+  };
 };

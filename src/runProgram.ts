@@ -1,4 +1,4 @@
-import { debugPrint } from "./debugPrint";
+import { debugPrintWithUI, flagToStr } from "./debugPrint";
 import { isGameOver } from "./isGameOver";
 import { Game } from "./Game";
 import {
@@ -6,6 +6,7 @@ import {
   moveCursorToNextCard,
   getCurrentCard
 } from "./util";
+import { pushLog } from "./GLOBAL_STATE";
 export const runProgram = async (game: Game) => {
   for (let i = 0; i < 3000; i++) {
     // avoid infinite loop in development
@@ -13,28 +14,33 @@ export const runProgram = async (game: Game) => {
       game = moveCursorToNextCard(game);
       continue;
     }
-    debugPrint(game);
-    console.log("play");
     game = await step(game);
-    debugPrint(game);
     const ret = isGameOver(game);
     if (ret) {
-      console.log(i, ret);
+      console.log(ret);
+      if (ret.type === "win") {
+        pushLog(`player ${flagToStr(ret.winner)} win!`);
+      } else {
+        pushLog(`draw. (${ret.reason})`);
+      }
       break;
     }
     game = moveCursorToNextFlag(game);
-    console.log("vvvvvvvvvv");
+    pushLog("vvvvvvvvvv");
   }
 };
 
 const step = async (game: Game) => {
   const currentCard = getCurrentCard(game);
   const currentPlayer = currentCard.flags[game.cursor.flagIndex];
+  debugPrintWithUI(game);
+  pushLog("play by " + flagToStr(currentPlayer));
   game = await currentCard.play(
     game,
     currentPlayer,
     game.players[currentPlayer].chooseFromCandidate
   );
+  debugPrintWithUI(game);
   return game;
 };
 

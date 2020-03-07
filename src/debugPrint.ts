@@ -2,14 +2,24 @@ import { PlayerID, FirstPlayer, SecondPlayer } from "./Types";
 import { Game } from "./Game";
 import { Card } from "./Card";
 import { neverComeHere } from "./util";
-import { getAllByAltText } from "@testing-library/react";
+import { pushLog } from "./GLOBAL_STATE";
 
-export const debugPrint = (game: Game) => {
+export const debugToStr = (game: Game) => {
   let cardStr = "";
   game.cards.forEach((card, cardIndex) => {
     cardStr += cardToStr(card, cardIndex, game);
   });
-  console.log(`${game.players[0].life}:${game.players[1].life} ` + cardStr);
+  return `${game.players[0].life}:${game.players[1].life} ` + cardStr;
+};
+
+export const debugPrint = (game: Game) => {
+  console.log(debugToStr(game));
+};
+
+export const debugPrintWithUI = (game: Game) => {
+  const s = debugToStr(game);
+  console.log(s);
+  pushLog(s);
 };
 
 const cardToStr = (card: Card, cardIndex: number, game: Game) => {
@@ -31,7 +41,7 @@ const cardToStr = (card: Card, cardIndex: number, game: Game) => {
         }
       }
       if (game.returnAddress !== null && card.name === "Subroutine") {
-        if (flagIndex === game.cursor.flagIndex) {
+        if (flagIndex === game.returnAddress) {
           fs = `(${fs}${rep})`;
         }
       }
@@ -52,7 +62,7 @@ const cardToStr = (card: Card, cardIndex: number, game: Game) => {
   return `[${cursor}${card.name}${inc}${dec}${flags}]`;
 };
 
-const flagToStr = (flag: PlayerID) => {
+export const flagToStr = (flag: PlayerID) => {
   if (flag === FirstPlayer) {
     return "o";
   } else if (flag === SecondPlayer) {
