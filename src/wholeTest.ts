@@ -51,4 +51,5 @@ const foo = (game: Game) => {
   }
 };
 
-wholeTest();
+// @ts-ignore
+window.wholeTest = wholeTest;
