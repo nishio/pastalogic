@@ -18,6 +18,7 @@ export const startNoviceGame = async (
     MoveFlag(),
     Increment()
   ]);
+  debugPrintWithUI(game);
 
   // コマンド準備フェーズ
   pushLog("-----put flags-----");

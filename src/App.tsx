@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { startNoviceGame } from "./startNoviceGame";
 import { chooseMC } from "./chooseMC";
@@ -9,13 +9,16 @@ import { Game } from "./Game";
 import { debugToStr } from "./debugPrint";
 
 initializeGlobalState();
-startNoviceGame(HumanPlayer, chooseMC);
 
 function App() {
   const [log] = useGlobal("log");
   //wholeTest()
   //testNoviceGame(chooseControledRandom, chooseControledRandom)
   //startRandomGame(chooseMC, chooseMC)
+
+  useEffect(() => {
+    startNoviceGame(chooseMC, HumanPlayer);
+  }, []);
 
   const items = log.map((x: any) => {
     if (typeof x === "string") {
