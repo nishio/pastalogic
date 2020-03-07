@@ -2,6 +2,7 @@ import { PlayerID, FirstPlayer, SecondPlayer } from "./Types";
 import { Game } from "./Game";
 import { Card } from "./Card";
 import { neverComeHere } from "./util";
+import { getAllByAltText } from "@testing-library/react";
 
 export const debugPrint = (game: Game) => {
   let cardStr = "";
@@ -13,6 +14,12 @@ export const debugPrint = (game: Game) => {
 
 const cardToStr = (card: Card, cardIndex: number, game: Game) => {
   let flags = " ";
+
+  let rep = "";
+  if (card.repeat(game) > 1) {
+    rep = `${game.cursor.repeatIndex + 1}`;
+  }
+
   if (card.flags.length === 0) {
     flags = "";
   } else {
@@ -20,7 +27,12 @@ const cardToStr = (card: Card, cardIndex: number, game: Game) => {
       let fs = flagToStr(flag);
       if (cardIndex === game.cursor.cardIndex) {
         if (flagIndex === game.cursor.flagIndex) {
-          fs = `(${fs})`;
+          fs = `(${fs}${rep})`;
+        }
+      }
+      if (game.returnAddress !== null && card.name === "Subroutine") {
+        if (flagIndex === game.cursor.flagIndex) {
+          fs = `(${fs}${rep})`;
         }
       }
       flags += fs;
