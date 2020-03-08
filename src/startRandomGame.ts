@@ -28,15 +28,16 @@ import { SwapCommand } from "./card/SwapCommand";
 import { TradeOff } from "./card/TradeOff";
 import { Debug } from "./card/Debug";
 import { Bug } from "./card/Bug";
+import { chooseMCC } from "./player/chooseMCC";
 
 export const startRandomGame = async () => {
   resetRandomSeed();
   let firstPlayer, secondPlayer;
   if (rng.random() < 0.5) {
     firstPlayer = HumanPlayer;
-    secondPlayer = chooseMC;
+    secondPlayer = chooseMCC;
   } else {
-    firstPlayer = chooseMC;
+    firstPlayer = chooseMCC;
     secondPlayer = HumanPlayer;
   }
   const cards = [AddFlag, MoveFlag, Bug];
