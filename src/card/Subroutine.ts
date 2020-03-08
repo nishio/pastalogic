@@ -2,7 +2,7 @@ import { PlayerID } from "../Types";
 import { Game } from "../Types";
 import { getLoopedCardIndex } from "../util/getLoopedCardIndex";
 import { asParameter } from "../util/asParameter";
-import { createCard } from "../createCard";
+import { createCard } from "./createCard";
 
 const getCandidate = (game: Game, playerId: PlayerID) => {
   const candidate = [game];

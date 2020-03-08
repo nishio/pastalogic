@@ -1,7 +1,7 @@
 import { PlayerID } from "../Types";
 import { Game } from "../Types";
 import { updateCard } from "../util/updateCard";
-import { createCard } from "../createCard";
+import { createCard } from "./createCard";
 
 const getCandidate = (game: Game) => {
   // FIXME repeat(asParameter(game, 1)

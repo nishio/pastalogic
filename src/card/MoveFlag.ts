@@ -2,10 +2,11 @@ import { PlayerID } from "../Types";
 import { Game } from "../Types";
 import { updateFlag } from "../util/updateFlag";
 import { hasEnoughSpace } from "../util/hasEnoughSpace";
-import { createCard } from "../createCard";
+import { createCard } from "./createCard";
 import { isSubroutineAndIsUsing } from "../util/isUsingSubroutine";
 import { isCurrentCard } from "../util/isCurrentCard";
 import { hasNoFlag } from "../util/hasNoFlag";
+import { removeAFlagFromFlags } from "./removeAFlagFromFlags";
 
 const getCandidate = (game: Game, playerId: PlayerID) => {
   const candidate = [game];
@@ -19,11 +20,10 @@ const getCandidate = (game: Game, playerId: PlayerID) => {
       if (i === j) return;
       if (!hasEnoughSpace(toCard)) return;
       fromCard.flags.forEach((fk, k) => {
-        const newCi = [...fromCard.flags];
-        newCi.splice(k, 1);
-        const newCj = [...toCard.flags, fk];
-        let next = updateFlag(game, i, newCi);
-        next = updateFlag(next, j, newCj);
+        const newFromCard = removeAFlagFromFlags(fromCard.flags, k);
+        const newToCard = [...toCard.flags, fk];
+        let next = updateFlag(game, i, newFromCard);
+        next = updateFlag(next, j, newToCard);
         candidate.push(next);
       });
     });

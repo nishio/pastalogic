@@ -2,7 +2,7 @@ import { PlayerID } from "../Types";
 import { Game } from "../Types";
 import { removeFlagAsCost } from "../util/removeFlagAsCost";
 import { asParameter } from "../util/asParameter";
-import { createCard } from "../createCard";
+import { createCard } from "./createCard";
 import { updateLife } from "../util/updateLife";
 
 const getCandidate = (game: Game, me: PlayerID) => {

@@ -1,7 +1,7 @@
 import { PlayerID } from "../Types";
 import { Game } from "../Types";
 import { asParameter } from "../util/asParameter";
-import { createCard } from "../createCard";
+import { createCard } from "./createCard";
 import { getOpponent } from "../util/getOpponent";
 import { updateLife } from "../util/updateLife";
 

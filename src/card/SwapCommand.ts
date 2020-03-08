@@ -1,7 +1,7 @@
 import { PlayerID } from "../Types";
 import { Game } from "../Types";
 import { getCurrentCard } from "../util/getCurrentCard";
-import { createCard } from "../createCard";
+import { createCard } from "./createCard";
 import { isCurrentCard } from "../util/isCurrentCard";
 
 const getCandidate = (game: Game, playerId: PlayerID) => {

@@ -3,7 +3,7 @@ import { Game } from "../Types";
 import { isGameOver } from "../isGameOver";
 import { removeFlagAsCost } from "../util/removeFlagAsCost";
 import { asParameter } from "../util/asParameter";
-import { createCard } from "../createCard";
+import { createCard } from "./createCard";
 import { getOpponent } from "../util/getOpponent";
 import { updateLife } from "../util/updateLife";
 

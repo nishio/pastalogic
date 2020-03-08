@@ -3,7 +3,7 @@ import { Game } from "../Types";
 import { reverseCursorDirection } from "../util/reverseCursorDirection";
 import { updateLife } from "../util/updateLife";
 import { asParameter } from "../util/asParameter";
-import { createCard } from "../createCard";
+import { createCard } from "./createCard";
 
 const getCandidate = (game: Game, playerId: PlayerID) => {
   const candidate = [game];

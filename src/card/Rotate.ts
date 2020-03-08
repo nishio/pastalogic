@@ -2,7 +2,7 @@ import { PlayerID } from "../Types";
 import { Game } from "../Types";
 import { isSubroutineAndIsUsing } from "../util/isUsingSubroutine";
 import { updateFlag } from "../util/updateFlag";
-import { createCard } from "../createCard";
+import { createCard } from "./createCard";
 import { isCurrentCard } from "../util/isCurrentCard";
 
 const getCandidate = (game: Game, playerId: PlayerID) => {

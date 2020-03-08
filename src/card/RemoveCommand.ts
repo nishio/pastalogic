@@ -1,6 +1,6 @@
 import { PlayerID } from "../Types";
 import { Game } from "../Types";
-import { createCard } from "../createCard";
+import { createCard } from "./createCard";
 
 const getCandidate = (game: Game, playerId: PlayerID) => {
   const candidate = [game];

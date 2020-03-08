@@ -1,7 +1,7 @@
 import { PlayerID } from "../Types";
 import { Game } from "../Types";
 import { updateCard } from "../util/updateCard";
-import { createCard } from "../createCard";
+import { createCard } from "./createCard";
 import { countUsedDecrementToken } from "../util/countUsedDecrementToken";
 
 const getCandidate = (game: Game, playerId: PlayerID) => {

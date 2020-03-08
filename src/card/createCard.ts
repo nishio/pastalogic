@@ -5,8 +5,8 @@ import {
   Card,
   TypeCandidateGetter,
   TypeRepeatGetter
-} from "./Types";
-import { asParameter } from "./util/asParameter";
+} from "../Types";
+import { asParameter } from "../util/asParameter";
 
 // utility for card definition
 
