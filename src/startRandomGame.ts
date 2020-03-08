@@ -1,9 +1,9 @@
 import { putOneFlag } from "./putOneFlag";
 import { runProgram } from "./runProgram";
-import { FirstPlayer, SecondPlayer, Card } from "./Types";
+import { FirstPlayer, SecondPlayer } from "./Types";
 import { debugPrintWithUI } from "./debugPrint";
 import { createGame } from "./createGame";
-import { pushLog, popLog } from "./GLOBAL_STATE";
+import { pushLog } from "./GLOBAL_STATE";
 import {
   rng,
   shuffle,
