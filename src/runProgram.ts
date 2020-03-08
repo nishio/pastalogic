@@ -24,8 +24,9 @@ export const runProgram = async (game: Game) => {
       break;
     }
     game = moveCursorToNextFlag(game);
-    pushLog("vvvvvvvvvv");
+    pushLog("-----v-----");
   }
+  pushLog("[newgame]");
 };
 
 const step = async (game: Game) => {
