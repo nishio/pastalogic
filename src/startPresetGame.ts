@@ -9,7 +9,7 @@ import { HumanPlayer } from "./player/HumanPlayer";
 import { chooseMC } from "./player/chooseMC";
 
 type TypePreset = (() => Card)[];
-export const startPresetGame = async (preset: TypePreset) => {
+export const startPresetGame = async (preset: TypePreset, toShuffle = true) => {
   resetRandomSeed();
   let firstPlayer, secondPlayer;
   if (rng.random() < 0.5) {
@@ -19,12 +19,12 @@ export const startPresetGame = async (preset: TypePreset) => {
     firstPlayer = chooseMC;
     secondPlayer = HumanPlayer;
   }
-  let game = createGame(
-    5,
-    firstPlayer,
-    secondPlayer,
-    shuffle(preset.map(f => f()))
-  );
+  let cards = preset.map(f => f());
+  if (toShuffle) {
+    cards = shuffle(cards);
+  }
+
+  let game = createGame(5, firstPlayer, secondPlayer, cards);
   debugPrintWithUI(game);
 
   // コマンド準備フェーズ

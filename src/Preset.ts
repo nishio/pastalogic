@@ -26,14 +26,14 @@ export const WeAreProgrammer = [
 ];
 
 export const LifeRace = [
+  Increment,
+  Reorder,
   AddFlag,
   MoveFlag,
-  Reorder,
-  Bug,
   ForkBomb,
   Debug,
   TradeOff,
-  Increment
+  Bug
 ];
 
 export const Inflation = [
