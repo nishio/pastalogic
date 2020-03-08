@@ -8,7 +8,7 @@ import { updateLife } from "../util/updateLife";
 const getCandidate = (game: Game, me: PlayerID) => {
   const candidate = [game];
   let next = updateLife(game, me, -asParameter(game, 1));
-  next = updateLife(game, getOpponent(me), -asParameter(game, 2));
+  next = updateLife(next, getOpponent(me), -asParameter(game, 2));
   candidate.push(next);
   return candidate;
 };
