@@ -1,23 +1,44 @@
-import { PlayerID, AlgorithToChooseCandidate, Game, Card } from "./Types";
+import {
+  PlayerID,
+  AlgorithToChooseCandidate,
+  Game,
+  Card,
+  TypeCandidateGetter,
+  TypeRepeatGetter
+} from "./Types";
+import { asParameter } from "./util/asParameter";
 
 // utility for card definition
-export const createCard = (
-  name: string,
-  getCandidate: (game: Game, playerId: PlayerID) => Game[],
-  repeat = (game: Game) => 1
-): Card => {
+
+type CardProps = {
+  name: string;
+  getCandidate: TypeCandidateGetter;
+  repeatable?: boolean;
+};
+export const createCard = (props: CardProps): Card => {
+  let repeat: TypeRepeatGetter = game => 1;
+  if (props.repeatable) {
+    repeat = game => asParameter(game, 1);
+  }
+
   return {
-    name: name,
-    flags: [],
-    getCandidate: getCandidate,
+    name: props.name,
+    getCandidate: props.getCandidate,
     play: (
       game: Game,
       playerId: PlayerID,
       algorithm: AlgorithToChooseCandidate
     ) => {
-      return algorithm(name, playerId, getCandidate(game, playerId));
+      return algorithm(
+        props.name,
+        playerId,
+        props.getCandidate(game, playerId)
+      );
     },
     repeat: repeat,
+
+    // common initialization
+    flags: [],
     numIncrementToken: 0,
     numDecrementToken: 0
   };

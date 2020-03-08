@@ -3,22 +3,28 @@ import { Game } from "../Types";
 import { updateCard } from "../util/updateCard";
 import { createCard } from "../createCard";
 
+const getCandidate = (game: Game) => {
+  // FIXME repeat(asParameter(game, 1)
+  const candidate = [game];
+  game.cards.forEach((card, cardIndex) => {
+    if (card.flags.length !== 0) {
+      allReorder(card.flags).forEach(newFlag => {
+        const next = updateCard(game, cardIndex, card => ({
+          ...card,
+          flags: newFlag
+        }));
+        candidate.push(next);
+      });
+    }
+  });
+  return candidate;
+};
+
 export const Reorder = () => {
-  return createCard("Reorder", (game: Game) => {
-    // FIXME repeat(asParameter(game, 1)
-    const candidate = [game];
-    game.cards.forEach((card, cardIndex) => {
-      if (card.flags.length !== 0) {
-        allReorder(card.flags).forEach(newFlag => {
-          const next = updateCard(game, cardIndex, card => ({
-            ...card,
-            flags: newFlag
-          }));
-          candidate.push(next);
-        });
-      }
-    });
-    return candidate;
+  return createCard({
+    name: "Reorder",
+    getCandidate: getCandidate,
+    repeatable: true
   });
 };
 

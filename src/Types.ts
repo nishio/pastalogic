@@ -31,17 +31,21 @@ export type Game = {
   time: number;
 };
 
+type TypePlay = (
+  game: Game,
+  playerId: PlayerID,
+  algorithm: AlgorithToChooseCandidate
+) => Promise<Game> | Game;
+export type TypeCandidateGetter = (game: Game, me: PlayerID) => Game[];
+export type TypeRepeatGetter = (game: Game) => number;
+
 export type Card = {
   name: string;
   flags: PlayerID[];
-  getCandidate: (game: Game, playerId: PlayerID) => Game[];
-  play: (
-    game: Game,
-    playerId: PlayerID,
-    algorithm: AlgorithToChooseCandidate
-  ) => Promise<Game> | Game;
+  getCandidate: TypeCandidateGetter;
+  play: TypePlay;
   numIncrementToken: number;
   numDecrementToken: number;
-  repeat: (game: Game) => number;
+  repeat: TypeRepeatGetter;
 };
 export const MAX_FLAGS_ON_A_CARD = 4;

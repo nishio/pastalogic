@@ -1,7 +1,7 @@
 import { PlayerID } from "../Types";
 import { Game } from "../Types";
 import { isGameOver } from "../isGameOver";
-import { countUsedFlag } from "../card/Card";
+import { countUsedFlag } from "../util/countUsedFlag";
 import { getCurrentCard } from "../util/getCurrentCard";
 import { getOpponent } from "../util/getOpponent";
 import { moveCursorToNextFlag } from "../moveCursorToNextFlag";
