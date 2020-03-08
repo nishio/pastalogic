@@ -5,6 +5,7 @@ import { HumanPlayer } from "./player/HumanPlayer";
 import { WeAreProgrammer, LifeRace, Inflation, Catastrophe } from "./Preset";
 import { startPresetGame } from "./startPresetGame";
 import { startRandomGame } from "./startRandomGame";
+import { startFullRandomGame } from "./startFullRandomGame";
 export const NewGame = () => {
   const menu: [string, any][] = [
     [
@@ -31,10 +32,8 @@ export const NewGame = () => {
       "Preset: Catastrophe (Shuffled Cards/Players)",
       () => startPresetGame(Catastrophe)
     ],
-    [
-      "Random game(include BASIC cards. Shuffled Cards/Players)",
-      () => startRandomGame()
-    ]
+    ["Random game(include BASIC cards)", () => startRandomGame()],
+    ["Full Random game(random cards)", () => startFullRandomGame()]
   ];
   const items = menu.map(([caption, onClick], i: number) => {
     return (
