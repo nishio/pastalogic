@@ -57,5 +57,3 @@ export const Catastrophe = [
   ForkBomb,
   TradeOff
 ];
-
-const x = 1;
