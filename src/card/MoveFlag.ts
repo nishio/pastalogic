@@ -4,22 +4,28 @@ import { updateFlag } from "../updateFlag";
 import { hasEnoughSpace } from "../hasEnoughSpace";
 import { asParameter } from "../asParameter";
 import { createCard } from "../createCard";
+import { isUsingSubroutine } from "../isUsingSubroutine";
+import { isCurrentCard } from "./isCurrentCard";
+import { hasNoFlag } from "./hasNoFlag";
+
 export const MoveFlag = () => {
   return createCard(
     "MoveFlag",
     (game: Game, playerId: PlayerID) => {
       const candidate = [game];
-      const me = game.cursor.cardIndex;
-      game.cards.forEach((ci, i) => {
-        if (i === me) return;
-        game.cards.forEach((cj, j) => {
-          if (j === me) return;
+      game.cards.forEach((fromCard, i) => {
+        if (isCurrentCard(i, game)) return;
+        if (hasNoFlag(fromCard)) return;
+        if (isUsingSubroutine(fromCard, game)) return;
+
+        game.cards.forEach((toCard, j) => {
+          if (isCurrentCard(j, game)) return;
           if (i === j) return;
-          if (!hasEnoughSpace(cj)) return;
-          ci.flags.forEach((fk, k) => {
-            const newCi = [...ci.flags];
+          if (!hasEnoughSpace(toCard)) return;
+          fromCard.flags.forEach((fk, k) => {
+            const newCi = [...fromCard.flags];
             newCi.splice(k, 1);
-            const newCj = [...cj.flags, fk];
+            const newCj = [...toCard.flags, fk];
             let next = updateFlag(game, i, newCi);
             next = updateFlag(next, j, newCj);
             candidate.push(next);
