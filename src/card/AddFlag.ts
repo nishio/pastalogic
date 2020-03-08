@@ -1,7 +1,10 @@
-import { PlayerID } from "./Types";
-import { Game } from "./Game";
-import { hasEnoughSpace, appendOneFlag, isUsingSubroutine } from "./util";
-import { asParameter, createCard } from "./utilCardImpl";
+import { PlayerID } from "../Types";
+import { Game } from "../Game";
+import { isUsingSubroutine } from "../isUsingSubroutine";
+import { appendOneFlag } from "../appendOneFlag";
+import { hasEnoughSpace } from "../hasEnoughSpace";
+import { asParameter } from "../asParameter";
+import { createCard } from "../createCard";
 import { constUsedFlag } from "./Card";
 export const AddFlag = () => {
   return createCard(

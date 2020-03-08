@@ -1,8 +1,10 @@
-import { PlayerID } from "./Types";
-import { Game } from "./Game";
-import { updateFlag, isUsingSubroutine } from "./util";
-import { createCard } from "./utilCardImpl";
+import { PlayerID } from "../Types";
+import { Game } from "../Game";
+import { isUsingSubroutine } from "../isUsingSubroutine";
+import { updateFlag } from "../updateFlag";
+import { createCard } from "../createCard";
 import { constUsedFlag } from "./Card";
+
 export const FastPass = () => {
   return createCard("FastPass", (game: Game, playerId: PlayerID) => {
     if (constUsedFlag(playerId, game) === game.maxFlag) return [game];

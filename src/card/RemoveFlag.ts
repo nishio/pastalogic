@@ -1,7 +1,9 @@
-import { PlayerID } from "./Types";
-import { Game } from "./Game";
-import { updateFlag, isUsingSubroutine } from "./util";
-import { asParameter, createCard } from "./utilCardImpl";
+import { PlayerID } from "../Types";
+import { Game } from "../Game";
+import { isUsingSubroutine } from "../isUsingSubroutine";
+import { updateFlag } from "../updateFlag";
+import { asParameter } from "../asParameter";
+import { createCard } from "../createCard";
 export const RemoveFlag = () => {
   return createCard(
     "RemoveFlag",

@@ -1,7 +1,8 @@
-import { PlayerID } from "./Types";
-import { Game } from "./Game";
-import { updateFlag, isUsingSubroutine } from "./util";
-import { createCard } from "./utilCardImpl";
+import { PlayerID } from "../Types";
+import { Game } from "../Game";
+import { isUsingSubroutine } from "../isUsingSubroutine";
+import { updateFlag } from "../updateFlag";
+import { createCard } from "../createCard";
 export const Rotate = () => {
   return createCard("Rotate", (game: Game, playerId: PlayerID) => {
     const candidate = [game];

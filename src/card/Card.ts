@@ -1,5 +1,5 @@
-import { PlayerID, AlgorithToChooseCandidate } from "./Types";
-import { Game } from "./Game";
+import { PlayerID, AlgorithToChooseCandidate } from "../Types";
+import { Game } from "../Game";
 
 export type Card = {
   name: string;

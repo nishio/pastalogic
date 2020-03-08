@@ -1,6 +1,6 @@
 import { PlayerID, AlgorithToChooseCandidate } from "./Types";
 import { Game } from "./Game";
-import { appendOneFlag } from "./util";
+import { appendOneFlag } from "./appendOneFlag";
 
 export const putOneFlag = (
   game: Game,

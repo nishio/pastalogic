@@ -1,11 +1,9 @@
 import { debugPrintWithUI, flagToStr } from "./debugPrint";
 import { isGameOver } from "./isGameOver";
 import { Game } from "./Game";
-import {
-  moveCursorToNextFlag,
-  moveCursorToNextCard,
-  getCurrentCard
-} from "./util";
+import { getCurrentCard } from "./getCurrentCard";
+import { moveCursorToNextFlag } from "./moveCursorToNextFlag";
+import { moveCursorToNextCard } from "./moveCursorToNextCard";
 import { pushLog } from "./GLOBAL_STATE";
 export const runProgram = async (game: Game) => {
   for (let i = 0; i < 3000; i++) {

@@ -1,16 +1,16 @@
-import { Increment } from "./Increment";
-import { MoveFlag } from "./MoveFlag";
-import { Subroutine } from "./Subroutine";
-import { AddFlag } from "./AddFlag";
-import { Bug } from "./Bug";
+import { Increment } from "./card/Increment";
+import { MoveFlag } from "./card/MoveFlag";
+import { Subroutine } from "./card/Subroutine";
+import { AddFlag } from "./card/AddFlag";
+import { Bug } from "./card/Bug";
 import { putOneFlag } from "./putOneFlag";
 import { runProgram } from "./runProgram";
 import { FirstPlayer, SecondPlayer } from "./Types";
 import { Game } from "./Game";
 import { debugPrint } from "./debugPrint";
 import { createGame } from "./createGame";
-import { chooseMC } from "./chooseMC";
-import { getCurrentCard } from "./util";
+import { chooseMC } from "./player/chooseMC";
+import { getCurrentCard } from "./getCurrentCard";
 import { isGameOver } from "./isGameOver";
 
 export const wholeTest = async () => {

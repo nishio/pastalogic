@@ -1,4 +1,4 @@
-import { Card } from "./Card";
+import { Card } from "./card/Card";
 import { Player, CursorDirection } from "./Types";
 export type Game = {
   players: Player[];

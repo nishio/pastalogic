@@ -1,6 +1,6 @@
-import { PlayerID } from "./Types";
-import { Game } from "./Game";
-import { createCard } from "./utilCardImpl";
+import { PlayerID } from "../Types";
+import { Game } from "../Game";
+import { createCard } from "../createCard";
 export const RemoveCommand = () => {
   return createCard("RemoveCommand", (game: Game, playerId: PlayerID) => {
     const candidate = [game];

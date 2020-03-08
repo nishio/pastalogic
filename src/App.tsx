@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { startNoviceGame } from "./startNoviceGame";
-import { chooseMC } from "./chooseMC";
-import { HumanPlayer, chooseByHuman } from "./HumanPlayer";
+import { chooseMC } from "./player/chooseMC";
+import { HumanPlayer, chooseByHuman } from "./player/HumanPlayer";
 import { useGlobal } from "reactn";
 import { initializeGlobalState } from "./GLOBAL_STATE";
 import { Game } from "./Game";

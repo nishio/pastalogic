@@ -1,7 +1,9 @@
-import { PlayerID } from "./Types";
-import { Game } from "./Game";
-import { hasEnoughSpace, updateFlag } from "./util";
-import { asParameter, createCard } from "./utilCardImpl";
+import { PlayerID } from "../Types";
+import { Game } from "../Game";
+import { updateFlag } from "../updateFlag";
+import { hasEnoughSpace } from "../hasEnoughSpace";
+import { asParameter } from "../asParameter";
+import { createCard } from "../createCard";
 export const MoveFlag = () => {
   return createCard(
     "MoveFlag",

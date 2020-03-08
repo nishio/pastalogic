@@ -1,7 +1,7 @@
-import { PlayerID } from "./Types";
-import { Game } from "./Game";
-import { updateCard } from "./updateCard";
-import { createCard } from "./utilCardImpl";
+import { PlayerID } from "../Types";
+import { Game } from "../Game";
+import { updateCard } from "../updateCard";
+import { createCard } from "../createCard";
 import { countUsedDecrementToken } from "./Card";
 export const Decrement = () => {
   return createCard("Decrement", (game: Game, playerId: PlayerID) => {

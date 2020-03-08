@@ -1,7 +1,7 @@
-import { PlayerID } from "./Types";
-import { Game } from "./Game";
-import { updateCard } from "./updateCard";
-import { createCard } from "./utilCardImpl";
+import { PlayerID } from "../Types";
+import { Game } from "../Game";
+import { updateCard } from "../updateCard";
+import { createCard } from "../createCard";
 import { countUsedIncrementToken } from "./Card";
 export const Increment = () => {
   return createCard("Increment", (game: Game, playerId: PlayerID) => {

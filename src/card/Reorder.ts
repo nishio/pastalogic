@@ -1,7 +1,7 @@
-import { PlayerID } from "./Types";
-import { Game } from "./Game";
-import { updateCard } from "./updateCard";
-import { createCard } from "./utilCardImpl";
+import { PlayerID } from "../Types";
+import { Game } from "../Game";
+import { updateCard } from "../updateCard";
+import { createCard } from "../createCard";
 
 export const Reorder = () => {
   return createCard("Reorder", (game: Game) => {
@@ -12,7 +12,7 @@ export const Reorder = () => {
         allReorder(card.flags).forEach(newFlag => {
           const next = updateCard(game, cardIndex, card => ({
             ...card,
-            flags: newFlag,
+            flags: newFlag
           }));
           candidate.push(next);
         });

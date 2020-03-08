@@ -1,13 +1,13 @@
-import { Increment } from "./Increment";
-import { MoveFlag } from "./MoveFlag";
-import { Subroutine } from "./Subroutine";
-import { AddFlag } from "./AddFlag";
-import { Bug } from "./Bug";
+import { Increment } from "./card/Increment";
+import { MoveFlag } from "./card/MoveFlag";
+import { Subroutine } from "./card/Subroutine";
+import { AddFlag } from "./card/AddFlag";
+import { Bug } from "./card/Bug";
 import { putOneFlag } from "./putOneFlag";
 import { runProgram } from "./runProgram";
 import { AlgorithToChooseCandidate, FirstPlayer, SecondPlayer } from "./Types";
 import { debugPrintWithUI } from "./debugPrint";
-import { appendOneFlag } from "./util";
+import { appendOneFlag } from "./appendOneFlag";
 import { createGame } from "./createGame";
 import { pushLog } from "./GLOBAL_STATE";
 

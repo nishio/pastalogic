@@ -1,4 +1,4 @@
-import { Card } from "./Card";
+import { Card } from "./card/Card";
 import { AlgorithToChooseCandidate, CursorDirection } from "./Types";
 import { Game } from "./Game";
 export const createGame = (
@@ -13,7 +13,7 @@ export const createGame = (
     cursor: {
       cardIndex: 0,
       flagIndex: 0,
-      repeatIndex: 1,
+      repeatIndex: 1
     },
     returnAddress: null,
     maxFlag: maxFlag,
@@ -22,9 +22,9 @@ export const createGame = (
     time: 0,
     players: [
       { life: initialLife, color: "red", chooseFromCandidate: algorithm0 },
-      { life: initialLife, color: "blue", chooseFromCandidate: algorithm1 },
+      { life: initialLife, color: "blue", chooseFromCandidate: algorithm1 }
     ],
-    cards: cards,
+    cards: cards
   };
   return game;
 };

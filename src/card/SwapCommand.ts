@@ -1,7 +1,7 @@
-import { PlayerID } from "./Types";
-import { Game } from "./Game";
-import { getCurrentCard } from "./util";
-import { createCard } from "./utilCardImpl";
+import { PlayerID } from "../Types";
+import { Game } from "../Game";
+import { getCurrentCard } from "../getCurrentCard";
+import { createCard } from "../createCard";
 export const SwapCommand = () => {
   return createCard("SwapCommand", (game: Game, playerId: PlayerID) => {
     const candidate = [game];

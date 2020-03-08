@@ -1,16 +1,14 @@
-import { PlayerID } from "./Types";
-import { Game } from "./Game";
-import { isGameOver } from "./isGameOver";
-import { constUsedFlag } from "./Card";
-import {
-  getOpponent,
-  getCurrentCard,
-  moveCursorToNextCard,
-  moveCursorToNextFlag,
-  neverComeHere
-} from "./util";
+import { PlayerID } from "../Types";
+import { Game } from "../Game";
+import { isGameOver } from "../isGameOver";
+import { constUsedFlag } from "../card/Card";
+import { getCurrentCard } from "../getCurrentCard";
+import { getOpponent } from "../getOpponent";
+import { moveCursorToNextFlag } from "../moveCursorToNextFlag";
+import { moveCursorToNextCard } from "../moveCursorToNextCard";
+import { neverComeHere } from "../assertion";
 import { controledRandom, chooseRandom } from "./chooseRandom";
-import { debugPrint } from "./debugPrint";
+import { debugPrint } from "../debugPrint";
 
 const SHOW_PROGRESS = false;
 const SHOW_CANDIDATE_SCORE = false;

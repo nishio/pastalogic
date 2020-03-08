@@ -1,8 +1,8 @@
-import { Game } from "./Game";
-import { AlgorithToChooseCandidate, PlayerID } from "./Types";
-import { debugPrint } from "./debugPrint";
+import { Game } from "../Game";
+import { AlgorithToChooseCandidate, PlayerID } from "../Types";
+import { debugPrint } from "../debugPrint";
 import { setGlobal } from "reactn";
-import { popLog } from "./GLOBAL_STATE";
+import { popLog } from "../GLOBAL_STATE";
 
 export const HumanPlayer: AlgorithToChooseCandidate = async (
   type: string,

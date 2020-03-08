@@ -1,18 +1,18 @@
-import { RemoveCommand } from "./RemoveCommand";
-import { RemoveFlag } from "./RemoveFlag";
-import { TradeOff } from "./TradeOff";
-import { Debug } from "./Debug";
-import { ForkBomb } from "./ForkBomb";
-import { FastPass } from "./FastPass";
-import { SwapCommand } from "./SwapCommand";
-import { Rotate } from "./Rotate";
-import { Reverse } from "./Reverse";
-import { Increment } from "./Increment";
-import { MoveFlag } from "./MoveFlag";
-import { Subroutine } from "./Subroutine";
-import { AddFlag } from "./AddFlag";
-import { Bug } from "./Bug";
-import { Reorder } from "./Reorder";
+import { RemoveCommand } from "./card/RemoveCommand";
+import { RemoveFlag } from "./card/RemoveFlag";
+import { TradeOff } from "./card/TradeOff";
+import { Debug } from "./card/Debug";
+import { ForkBomb } from "./card/ForkBomb";
+import { FastPass } from "./card/FastPass";
+import { SwapCommand } from "./card/SwapCommand";
+import { Rotate } from "./card/Rotate";
+import { Reverse } from "./card/Reverse";
+import { Increment } from "./card/Increment";
+import { MoveFlag } from "./card/MoveFlag";
+import { Subroutine } from "./card/Subroutine";
+import { AddFlag } from "./card/AddFlag";
+import { Bug } from "./card/Bug";
+import { Reorder } from "./card/Reorder";
 
 export const WeAreProgrammer = [
   MoveFlag,

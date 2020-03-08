@@ -1,4 +1,4 @@
-import { Card } from "./Card";
+import { Card } from "./card/Card";
 import { Game } from "./Game";
 
 type CardUpdater = (c: Card) => Card;

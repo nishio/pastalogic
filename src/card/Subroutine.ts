@@ -1,7 +1,8 @@
-import { PlayerID } from "./Types";
-import { Game } from "./Game";
-import { getCardIndex } from "./util";
-import { asParameter, createCard } from "./utilCardImpl";
+import { PlayerID } from "../Types";
+import { Game } from "../Game";
+import { getCardIndex } from "../getCardIndex";
+import { asParameter } from "../asParameter";
+import { createCard } from "../createCard";
 export const Subroutine = () => {
   return createCard("Subroutine", (game: Game, playerId: PlayerID) => {
     const candidate = [game];
