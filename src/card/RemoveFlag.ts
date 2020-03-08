@@ -4,7 +4,7 @@ import { isSubroutineAndIsUsing } from "../util/isUsingSubroutine";
 import { updateFlag } from "../util/updateFlag";
 import { createCard } from "./createCard";
 import { isCurrentCard } from "../util/isCurrentCard";
-import { removeAFlagFromFlags } from "./removeAFlagFromFlags";
+import { removeAFlagFromFlags } from "../util/removeAFlagFromFlags";
 
 const getCandidate = (game: Game, playerId: PlayerID) => {
   const candidate = [game];

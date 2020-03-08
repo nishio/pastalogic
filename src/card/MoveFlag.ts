@@ -6,7 +6,7 @@ import { createCard } from "./createCard";
 import { isSubroutineAndIsUsing } from "../util/isUsingSubroutine";
 import { isCurrentCard } from "../util/isCurrentCard";
 import { hasNoFlag } from "../util/hasNoFlag";
-import { removeAFlagFromFlags } from "./removeAFlagFromFlags";
+import { removeAFlagFromFlags } from "../util/removeAFlagFromFlags";
 
 const getCandidate = (game: Game, playerId: PlayerID) => {
   const candidate = [game];
