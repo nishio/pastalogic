@@ -4,6 +4,7 @@ import { chooseMC } from "./player/chooseMC";
 import { HumanPlayer } from "./player/HumanPlayer";
 import { WeAreProgrammer, LifeRace, Inflation, Catastrophe } from "./Preset";
 import { startPresetGame } from "./startPresetGame";
+import { startRandomGame } from "./startRandomGame";
 export const NewGame = () => {
   const menu: [string, any][] = [
     [
@@ -29,6 +30,10 @@ export const NewGame = () => {
     [
       "Preset: Catastrophe (Shuffled Cards/Players)",
       () => startPresetGame(Catastrophe)
+    ],
+    [
+      "Random game(include BASIC cards. Shuffled Cards/Players)",
+      () => startRandomGame()
     ]
   ];
   const items = menu.map(([caption, onClick]) => {

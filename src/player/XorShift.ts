@@ -20,12 +20,12 @@ export const shuffle = (xs: any[]) => {
   const tmp = [...xs];
   const ret = [];
   while (tmp.length > 0) {
-    ret.push(popOne(tmp));
+    ret.push(popRandomElement(tmp));
   }
   return ret;
 };
 
-const popOne = (xs: any[]) => {
+export const popRandomElement = (xs: any[]) => {
   const N = xs.length;
   const i = Math.floor(rng.random() * N);
   const ret = xs[i];
