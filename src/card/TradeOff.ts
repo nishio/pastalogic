@@ -1,9 +1,9 @@
 import { PlayerID } from "../Types";
-import { Game } from "../Game";
-import { asParameter } from "../asParameter";
+import { Game } from "../Types";
+import { asParameter } from "../util/asParameter";
 import { createCard } from "../createCard";
-import { getOpponent } from "../getOpponent";
-import { updateLife } from "../updateLife";
+import { getOpponent } from "../util/getOpponent";
+import { updateLife } from "../util/updateLife";
 
 export const TradeOff = () => {
   return createCard("TradeOff", (game: Game, me: PlayerID) => {

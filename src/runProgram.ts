@@ -1,7 +1,7 @@
 import { debugPrintWithUI, flagToStr } from "./debugPrint";
 import { isGameOver } from "./isGameOver";
-import { Game } from "./Game";
-import { getCurrentCard } from "./getCurrentCard";
+import { Game } from "./Types";
+import { getCurrentCard } from "./util/getCurrentCard";
 import { moveCursorToNextFlag } from "./moveCursorToNextFlag";
 import { moveCursorToNextCard } from "./moveCursorToNextCard";
 import { pushLog } from "./GLOBAL_STATE";

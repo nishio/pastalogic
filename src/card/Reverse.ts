@@ -1,8 +1,8 @@
 import { PlayerID } from "../Types";
-import { Game } from "../Game";
-import { reverseCursorDirection } from "../reverseCursorDirection";
-import { updateLife } from "../updateLife";
-import { asParameter } from "../asParameter";
+import { Game } from "../Types";
+import { reverseCursorDirection } from "../util/reverseCursorDirection";
+import { updateLife } from "../util/updateLife";
+import { asParameter } from "../util/asParameter";
 import { createCard } from "../createCard";
 export const Reverse = () => {
   return createCard("Reverse", (game: Game, playerId: PlayerID) => {

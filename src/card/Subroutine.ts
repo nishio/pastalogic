@@ -1,7 +1,7 @@
 import { PlayerID } from "../Types";
-import { Game } from "../Game";
-import { getCardIndex } from "../getCardIndex";
-import { asParameter } from "../asParameter";
+import { Game } from "../Types";
+import { getLoopedCardIndex } from "../util/getLoopedCardIndex";
+import { asParameter } from "../util/asParameter";
 import { createCard } from "../createCard";
 export const Subroutine = () => {
   return createCard("Subroutine", (game: Game, playerId: PlayerID) => {
@@ -13,7 +13,7 @@ export const Subroutine = () => {
       const next = {
         ...game,
         cursor: {
-          cardIndex: getCardIndex(game, game.cursor.cardIndex, i),
+          cardIndex: getLoopedCardIndex(game.cursor.cardIndex, i, game),
           flagIndex: -1,
           repeatIndex: 1
         },

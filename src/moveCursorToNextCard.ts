@@ -1,8 +1,8 @@
-import { Game } from "./Game";
-import { updateCard } from "./updateCard";
-import { neverComeHere } from "./assertion";
-import { findCard } from "./findCard";
-import { getNextCardIndex } from "./getNextCardIndex";
+import { updateCard } from "./util/updateCard";
+import { neverComeHere } from "./util/assertion";
+import { findCard } from "./util/findCard";
+import { getNextCardIndex } from "./util/getNextCardIndex";
+import { Game } from "./Types";
 export const moveCursorToNextCard = (game: Game): Game => {
   game = updateCard(game, game.cursor.cardIndex, card => {
     return {

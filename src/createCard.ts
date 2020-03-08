@@ -1,6 +1,5 @@
-import { PlayerID, AlgorithToChooseCandidate } from "./Types";
-import { Game } from "./Game";
-import { Card } from "./card/Card";
+import { PlayerID, AlgorithToChooseCandidate, Game, Card } from "./Types";
+
 // utility for card definition
 export const createCard = (
   name: string,

@@ -1,12 +1,12 @@
 import { PlayerID } from "../Types";
-import { Game } from "../Game";
-import { updateFlag } from "../updateFlag";
-import { hasEnoughSpace } from "../hasEnoughSpace";
-import { asParameter } from "../asParameter";
+import { Game } from "../Types";
+import { updateFlag } from "../util/updateFlag";
+import { hasEnoughSpace } from "../util/hasEnoughSpace";
+import { asParameter } from "../util/asParameter";
 import { createCard } from "../createCard";
-import { isUsingSubroutine } from "../isUsingSubroutine";
-import { isCurrentCard } from "./isCurrentCard";
-import { hasNoFlag } from "./hasNoFlag";
+import { isSubroutineAndIsUsing } from "../util/isUsingSubroutine";
+import { isCurrentCard } from "../util/isCurrentCard";
+import { hasNoFlag } from "../util/hasNoFlag";
 
 export const MoveFlag = () => {
   return createCard(
@@ -16,7 +16,7 @@ export const MoveFlag = () => {
       game.cards.forEach((fromCard, i) => {
         if (isCurrentCard(i, game)) return;
         if (hasNoFlag(fromCard)) return;
-        if (isUsingSubroutine(fromCard, game)) return;
+        if (isSubroutineAndIsUsing(fromCard, game)) return;
 
         game.cards.forEach((toCard, j) => {
           if (isCurrentCard(j, game)) return;

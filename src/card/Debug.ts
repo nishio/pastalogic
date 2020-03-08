@@ -1,9 +1,9 @@
 import { PlayerID } from "../Types";
-import { Game } from "../Game";
-import { removeFlagAsCost } from "../removeFlagAsCost";
-import { asParameter } from "../asParameter";
+import { Game } from "../Types";
+import { removeFlagAsCost } from "../util/removeFlagAsCost";
+import { asParameter } from "../util/asParameter";
 import { createCard } from "../createCard";
-import { updateLife } from "../updateLife";
+import { updateLife } from "../util/updateLife";
 
 export const Debug = () => {
   return createCard("Debug", (game: Game, me: PlayerID) => {

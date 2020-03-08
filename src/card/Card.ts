@@ -1,21 +1,7 @@
-import { PlayerID, AlgorithToChooseCandidate } from "../Types";
-import { Game } from "../Game";
+import { PlayerID } from "../Types";
+import { Game } from "../Types";
 
-export type Card = {
-  name: string;
-  flags: PlayerID[];
-  getCandidate: (game: Game, playerId: PlayerID) => Game[];
-  play: (
-    game: Game,
-    playerId: PlayerID,
-    algorithm: AlgorithToChooseCandidate
-  ) => Promise<Game> | Game;
-  numIncrementToken: number;
-  numDecrementToken: number;
-  repeat: (game: Game) => number;
-};
-
-export const constUsedFlag = (playerId: PlayerID, game: Game) => {
+export const countUsedFlag = (playerId: PlayerID, game: Game) => {
   let ret = 0;
   game.cards.forEach(c => {
     c.flags.forEach(f => {

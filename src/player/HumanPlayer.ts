@@ -1,4 +1,4 @@
-import { Game } from "../Game";
+import { Game } from "../Types";
 import { AlgorithToChooseCandidate, PlayerID } from "../Types";
 import { debugPrint } from "../debugPrint";
 import { setGlobal } from "reactn";

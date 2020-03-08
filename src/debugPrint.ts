@@ -1,7 +1,5 @@
-import { PlayerID, FirstPlayer, SecondPlayer } from "./Types";
-import { Game } from "./Game";
-import { Card } from "./card/Card";
-import { neverComeHere } from "./assertion";
+import { PlayerID, FirstPlayer, SecondPlayer, Game, Card } from "./Types";
+import { neverComeHere } from "./util/assertion";
 import { pushLog } from "./GLOBAL_STATE";
 
 export const debugToStr = (game: Game) => {

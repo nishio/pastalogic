@@ -1,8 +1,8 @@
-import { Game } from "./Game";
+import { Game } from "../Types";
 import { updateFlag } from "./updateFlag";
 import { getCurrentCard } from "./getCurrentCard";
 
-export const removeFlagAsCost = (game: Game) => {
+export const removeFlagAsCost = (game: Game): Game => {
   const newFlag = getCurrentCard(game).flags;
   newFlag.splice(game.cursor.flagIndex, 1);
   return {

@@ -1,5 +1,4 @@
-import { Game } from "./Game";
-import { PlayerID } from "./Types";
+import { Game, PlayerID } from "./Types";
 type GameOverType =
   | { type: "draw"; reason: string }
   | { type: "win"; winner: PlayerID; reason: string }

@@ -1,5 +1,5 @@
 import { PlayerID } from "../Types";
-import { Game } from "../Game";
+import { Game } from "../Types";
 
 export const chooseFirst = (
   type: string,

@@ -1,12 +1,12 @@
 import { PlayerID } from "../Types";
-import { Game } from "../Game";
+import { Game } from "../Types";
 import { isGameOver } from "../isGameOver";
-import { constUsedFlag } from "../card/Card";
-import { getCurrentCard } from "../getCurrentCard";
-import { getOpponent } from "../getOpponent";
+import { countUsedFlag } from "../card/Card";
+import { getCurrentCard } from "../util/getCurrentCard";
+import { getOpponent } from "../util/getOpponent";
 import { moveCursorToNextFlag } from "../moveCursorToNextFlag";
 import { moveCursorToNextCard } from "../moveCursorToNextCard";
-import { neverComeHere } from "../assertion";
+import { neverComeHere } from "../util/assertion";
 import { controledRandom, chooseRandom } from "./chooseRandom";
 import { debugPrint } from "../debugPrint";
 
@@ -89,9 +89,9 @@ const score = (game: Game, playerId: PlayerID) => {
 
   let ret = 0;
   ret += numToScore(game.players[playerId].life);
-  ret += numToScore(constUsedFlag(playerId, game));
+  ret += numToScore(countUsedFlag(playerId, game));
   ret -= numToScore(game.players[getOpponent(playerId)].life);
-  ret -= numToScore(constUsedFlag(getOpponent(playerId), game));
+  ret -= numToScore(countUsedFlag(getOpponent(playerId), game));
   ret += controledRandom() / 1000;
   return ret;
 };

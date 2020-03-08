@@ -1,6 +1,6 @@
 import { PlayerID } from "../Types";
-import { Game } from "../Game";
-import { updateCard } from "../updateCard";
+import { Game } from "../Types";
+import { updateCard } from "../util/updateCard";
 import { createCard } from "../createCard";
 import { countUsedIncrementToken } from "./Card";
 export const Increment = () => {

@@ -7,7 +7,7 @@ import { putOneFlag } from "./putOneFlag";
 import { runProgram } from "./runProgram";
 import { AlgorithToChooseCandidate, FirstPlayer, SecondPlayer } from "./Types";
 import { debugPrintWithUI } from "./debugPrint";
-import { appendOneFlag } from "./appendOneFlag";
+import { appendOneFlag } from "./util/appendOneFlag";
 import { createGame } from "./createGame";
 import { pushLog } from "./GLOBAL_STATE";
 

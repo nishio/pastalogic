@@ -1,8 +1,8 @@
 import { PlayerID } from "../Types";
-import { Game } from "../Game";
-import { isUsingSubroutine } from "../isUsingSubroutine";
-import { updateFlag } from "../updateFlag";
-import { asParameter } from "../asParameter";
+import { Game } from "../Types";
+import { isSubroutineAndIsUsing } from "../util/isUsingSubroutine";
+import { updateFlag } from "../util/updateFlag";
+import { asParameter } from "../util/asParameter";
 import { createCard } from "../createCard";
 export const RemoveFlag = () => {
   return createCard(
@@ -11,7 +11,7 @@ export const RemoveFlag = () => {
       const candidate = [game];
       game.cards.forEach((card, cardIndex) => {
         if (card.name === "RemoveFlag") return;
-        if (isUsingSubroutine(card, game)) return;
+        if (isSubroutineAndIsUsing(card, game)) return;
         if (card.flags.length === 0) return;
         card.flags.forEach((f, flagIndex) => {
           const newFlags = [...card.flags];

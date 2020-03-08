@@ -1,17 +1,13 @@
+import { AddFlag } from "./card/AddFlag";
+import { Bug } from "./card/Bug";
 import { Increment } from "./card/Increment";
 import { MoveFlag } from "./card/MoveFlag";
 import { Subroutine } from "./card/Subroutine";
-import { AddFlag } from "./card/AddFlag";
-import { Bug } from "./card/Bug";
-import { putOneFlag } from "./putOneFlag";
-import { runProgram } from "./runProgram";
-import { FirstPlayer, SecondPlayer } from "./Types";
-import { Game } from "./Game";
-import { debugPrint } from "./debugPrint";
 import { createGame } from "./createGame";
+import { debugPrint } from "./debugPrint";
 import { chooseMC } from "./player/chooseMC";
-import { getCurrentCard } from "./getCurrentCard";
-import { isGameOver } from "./isGameOver";
+import { putOneFlag } from "./putOneFlag";
+import { FirstPlayer, SecondPlayer } from "./Types";
 
 export const wholeTest = async () => {
   let game = createGame(3, chooseMC, chooseMC, [

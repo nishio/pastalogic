@@ -1,5 +1,5 @@
 import { PlayerID } from "../Types";
-import { Game } from "../Game";
+import { Game } from "../Types";
 import { createCard } from "../createCard";
 export const RemoveCommand = () => {
   return createCard("RemoveCommand", (game: Game, playerId: PlayerID) => {

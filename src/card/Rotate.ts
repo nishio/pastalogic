@@ -1,7 +1,7 @@
 import { PlayerID } from "../Types";
-import { Game } from "../Game";
-import { isUsingSubroutine } from "../isUsingSubroutine";
-import { updateFlag } from "../updateFlag";
+import { Game } from "../Types";
+import { isSubroutineAndIsUsing } from "../util/isUsingSubroutine";
+import { updateFlag } from "../util/updateFlag";
 import { createCard } from "../createCard";
 export const Rotate = () => {
   return createCard("Rotate", (game: Game, playerId: PlayerID) => {
@@ -9,7 +9,7 @@ export const Rotate = () => {
     let next = game;
     game.cards.forEach((card, cardIndex) => {
       if (card.name === "Rotate") return;
-      if (isUsingSubroutine(card, game)) return;
+      if (isSubroutineAndIsUsing(card, game)) return;
       const newFlag = [...card.flags];
       const v = newFlag.pop();
       if (v !== undefined) {

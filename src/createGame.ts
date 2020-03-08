@@ -1,6 +1,9 @@
-import { Card } from "./card/Card";
-import { AlgorithToChooseCandidate, CursorDirection } from "./Types";
-import { Game } from "./Game";
+import {
+  AlgorithToChooseCandidate,
+  CursorDirection,
+  Card,
+  Game
+} from "./Types";
 export const createGame = (
   initialLife: number,
   algorithm0: AlgorithToChooseCandidate,

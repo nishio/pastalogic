@@ -1,11 +1,11 @@
 import { PlayerID } from "../Types";
-import { Game } from "../Game";
+import { Game } from "../Types";
 import { isGameOver } from "../isGameOver";
-import { removeFlagAsCost } from "../removeFlagAsCost";
-import { asParameter } from "../asParameter";
+import { removeFlagAsCost } from "../util/removeFlagAsCost";
+import { asParameter } from "../util/asParameter";
 import { createCard } from "../createCard";
-import { getOpponent } from "../getOpponent";
-import { updateLife } from "../updateLife";
+import { getOpponent } from "../util/getOpponent";
+import { updateLife } from "../util/updateLife";
 
 export const ForkBomb = () => {
   return createCard("ForkBomb", (game: Game, me: PlayerID) => {

@@ -5,8 +5,8 @@ import { chooseMC } from "./player/chooseMC";
 import { HumanPlayer, chooseByHuman } from "./player/HumanPlayer";
 import { useGlobal } from "reactn";
 import { initializeGlobalState } from "./GLOBAL_STATE";
-import { Game } from "./Game";
 import { debugToStr } from "./debugPrint";
+import { Game } from "./Types";
 
 initializeGlobalState();
 
