@@ -1,7 +1,6 @@
 import { PlayerID } from "../Types";
 import { Game } from "../Types";
-var XorShift = require("xorshift").constructor;
-var rng = new XorShift([1, 2, 3, 4]);
+import { rng } from "./XorShift";
 
 export const chooseRandom = (
   type: string,
