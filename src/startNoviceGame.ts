@@ -1,4 +1,8 @@
-import { AddFlag, Bug, Increment, MoveFlag, Subroutine } from "./Card";
+import { Increment } from "./Increment";
+import { MoveFlag } from "./MoveFlag";
+import { Subroutine } from "./Subroutine";
+import { AddFlag } from "./AddFlag";
+import { Bug } from "./Bug";
 import { putOneFlag } from "./putOneFlag";
 import { runProgram } from "./runProgram";
 import { AlgorithToChooseCandidate, FirstPlayer, SecondPlayer } from "./Types";

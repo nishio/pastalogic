@@ -1,19 +1,17 @@
-import {
-  AddFlag,
-  MoveFlag,
-  RemoveFlag,
-  Rotate,
-  FastPass,
-  Bug,
-  ForkBomb,
-  Debug,
-  TradeOff,
-  RemoveCommand,
-  Reverse,
-  SwapCommand,
-  Subroutine,
-  Increment,
-} from "./Card";
+import { RemoveCommand } from "./RemoveCommand";
+import { RemoveFlag } from "./RemoveFlag";
+import { TradeOff } from "./TradeOff";
+import { Debug } from "./Debug";
+import { ForkBomb } from "./ForkBomb";
+import { FastPass } from "./FastPass";
+import { SwapCommand } from "./SwapCommand";
+import { Rotate } from "./Rotate";
+import { Reverse } from "./Reverse";
+import { Increment } from "./Increment";
+import { MoveFlag } from "./MoveFlag";
+import { Subroutine } from "./Subroutine";
+import { AddFlag } from "./AddFlag";
+import { Bug } from "./Bug";
 import { Reorder } from "./Reorder";
 
 export const WeAreProgrammer = [
@@ -24,7 +22,7 @@ export const WeAreProgrammer = [
   Rotate,
   SwapCommand,
   Bug,
-  FastPass,
+  FastPass
 ];
 
 export const LifeRace = [
@@ -35,7 +33,7 @@ export const LifeRace = [
   ForkBomb,
   Debug,
   TradeOff,
-  Increment,
+  Increment
 ];
 
 export const Inflation = [
@@ -46,7 +44,7 @@ export const Inflation = [
   Increment,
   FastPass,
   TradeOff,
-  Debug,
+  Debug
 ];
 
 export const Catastrophe = [
@@ -57,7 +55,7 @@ export const Catastrophe = [
   SwapCommand,
   Bug,
   ForkBomb,
-  TradeOff,
+  TradeOff
 ];
 
 const x = 1;

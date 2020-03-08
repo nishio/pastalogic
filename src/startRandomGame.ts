@@ -1,20 +1,18 @@
-import {
-  AddFlag,
-  Bug,
-  Increment,
-  MoveFlag,
-  Subroutine,
-  Reverse,
-  Rotate,
-  SwapCommand,
-  FastPass,
-  ForkBomb,
-  Debug,
-  TradeOff,
-  Decrement,
-  RemoveCommand,
-  RemoveFlag
-} from "./Card";
+import { RemoveCommand } from "./RemoveCommand";
+import { RemoveFlag } from "./RemoveFlag";
+import { TradeOff } from "./TradeOff";
+import { Debug } from "./Debug";
+import { ForkBomb } from "./ForkBomb";
+import { FastPass } from "./FastPass";
+import { SwapCommand } from "./SwapCommand";
+import { Rotate } from "./Rotate";
+import { Reverse } from "./Reverse";
+import { Decrement } from "./Decrement";
+import { Increment } from "./Increment";
+import { MoveFlag } from "./MoveFlag";
+import { Subroutine } from "./Subroutine";
+import { AddFlag } from "./AddFlag";
+import { Bug } from "./Bug";
 import { putOneFlag } from "./putOneFlag";
 import { AlgorithToChooseCandidate, FirstPlayer, SecondPlayer } from "./Types";
 import { Game } from "./Game";

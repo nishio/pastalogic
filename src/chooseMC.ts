@@ -1,7 +1,7 @@
 import { PlayerID } from "./Types";
 import { Game } from "./Game";
 import { isGameOver } from "./isGameOver";
-import { usedFlag } from "./Card";
+import { constUsedFlag } from "./Card";
 import {
   getOpponent,
   getCurrentCard,
@@ -91,9 +91,9 @@ const score = (game: Game, playerId: PlayerID) => {
 
   let ret = 0;
   ret += numToScore(game.players[playerId].life);
-  ret += numToScore(usedFlag(playerId, game));
+  ret += numToScore(constUsedFlag(playerId, game));
   ret -= numToScore(game.players[getOpponent(playerId)].life);
-  ret -= numToScore(usedFlag(getOpponent(playerId), game));
+  ret -= numToScore(constUsedFlag(getOpponent(playerId), game));
   ret += controledRandom() / 1000;
   return ret;
 };
