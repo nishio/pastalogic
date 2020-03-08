@@ -16,7 +16,7 @@ function App() {
     return <NewGame />;
   }
 
-  const items = log.map((x: any) => {
+  const items = log.map((x: any, i: number) => {
     if (typeof x === "string") {
       if (x === "[newgame]") {
         return (
@@ -29,19 +29,19 @@ function App() {
           </button>
         );
       }
-      return <p>{x}</p>;
+      return <p key={i}>{x}</p>;
     }
     const toButton = (game: Game, i: number) => {
       return (
-        <li>
+        <li key={i}>
           <button onClick={chooseByHuman(i)}>{debugToStr(game)}</button>
         </li>
       );
     };
     return (
-      <p>
+      <div key={i}>
         select: <ul>{x.map(toButton)}</ul>
-      </p>
+      </div>
     );
   });
   return <div className="App">{items}</div>;

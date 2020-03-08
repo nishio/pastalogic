@@ -36,9 +36,9 @@ export const NewGame = () => {
       () => startRandomGame()
     ]
   ];
-  const items = menu.map(([caption, onClick]) => {
+  const items = menu.map(([caption, onClick], i: number) => {
     return (
-      <li>
+      <li key={i}>
         <button onClick={onClick}>{caption}</button>
       </li>
     );
