@@ -15,17 +15,15 @@ import { AddFlag } from "./card/AddFlag";
 import { Bug } from "./card/Bug";
 import { putOneFlag } from "./putOneFlag";
 import { AlgorithToChooseCandidate, FirstPlayer, SecondPlayer } from "./Types";
-import { Game } from "./Game";
 import { Reorder } from "./card/Reorder";
 import { runProgram } from "./runProgram";
 import { createGame } from "./createGame";
+import { chooseRandom } from "./player/chooseRandom";
+import { initializeGlobalState } from "./GLOBAL_STATE";
 
-export const startRandomGame = async (
-  algorithm0: AlgorithToChooseCandidate,
-  algorithm1: AlgorithToChooseCandidate
-) => {
+export const regressionTest = async () => {
   // コマンド準備フェーズ
-  let game = createGame(100, algorithm0, algorithm1, [
+  let game = createGame(100, chooseRandom, chooseRandom, [
     Bug(),
     AddFlag(),
     Subroutine(),
@@ -45,13 +43,13 @@ export const startRandomGame = async (
   ]);
   // フラグ配置フェーズ
   for (let i = 0; i < 16; i++) {
-    game = await putOneFlag(game, FirstPlayer, algorithm0);
-    game = await putOneFlag(game, SecondPlayer, algorithm1);
+    game = await putOneFlag(game, FirstPlayer, chooseRandom);
+    game = await putOneFlag(game, SecondPlayer, chooseRandom);
   }
 
   // プログラム実行フェーズ
   runProgram(game);
 };
 
-//@ts-ignore
-window.startRandomGame = startRandomGame;
+initializeGlobalState();
+regressionTest();
