@@ -9,7 +9,7 @@ import { updateLife } from "../util/updateLife";
 
 const getCandidate = (game: Game, me: PlayerID) => {
   const candidate = [game];
-  let next = updateLife(game, getOpponent(me), asParameter(game, 2));
+  let next = updateLife(game, getOpponent(me), -asParameter(game, 2));
   if (isGameOver(next)) return [game, next];
   candidate.push(removeFlagAsCost(next));
   return candidate;
