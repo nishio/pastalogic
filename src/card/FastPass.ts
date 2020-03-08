@@ -5,6 +5,7 @@ import { updateFlag } from "../util/updateFlag";
 import { createCard } from "./createCard";
 import { countUsedFlag } from "../util/countUsedFlag";
 import { isCurrentCard } from "../util/isCurrentCard";
+import { updateLife } from "../util/updateLife";
 
 const getCandidate = (game: Game, playerId: PlayerID) => {
   if (countUsedFlag(playerId, game) === game.maxFlag) return [game];
@@ -17,7 +18,9 @@ const getCandidate = (game: Game, playerId: PlayerID) => {
     if (newFlags.length > MAX_FLAGS_ON_A_CARD) {
       newFlags.pop();
     }
-    candidate.push(updateFlag(game, cardIndex, newFlags));
+    let next = updateFlag(game, cardIndex, newFlags);
+    next = updateLife(next, playerId, -1);
+    candidate.push(next);
   });
   return candidate;
 };
