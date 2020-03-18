@@ -9,11 +9,13 @@ import { AlgorithToChooseCandidate, FirstPlayer, SecondPlayer } from "./Types";
 import { debugPrintWithUI } from "./debugPrint";
 import { createGame } from "./createGame";
 import { pushLog } from "./GLOBAL_STATE";
+import { resetRandomSeed } from "./player/XorShift";
 
 export const startNoviceGame = async (
   algorithm0: AlgorithToChooseCandidate,
   algorithm1: AlgorithToChooseCandidate
 ) => {
+  resetRandomSeed();
   let game = createGame({
     initialLife: 3,
     maxFlag: 10,

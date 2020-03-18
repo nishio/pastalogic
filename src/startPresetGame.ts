@@ -4,7 +4,7 @@ import { FirstPlayer, SecondPlayer, Card } from "./Types";
 import { debugPrintWithUI } from "./debugPrint";
 import { createGame } from "./createGame";
 import { pushLog } from "./GLOBAL_STATE";
-import { rng, shuffle, resetRandomSeed } from "./player/XorShift";
+import { shuffle, resetRandomSeed, random } from "./player/XorShift";
 import { HumanPlayer } from "./player/HumanPlayer";
 import { chooseMC } from "./player/chooseMC";
 
@@ -12,7 +12,7 @@ type TypePreset = (() => Card)[];
 export const startPresetGame = async (preset: TypePreset, toShuffle = true) => {
   resetRandomSeed();
   let firstPlayer, secondPlayer;
-  if (rng.random() < 0.5) {
+  if (random() < 0.5) {
     firstPlayer = HumanPlayer;
     secondPlayer = chooseMC;
   } else {

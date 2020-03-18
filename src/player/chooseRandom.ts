@@ -1,13 +1,13 @@
 import { PlayerID } from "../Types";
 import { Game } from "../Types";
-import { rng } from "./XorShift";
+import { random } from "./XorShift";
 
 export const chooseRandom = (
   type: string,
   playerId: PlayerID,
   candidate: Game[]
 ) => {
-  return candidate[Math.floor(rng.random() * candidate.length)];
+  return candidate[Math.floor(random() * candidate.length)];
 };
 
 export const chooseMathRandom = (

@@ -5,10 +5,10 @@ import { debugPrintWithUI } from "./debugPrint";
 import { createGame } from "./createGame";
 import { pushLog } from "./GLOBAL_STATE";
 import {
-  rng,
   shuffle,
   resetRandomSeed,
-  popRandomElement
+  popRandomElement,
+  random
 } from "./player/XorShift";
 import { HumanPlayer } from "./player/HumanPlayer";
 import { chooseMC } from "./player/chooseMC";
@@ -32,7 +32,7 @@ import { Bug } from "./card/Bug";
 export const startFullRandomGame = async () => {
   resetRandomSeed();
   let firstPlayer, secondPlayer;
-  if (rng.random() < 0.5) {
+  if (random() < 0.5) {
     firstPlayer = HumanPlayer;
     secondPlayer = chooseMC;
   } else {

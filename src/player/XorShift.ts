@@ -16,6 +16,10 @@ export const resetRandomSeed = (seed?: [number, number, number, number]) => {
   rng = new XorShift(seed);
 };
 
+export const random = () => {
+  return rng.random();
+};
+
 export const shuffle = (xs: any[]) => {
   const tmp = [...xs];
   const ret = [];
