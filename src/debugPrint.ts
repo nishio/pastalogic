@@ -27,7 +27,7 @@ const cardToStr = (card: Card, cardIndex: number, game: Game) => {
 
   let rep = "";
   if (card.repeat(game) > 1) {
-    rep = `${game.cursor.repeatIndex + 1}`;
+    rep = `/${game.cursor.repeatIndex}`;
   }
 
   if (card.flags.length === 0) {
