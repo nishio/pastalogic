@@ -7,7 +7,6 @@ import {
   TypeRepeatGetter
 } from "../Types";
 import { asParameter } from "../util/asParameter";
-import { neverComeHere } from "../util/assertion";
 
 // utility for card definition
 
