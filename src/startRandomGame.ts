@@ -11,7 +11,6 @@ import {
   popRandomElement
 } from "./player/XorShift";
 import { HumanPlayer } from "./player/HumanPlayer";
-import { chooseMC } from "./player/chooseMC";
 import { AddFlag } from "./card/AddFlag";
 import { MoveFlag } from "./card/MoveFlag";
 import { Decrement } from "./card/Decrement";

@@ -8,13 +8,9 @@ import { getOpponent } from "../util/getOpponent";
 import { moveCursorToNextFlag } from "../moveCursorToNextFlag";
 import { moveCursorToNextCard } from "../moveCursorToNextCard";
 import { neverComeHere } from "../util/assertion";
-import {
-  controledRandom,
-  chooseRandom,
-  chooseMathRandom
-} from "./chooseRandom";
+import { controledRandom, chooseRandom } from "./chooseRandom";
 import { debugPrint, gameToStr } from "../debugPrint";
-import { useGlobal, getGlobal } from "reactn";
+import { getGlobal } from "reactn";
 
 const SHOW_PROGRESS = false;
 const SHOW_CANDIDATE_SCORE = false;

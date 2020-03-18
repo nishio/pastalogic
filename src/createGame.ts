@@ -15,12 +15,6 @@ interface GameParams {
   numInitialFlag: number;
 }
 
-const defaultParams = {
-  maxFlag: 10,
-  maxLife: 6,
-  numInitialFlag: 5
-};
-
 export const createGame = (params: GameParams): Game => {
   let game: Game = {
     // common initial value
