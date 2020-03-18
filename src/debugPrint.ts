@@ -43,7 +43,7 @@ const cardToStr = (card: Card, cardIndex: number, game: Game) => {
           }
         }
         if (game.returnAddress !== null && card.name === "Subroutine") {
-          if (flagIndex === game.returnAddress) {
+          if (flagIndex === game.returnAddress - 1) {
             fs = `{${fs}${rep}}`;
           }
         }
