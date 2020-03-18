@@ -34,9 +34,9 @@ export const startNoviceGame = async (
     game = await putOneFlag(game, SecondPlayer, algorithm1);
     debugPrintWithUI(game);
   }
-
   // プログラム実行フェーズ
   pushLog("-----run program-----");
+  game = { ...game, phase: "RunProgram" };
   runProgram(game);
 };
 

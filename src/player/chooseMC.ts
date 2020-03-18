@@ -1,4 +1,4 @@
-import { PlayerID } from "../Types";
+import { PlayerID, FirstPlayer, SecondPlayer } from "../Types";
 import { Game } from "../Types";
 import { isGameOver } from "../isGameOver";
 import { countUsedFlag } from "../util/countUsedFlag";
@@ -9,6 +9,7 @@ import { moveCursorToNextCard } from "../moveCursorToNextCard";
 import { neverComeHere } from "../util/assertion";
 import { controledRandom, chooseRandom } from "./chooseRandom";
 import { debugPrint } from "../debugPrint";
+import { putOneFlag } from "../putOneFlag";
 
 const SHOW_PROGRESS = false;
 const SHOW_CANDIDATE_SCORE = false;
@@ -27,6 +28,20 @@ export const chooseMC = async (
     for (let trial = 0; trial < NUM_TRIAL; trial++) {
       game = { ...start };
       for (let i = 0; i < 50; i++) {
+        if (game.phase === "PutFlag") {
+          const n1 = countUsedFlag(FirstPlayer, game);
+          const n2 = countUsedFlag(FirstPlayer, game);
+          if (n1 === game.numInitialFlag && n2 === game.numInitialFlag) {
+            game = { ...game, phase: "RunProgram" };
+            continue;
+          } else if (n1 === n2) {
+            // Put FirstPlayer
+            game = await putOneFlag(game, FirstPlayer, chooseRandom);
+          } else {
+            // Put SecondPlayer
+            game = await putOneFlag(game, SecondPlayer, chooseRandom);
+          }
+        }
         const currentCard = getCurrentCard(game);
         const currentPlayer = currentCard.flags[game.cursor.flagIndex];
         if (currentPlayer === undefined) {

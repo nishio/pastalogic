@@ -27,8 +27,10 @@ export type Game = {
   returnAddress: null | number;
   maxFlag: number;
   maxLife: number;
+  numInitialFlag: number;
   cursorDirection: CursorDirection;
   time: number;
+  phase: "PutFlag" | "RunProgram";
 };
 
 type TypePlay = (

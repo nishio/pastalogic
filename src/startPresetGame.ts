@@ -40,5 +40,6 @@ export const startPresetGame = async (preset: TypePreset, toShuffle = true) => {
 
   // プログラム実行フェーズ
   pushLog("-----run program-----");
+  game = { ...game, phase: "RunProgram" };
   runProgram(game);
 };

@@ -81,5 +81,6 @@ export const startRandomGame = async () => {
 
   // プログラム実行フェーズ
   pushLog("-----run program-----");
+  game = { ...game, phase: "RunProgram" };
   runProgram(game);
 };
