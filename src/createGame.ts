@@ -4,15 +4,24 @@ import {
   Card,
   Game
 } from "./Types";
-export const createGame = (
-  initialLife: number,
-  algorithm0: AlgorithToChooseCandidate,
-  algorithm1: AlgorithToChooseCandidate,
-  cards: Card[],
-  maxFlag = 10,
-  maxLife = 6,
-  numInitialFlag = 5
-): Game => {
+
+interface GameParams {
+  initialLife: number;
+  algorithmOfFirstPlayer: AlgorithToChooseCandidate;
+  algorithmOfSecondPlayer: AlgorithToChooseCandidate;
+  cards: Card[];
+  maxFlag: number;
+  maxLife: number;
+  numInitialFlag: number;
+}
+
+const defaultParams = {
+  maxFlag: 10,
+  maxLife: 6,
+  numInitialFlag: 5
+};
+
+export const createGame = (params: GameParams): Game => {
   let game: Game = {
     // common initial value
     cursor: {
@@ -26,15 +35,23 @@ export const createGame = (
     time: 0,
 
     // parameter
-    maxFlag: maxFlag,
-    maxLife: maxLife,
-    numInitialFlag: numInitialFlag,
+    maxFlag: params.maxFlag,
+    maxLife: params.maxLife,
+    numInitialFlag: params.numInitialFlag,
 
     players: [
-      { life: initialLife, color: "red", chooseFromCandidate: algorithm0 },
-      { life: initialLife, color: "blue", chooseFromCandidate: algorithm1 }
+      {
+        life: params.initialLife,
+        color: "red",
+        chooseFromCandidate: params.algorithmOfFirstPlayer
+      },
+      {
+        life: params.initialLife,
+        color: "blue",
+        chooseFromCandidate: params.algorithmOfSecondPlayer
+      }
     ],
-    cards: cards
+    cards: params.cards
   };
   return game;
 };

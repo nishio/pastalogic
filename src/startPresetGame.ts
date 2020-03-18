@@ -24,7 +24,16 @@ export const startPresetGame = async (preset: TypePreset, toShuffle = true) => {
     cards = shuffle(cards);
   }
 
-  let game = createGame(5, firstPlayer, secondPlayer, cards);
+  let game = createGame({
+    initialLife: 5,
+    maxFlag: 10,
+    maxLife: 6,
+    numInitialFlag: 5,
+    algorithmOfFirstPlayer: firstPlayer,
+    algorithmOfSecondPlayer: secondPlayer,
+    cards: cards
+  });
+
   debugPrintWithUI(game);
 
   // コマンド準備フェーズ

@@ -60,12 +60,16 @@ export const startRandomGame = async () => {
     cards.push(popRandomElement(otherCards));
   }
 
-  let game = createGame(
-    5,
-    firstPlayer,
-    secondPlayer,
-    shuffle(cards.map(f => f()))
-  );
+  let game = createGame({
+    initialLife: 5,
+    maxFlag: 10,
+    maxLife: 6,
+    numInitialFlag: 5,
+    algorithmOfFirstPlayer: firstPlayer,
+    algorithmOfSecondPlayer: secondPlayer,
+    cards: shuffle(cards.map(f => f()))
+  });
+
   debugPrintWithUI(game);
 
   // コマンド準備フェーズ

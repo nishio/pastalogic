@@ -15,13 +15,16 @@ export const startNoviceGame = async (
   algorithm0: AlgorithToChooseCandidate,
   algorithm1: AlgorithToChooseCandidate
 ) => {
-  let game = createGame(3, algorithm0, algorithm1, [
-    Bug(),
-    AddFlag(),
-    Subroutine(),
-    MoveFlag(),
-    Increment()
-  ]);
+  let game = createGame({
+    initialLife: 3,
+    maxFlag: 10,
+    maxLife: 6,
+    numInitialFlag: 3,
+    algorithmOfFirstPlayer: algorithm0,
+    algorithmOfSecondPlayer: algorithm1,
+    cards: [Bug(), AddFlag(), Subroutine(), MoveFlag(), Increment()]
+  });
+
   debugPrintWithUI(game);
 
   // コマンド準備フェーズ
@@ -39,26 +42,3 @@ export const startNoviceGame = async (
   game = { ...game, phase: "RunProgram" };
   runProgram(game);
 };
-
-export const testNoviceGame = (
-  algorithm0: AlgorithToChooseCandidate,
-  algorithm1: AlgorithToChooseCandidate
-) => {
-  // コマンド準備フェーズ
-  let game = createGame(3, algorithm0, algorithm1, [
-    Bug(),
-    AddFlag(),
-    Subroutine(),
-    MoveFlag(),
-    Increment()
-  ]);
-
-  game = appendOneFlag(game, 3, FirstPlayer);
-  game = appendOneFlag(game, 4, SecondPlayer);
-
-  // プログラム実行フェーズ
-  runProgram(game);
-};
-
-//@ts-ignore
-window.startNoviceGame = startNoviceGame;
