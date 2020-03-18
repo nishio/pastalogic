@@ -30,7 +30,7 @@ export const chooseMC = async (
       for (let i = 0; i < 50; i++) {
         if (game.phase === "PutFlag") {
           const n1 = countUsedFlag(FirstPlayer, game);
-          const n2 = countUsedFlag(FirstPlayer, game);
+          const n2 = countUsedFlag(SecondPlayer, game);
           if (n1 === game.numInitialFlag && n2 === game.numInitialFlag) {
             game = { ...game, phase: "RunProgram" };
             continue;
