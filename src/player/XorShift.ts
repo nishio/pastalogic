@@ -14,11 +14,16 @@ export const resetRandomSeed = (seed?: [number, number, number, number]) => {
   }
   console.log("reset random seed", seed);
   rng = new XorShift(seed);
+  for (let i = 0; i < 100; i++) {
+    random();
+  }
 };
 
 export const random = () => {
   return rng.random();
 };
+// @ts-ignore
+window.random = random;
 
 export const shuffle = (xs: any[]) => {
   const tmp = [...xs];
