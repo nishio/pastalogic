@@ -33,6 +33,8 @@ const cardToStr = (card: Card, cardIndex: number, game: Game) => {
   } else {
     card.flags.forEach((flag, flagIndex) => {
       let fs = flagToStr(flag);
+      if (game.phase === "RunProgram") {
+        // add current-flag mark
       if (cardIndex === game.cursor.cardIndex) {
         if (flagIndex === game.cursor.flagIndex) {
           fs = `(${fs}${rep})`;
@@ -40,19 +42,24 @@ const cardToStr = (card: Card, cardIndex: number, game: Game) => {
       }
       if (game.returnAddress !== null && card.name === "Subroutine") {
         if (flagIndex === game.returnAddress) {
-          fs = `(${fs}${rep})`;
+            fs = `{${fs}${rep}}`;
+          }
         }
       }
       flags += fs;
     });
   }
+
   let cursor = "";
+  if (game.phase === "RunProgram") {
+    // add current-card mark
   if (cardIndex === game.cursor.cardIndex) {
     if (game.cursorDirection === "forward") {
       cursor = ">";
     } else {
       cursor = "<";
     }
+  }
   }
   const inc = "+".repeat(card.numIncrementToken);
   const dec = "-".repeat(card.numDecrementToken);
