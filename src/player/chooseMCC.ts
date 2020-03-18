@@ -13,7 +13,7 @@ import {
   chooseRandom,
   chooseMathRandom
 } from "./chooseRandom";
-import { debugPrint, debugToStr } from "../debugPrint";
+import { debugPrint, gameToStr } from "../debugPrint";
 import { useGlobal, getGlobal } from "reactn";
 
 const SHOW_PROGRESS = false;
@@ -85,7 +85,7 @@ export const chooseMCC = async (
       debugPrint(game);
       console.log("---");
     }
-    const key = debugToStr(start);
+    const key = gameToStr(start);
     const v = cache[key];
     if (v !== undefined) {
       s = (s + v.score) / (NUM_TRIAL + v.num_trial);

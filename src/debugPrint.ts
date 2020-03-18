@@ -2,7 +2,7 @@ import { PlayerID, FirstPlayer, SecondPlayer, Game, Card } from "./Types";
 import { neverComeHere } from "./util/assertion";
 import { pushLog } from "./GLOBAL_STATE";
 
-export const debugToStr = (game: Game) => {
+export const gameToStr = (game: Game) => {
   let cardStr = "";
   game.cards.forEach((card, cardIndex) => {
     cardStr += cardToStr(card, cardIndex, game);
@@ -11,11 +11,11 @@ export const debugToStr = (game: Game) => {
 };
 
 export const debugPrint = (game: Game) => {
-  console.log(debugToStr(game));
+  console.log(gameToStr(game));
 };
 
 export const debugPrintWithUI = (game: Game) => {
-  const s = debugToStr(game);
+  const s = gameToStr(game);
   console.log(s);
   pushLog(s);
 };

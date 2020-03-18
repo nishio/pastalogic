@@ -3,7 +3,7 @@ import "./App.css";
 import { chooseByHuman } from "./player/HumanPlayer";
 import { useGlobal, setGlobal } from "reactn";
 import { initializeGlobalState } from "./GLOBAL_STATE";
-import { debugToStr } from "./debugPrint";
+import { gameToStr } from "./debugPrint";
 import { Game } from "./Types";
 import { NewGame } from "./NewGame";
 
@@ -34,7 +34,7 @@ function App() {
     const toButton = (game: Game, i: number) => {
       return (
         <li key={i}>
-          <button onClick={chooseByHuman(i)}>{debugToStr(game)}</button>
+          <button onClick={chooseByHuman(i)}>{gameToStr(game)}</button>
         </li>
       );
     };
