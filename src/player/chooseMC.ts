@@ -33,7 +33,6 @@ export const chooseMC = async (
           const n2 = countUsedFlag(SecondPlayer, game);
           if (n1 === game.numInitialFlag && n2 === game.numInitialFlag) {
             game = { ...game, phase: "RunProgram" };
-            continue;
           } else if (n1 === n2) {
             // Put FirstPlayer
             game = await putOneFlag(game, FirstPlayer, chooseRandom);
@@ -41,6 +40,7 @@ export const chooseMC = async (
             // Put SecondPlayer
             game = await putOneFlag(game, SecondPlayer, chooseRandom);
           }
+          continue;
         }
         const currentCard = getCurrentCard(game);
         const currentPlayer = currentCard.flags[game.cursor.flagIndex];

@@ -10,7 +10,6 @@ import {
   resetRandomSeed,
   popRandomElement
 } from "./player/XorShift";
-import { HumanPlayer } from "./player/HumanPlayer";
 import { AddFlag } from "./card/AddFlag";
 import { MoveFlag } from "./card/MoveFlag";
 import { Decrement } from "./card/Decrement";
@@ -27,17 +26,31 @@ import { SwapCommand } from "./card/SwapCommand";
 import { TradeOff } from "./card/TradeOff";
 import { Debug } from "./card/Debug";
 import { Bug } from "./card/Bug";
-import { chooseMCC } from "./player/chooseMCC";
+import { chooseMCC, setUpMCC, MCCHumanPlayer } from "./player/chooseMCC";
+import { chooseMC } from "./player/chooseMC";
+import { HumanPlayer } from "./player/HumanPlayer";
 
-export const startRandomGame = async () => {
+export const startRandomGame = async (dev: boolean = false) => {
   resetRandomSeed();
   let firstPlayer, secondPlayer;
   if (rng.random() < 0.5) {
-    firstPlayer = HumanPlayer;
-    secondPlayer = chooseMCC;
+    if (dev) {
+      firstPlayer = MCCHumanPlayer;
+      secondPlayer = chooseMCC;
+      setUpMCC(SecondPlayer);
+    } else {
+      firstPlayer = HumanPlayer;
+      secondPlayer = chooseMC;
+    }
   } else {
-    firstPlayer = chooseMCC;
-    secondPlayer = HumanPlayer;
+    if (dev) {
+      firstPlayer = chooseMCC;
+      secondPlayer = MCCHumanPlayer;
+      setUpMCC(FirstPlayer);
+    } else {
+      firstPlayer = chooseMC;
+      secondPlayer = HumanPlayer;
+    }
   }
   const cards = [AddFlag, MoveFlag, Bug];
   const otherCards = [

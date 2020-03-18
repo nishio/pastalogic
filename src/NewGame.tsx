@@ -33,7 +33,8 @@ export const NewGame = () => {
       () => startPresetGame(Catastrophe)
     ],
     ["Random game(include BASIC cards)", () => startRandomGame()],
-    ["Full Random game(random cards)", () => startFullRandomGame()]
+    ["Full Random game(random cards)", () => startFullRandomGame()],
+    ["(developing new feature)", () => startRandomGame(true)]
   ];
   const items = menu.map(([caption, onClick], i: number) => {
     return (
