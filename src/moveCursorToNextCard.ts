@@ -15,6 +15,7 @@ export const moveCursorToNextCard = (game: Game): Game => {
     // Subroutine call finished, return to Subroutine
     const cardIndex = findCard("Subroutine", game);
     if (cardIndex === -1) {
+      debugger;
       neverComeHere("card Subroutine is not found when return to it");
     }
     //console.log(`return ${cardIndex},${game.returnAddress}`)

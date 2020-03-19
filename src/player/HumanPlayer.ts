@@ -4,6 +4,7 @@ import { debugPrint } from "../debugPrint";
 import { setGlobal } from "reactn";
 import { popLog } from "../GLOBAL_STATE";
 
+const USE_CONSOLE = false;
 export const HumanPlayer: AlgorithToChooseCandidate = async (
   type: string,
   playerId: PlayerID,
@@ -14,16 +15,19 @@ export const HumanPlayer: AlgorithToChooseCandidate = async (
   }
 
   const p: Promise<number> = new Promise(resolve => {
-    console.log("promise called", resolve);
+    //console.log("promise called", resolve);
     // @ts-ignore
     window.resolve = resolve;
   });
-  console.log("---");
-  candidate.forEach((game, index) => {
-    console.log(`candidate ${index}`);
-    debugPrint(game);
+
+  if (USE_CONSOLE) {
     console.log("---");
-  });
+    candidate.forEach((game, index) => {
+      console.log(`candidate ${index}`);
+      debugPrint(game);
+      console.log("---");
+    });
+  }
 
   setGlobal(g => ({
     log: [...g.log, candidate]

@@ -15,7 +15,6 @@ import { moveCursorToNextFlag } from "../moveCursorToNextFlag";
 import { moveCursorToNextCard } from "../moveCursorToNextCard";
 import { chooseRandom } from "./chooseRandom";
 import { debugPrint, gameToStr } from "../debugPrint";
-import { getGlobal } from "reactn";
 import { putOneFlag } from "../putOneFlag";
 import { HumanPlayer } from "./HumanPlayer";
 
@@ -112,7 +111,7 @@ export const chooseMCC = async (
   for (let game of candidate) {
     const start = { ...game };
     let s = 0;
-    const NUM_TRIAL: number = 100;
+    const NUM_TRIAL: number = 10;
     for (let trial = 0; trial < NUM_TRIAL; trial++) {
       game = { ...start };
       for (let i = 0; i < 50; i++) {
@@ -167,7 +166,12 @@ export const chooseMCC = async (
     const key = gameToStr(start);
     const v = cache[key];
     if (v !== undefined) {
-      console.log("cache hit:", v);
+      console.log(
+        "cache hit:",
+        key,
+        v.num_trial,
+        (v.score / v.num_trial).toFixed(2)
+      );
       s = (s + v.score) / (NUM_TRIAL + v.num_trial);
     } else {
       s = s / NUM_TRIAL;

@@ -18,7 +18,6 @@ export const debugPrint = (game: Game) => {
 
 export const debugPrintWithUI = (game: Game) => {
   const s = gameToStr(game);
-  console.log(s);
   pushLog(s);
 };
 
