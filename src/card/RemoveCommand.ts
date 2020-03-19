@@ -41,7 +41,7 @@ const getCandidate = (game: Game, playerId: PlayerID) => {
           };
         } else {
           newCursor = {
-            cardIndex: game.cursor.cardIndex - 1, // previous card
+            cardIndex: game.cursor.cardIndex, // previous card
             flagIndex: 4, // last
             repeatIndex: 4 // last
           };

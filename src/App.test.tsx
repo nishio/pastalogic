@@ -36,3 +36,27 @@ test("foo", () => {
   // );
   expect(candidate[1].cursor.cardIndex).not.toBe(-1);
 });
+
+test("foo", () => {
+  const game = createGame({
+    initialLife: 1,
+    maxFlag: 1,
+    maxLife: 6,
+    algorithmOfFirstPlayer: chooseRandom,
+    algorithmOfSecondPlayer: chooseRandom,
+    numInitialFlag: 1,
+    cards: [RemoveCommand(), Bug()]
+  });
+  game.cards[0].flags.push(FirstPlayer);
+  game.cards[1].flags.push(SecondPlayer);
+  game.phase = "RunProgram";
+  game.cursorDirection = "backward";
+
+  const candidate = game.cards[0].getCandidate(game, FirstPlayer);
+  console.log(
+    candidate.map(game => {
+      return [gameToStr(game), game.cursor];
+    })
+  );
+  expect(candidate[1].cursor.cardIndex).not.toBe(-1);
+});
