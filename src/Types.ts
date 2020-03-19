@@ -42,7 +42,7 @@ export type TypeCandidateGetter = (game: Game, me: PlayerID) => Game[];
 export type TypeRepeatGetter = (game: Game) => number;
 
 export type Card = {
-  name: string;
+  name: CardName;
   flags: PlayerID[];
   getCandidate: TypeCandidateGetter;
   play: TypePlay;
@@ -50,4 +50,23 @@ export type Card = {
   numDecrementToken: number;
   repeat: TypeRepeatGetter;
 };
+
+export type CardName =
+  | "AddFlag"
+  | "Bug"
+  | "Debug"
+  | "Decrement"
+  | "FastPass"
+  | "ForkBomb"
+  | "Increment"
+  | "MoveFlag"
+  | "RemoveCommand"
+  | "RemoveFlag"
+  | "Reorder"
+  | "Reverse"
+  | "Rotate"
+  | "Subroutine"
+  | "SwapCommand"
+  | "TradeOff";
+
 export const MAX_FLAGS_ON_A_CARD = 4;

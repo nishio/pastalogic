@@ -4,14 +4,15 @@ import {
   Game,
   Card,
   TypeCandidateGetter,
-  TypeRepeatGetter
+  TypeRepeatGetter,
+  CardName
 } from "../Types";
 import { asParameter } from "../util/asParameter";
 
 // utility for card definition
 
 type CardProps = {
-  name: string;
+  name: CardName;
   getCandidate: TypeCandidateGetter;
   repeatable?: boolean;
 };
