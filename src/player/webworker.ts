@@ -31,6 +31,7 @@ import { moveCursorToNextCard } from "../moveCursorToNextCard";
 import { isGameOver } from "../isGameOver";
 import { moveCursorToNextFlag } from "../moveCursorToNextFlag";
 import { gameToScore } from "./gameToScore";
+import { Reverse } from "../card/Reverse";
 
 let cache: { [key: string]: { score: number; num_trial: number } } = {};
 
@@ -46,6 +47,7 @@ const nameToCard = {
   RemoveCommand: RemoveCommand(),
   RemoveFlag: RemoveFlag(),
   Reorder: Reorder(),
+  Reverse: Reverse(),
   Rotate: Rotate(),
   Subroutine: Subroutine(),
   SwapCommand: SwapCommand(),
@@ -84,7 +86,7 @@ setInterval(async () => {
   if (game !== null) {
     calcScoreForEachCandidate(game, gMe);
   }
-}, 1000);
+}, 10);
 
 const calcScoreForEachCandidate = async (candidate: Game[], me: PlayerID) => {
   for (let game of candidate) {
