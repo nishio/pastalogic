@@ -18,6 +18,7 @@ const getCandidate = (game: Game, playerId: PlayerID) => {
     game.cards.forEach((toCard, j) => {
       if (isCurrentCard(j, game)) return;
       if (i === j) return;
+      if (isSubroutineAndIsUsing(toCard, game)) return;
       if (!hasEnoughSpace(toCard)) return;
       fromCard.flags.forEach((fk, k) => {
         const newFromCard = removeAFlagFromFlags(fromCard.flags, k);
