@@ -1,6 +1,6 @@
 import { putOneFlag } from "./putOneFlag";
 import { runProgram } from "./runProgram";
-import { FirstPlayer, SecondPlayer } from "./Types";
+import { FirstPlayer, SecondPlayer, Game } from "./Types";
 import { debugPrintWithUI } from "./debugPrint";
 import { createGame } from "./createGame";
 import { pushLog } from "./GLOBAL_STATE";
@@ -72,7 +72,7 @@ export const startRandomGame = async (dev: boolean = false) => {
     cards.push(popRandomElement(otherCards));
   }
 
-  let game = createGame({
+  let game: Game = createGame({
     initialLife: 5,
     maxFlag: 10,
     maxLife: 6,

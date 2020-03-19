@@ -1,7 +1,7 @@
 import { Game } from "./Types";
 import { getCurrentCard } from "./util/getCurrentCard";
 export const moveCursorToNextFlag = (game: Game): Game => {
-  if (game.cursor.repeatIndex === getCurrentCard(game).repeat(game)) {
+  if (game.cursor.repeatIndex >= getCurrentCard(game).repeat(game)) {
     // go next flag
     return {
       ...game,

@@ -3,8 +3,6 @@ import { neverComeHere } from "./util/assertion";
 import { pushLog } from "./GLOBAL_STATE";
 
 export const gameToStr = (game: Game) => {
-  // @ts-ignore
-  window.debugGame = game;
   let cardStr = "";
   game.cards.forEach((card, cardIndex) => {
     cardStr += cardToStr(card, cardIndex, game);
@@ -14,6 +12,8 @@ export const gameToStr = (game: Game) => {
 
 export const debugPrint = (game: Game) => {
   console.log(gameToStr(game));
+  // @ts-ignore
+  window.debugGame = game;
 };
 
 export const debugPrintWithUI = (game: Game) => {

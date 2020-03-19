@@ -22,8 +22,6 @@ export const resetRandomSeed = (seed?: [number, number, number, number]) => {
 export const random = () => {
   return rng.random();
 };
-// @ts-ignore
-window.random = random;
 
 export const shuffle = (xs: any[]) => {
   const tmp = [...xs];
@@ -40,4 +38,10 @@ export const popRandomElement = (xs: any[]) => {
   const ret = xs[i];
   xs.splice(i, 1);
   return ret;
+};
+
+export const getRandomElement = (xs: any[]) => {
+  const N = xs.length;
+  const i = Math.floor(rng.random() * N);
+  return xs[i];
 };

@@ -5,5 +5,10 @@ export const getCurrentCard = (game: Game): Card => {
     debugger;
     neverComeHere("pointing out of cards");
   }
-  return game.cards[game.cursor.cardIndex];
+  const result = game.cards[game.cursor.cardIndex];
+  if (result === undefined) {
+    debugger;
+    neverComeHere("undefined current cards");
+  }
+  return result;
 };
