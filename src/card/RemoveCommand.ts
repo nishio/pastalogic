@@ -9,11 +9,27 @@ const getCandidate = (game: Game, playerId: PlayerID) => {
     newCards.splice(cardIndex, 1);
     let newCursor = { ...game.cursor };
     if (cardIndex < game.cursor.cardIndex) {
-      newCursor.cardIndex--;
+      newCursor = {
+        cardIndex: game.cursor.cardIndex - 1,
+        flagIndex: game.cursor.flagIndex, // keep
+        repeatIndex: game.cursor.repeatIndex // keep
+      };
     } else if (cardIndex === game.cursor.cardIndex) {
       // remove self
       if (game.cursorDirection === "forward") {
-        newCursor.cardIndex--;
+        if (cardIndex === 0) {
+          newCursor = {
+            cardIndex: newCards.length - 1, // last card
+            flagIndex: 4, // last
+            repeatIndex: 4 // last
+          };
+        } else {
+          newCursor = {
+            cardIndex: game.cursor.cardIndex - 1, // previous card
+            flagIndex: 4, // last
+            repeatIndex: 4 // last
+          };
+        }
       } else {
         // when cursorDirection is backward, keep cardIndex
         // except for RemoveCommand is the last card
@@ -21,11 +37,16 @@ const getCandidate = (game: Game, playerId: PlayerID) => {
           newCursor = {
             cardIndex: 0,
             flagIndex: 4,
-            repeatIndex: 1
+            repeatIndex: 4
+          };
+        } else {
+          newCursor = {
+            cardIndex: game.cursor.cardIndex - 1, // previous card
+            flagIndex: 4, // last
+            repeatIndex: 4 // last
           };
         }
       }
-      newCursor.flagIndex = 4;
     }
     candidate.push({
       ...game,
